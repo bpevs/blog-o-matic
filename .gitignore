@@ -1,0 +1,12 @@
+# Ignore these folders to decrease download size of project
+/node_modules
+/public/build
+
+# Ignore system-created files
+.DS_Store
+npm-debug.log
+.Spotlight-V100
+.Trashes
+
+# Thumbnails
+._*

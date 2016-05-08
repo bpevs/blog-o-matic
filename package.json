@@ -1,0 +1,44 @@
+{
+  "name": "blog-o-matic",
+  "version": "0.0.1",
+  "description": "Github Markdown -> Javascript Express Middleware",
+  "main": "public/build/index.js",
+  "scripts": {
+    "start": "npm run build && node public/build/index.js",
+    "test": "webpack --config webpack/webpack.test.js && mocha public/build/test.js",
+    "build": "npm run clean && webpack --config webpack/webpack.base.js --progress --colors --inline",
+    "clean": "rm -rf public/build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blanket-warriors/blog-o-matic.git"
+  },
+  "author": "Blanket Warriors",
+  "license": "ISC",
+  "babel": {
+    "presets": [
+      "stage-0",
+      "es2015"
+    ]
+  },
+  "engine": "node >= 4.0.0",
+  "dependencies": {
+    "glob": "^7.0.3",
+    "js-yaml": "^3.6.0",
+    "marked": "^0.3.5"
+  },
+  "devDependencies": {
+    "babel-core": "^6.8.0",
+    "babel-eslint": "^6.0.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "chai": "^3.5.0",
+    "eslint": "^2.9.0",
+    "eslint-loader": "^1.3.0",
+    "inject-loader": "^2.0.1",
+    "mocha": "^2.4.5",
+    "sinon": "^1.17.4",
+    "webpack": "^1.13.0"
+  }
+}
