@@ -1,7 +1,7 @@
 import glob from "glob";
 import path from "path";
 import yaml from "js-yaml";
-import remarkable from "remarkable";
+import Remarkable from "remarkable";
 import { readdir, readFile } from "fs";
 import promisify from "app/utilities/promisify";
 
