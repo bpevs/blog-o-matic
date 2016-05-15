@@ -1,11 +1,11 @@
-import markedPlugin from "marked";
-import { readdir, readFile } from "fs";
-import promisify from "app/utilities/promisify";
 import glob from "glob";
 import path from "path";
 import yaml from "js-yaml";
+import remarkable from "remarkable";
+import { readdir, readFile } from "fs";
+import promisify from "app/utilities/promisify";
 
-const marked = markedPlugin.setOptions({ langPrefix: "language-" });
+const md = new Remarkable({langPrefix: "language-"});
 const readdir$ = promisify(readdir);
 const readFile$ = promisify(readFile);
 const glob$ = promisify(glob);
@@ -14,7 +14,7 @@ function markdownToHtml(fileToSearch, urlPath) {
   // Replaces image ./ with the path of the blog post
   const pathRegex = /(?!\!\[.*\]\()\.\/(?=.*\))/g;
   const newText = fileToSearch.replace(pathRegex, urlPath);
-  return marked(newText);
+  return md(newText);
 }
 
 function createPostObj(postDir, postUrlPath){
