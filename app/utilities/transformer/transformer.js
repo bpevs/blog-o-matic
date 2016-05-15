@@ -51,7 +51,6 @@ function createPostObj(postDir, postUrlPath){
 }
 
 export default function readPosts(repoDir, urlPath) {
-  console.log("TRANSFORM", repoDir);
   const options = {
     realpath: true,
     cwd: repoDir

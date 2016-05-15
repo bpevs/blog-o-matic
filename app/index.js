@@ -8,7 +8,6 @@ export default function Blog(remote, options = {}) {
     throw new Error("Blog needs a remote repo address");
   }
 
-  this.posts = null;
   this.remote = remote;
   this.name = remote.match(/[^/]+$/)[0];
   this.branch = options.branch || "master";
@@ -16,6 +15,7 @@ export default function Blog(remote, options = {}) {
   this.baseDir = options.baseDir || path.resolve(__dirname, "../public/repos");
   this.repoDir = options.repoDir || path.resolve(this.baseDir, this.name);
   this.postsDir = options.postsDir || path.resolve(this.repoDir, "posts");
+  this._posts = null;
   this._updating = false;
   return this;
 }
@@ -31,24 +31,22 @@ Blog.prototype.update = function() {
     .then(() => transformer(this.repoDir, this.assetsUrl))
     .then(posts => {
       this._updating = false;
-      this.posts = posts;
-      console.log("UPDATED", this.name);
+      this._posts = posts;
       return posts;
     });
 };
 
 Blog.prototype.get = function(alias) {
   if(alias) {
-    return this.posts[alias];
+    return this._posts[alias];
   } else {
-    return this.posts;
+    return this._posts;
   }
 };
 
 Blog.prototype.destroy = function() {
   return destroy(this.name, { cwd: this.baseDir })
     .then(function() {
-      console.log(`The Blog: "${this.name}" was deleted.`);
       return this.name;
     });
 };

@@ -1,7 +1,7 @@
 {
   "name": "blog-o-matic",
-  "version": "0.0.1",
-  "description": "Github Markdown -> Javascript Express Middleware",
+  "version": "0.0.2",
+  "description": "Github Markdown to Javascript Object",
   "main": "public/build/index.js",
   "scripts": {
     "start": "npm run build && node public/build/index.js",

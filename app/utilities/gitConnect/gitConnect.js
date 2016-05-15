@@ -7,7 +7,6 @@ const exec$ = promisify(exec);
 const readdir$ = promisify(readdir);
 
 export function clone(remote, options) {
-  console.log("CLONE", remote);
   return exec$(`git clone ${remote}`, options);
 }
 
@@ -16,17 +15,14 @@ export function pull(localBranch, remoteBranch, options) {
 }
 
 export function checkout(localBranch, options) {
-  console.log("CHECKOUT", localBranch);
   return exec$(`git checkout ${localBranch}`, options);
 }
 
 export function reset(remoteBranch, options) {
-  console.log("RESET", remoteBranch);
   return exec$(`git fetch origin && git reset --hard origin/${remoteBranch}`, options);
 }
 
 export function destroy(branchName, options) {
-  console.log("DESTROY", branchName);
   return exec$(`rm -rf ${branchName}`, options);
 }
 
@@ -37,6 +33,6 @@ export function hasRepo(name, options) {
       return isGitRepo ? Promise.resolve(true) : Promise.resolve(false);
     }, () => Promise.resolve(false))
     .catch(error => {
-      console.log(error);
+      throw new Error(error);
     });
 }

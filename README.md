@@ -1,3 +1,8 @@
+[![npm version](https://badge.fury.io/js/blog-o-matic.svg)](https://badge.fury.io/js/blog-o-matic)
+[![Build Status](https://travis-ci.org/Blanket-Warriors/Blog-O-Matic.svg?branch=master)](https://travis-ci.org/Blanket-Warriors/blog-o-matic)
+[![Dependency Status](https://david-dm.org/Blanket-Warriors/blog-o-matic.svg?style=flat)](https://david-dm.org/Blanket-Warriors/blog-o-matic)
+[![devDependency Status](https://david-dm.org/Blanket-Warriors/blog-o-matic/dev-status.svg)](https://david-dm.org/Blanket-Warriors/blog-o-matic#info=devDependencies)
+
 Blog-o-Matic
 ----------
 

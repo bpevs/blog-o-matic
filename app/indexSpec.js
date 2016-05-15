@@ -3,7 +3,7 @@ import sinon from "sinon";
 const blogInjector = require("inject!app/index");
 var Blog;
 
-describe("Bloginator", function() {
+describe("Blog-o-matic", function() {
   beforeEach(function() {
     this.mockTransformer = sinon.stub().returns(Promise.resolve());
     this.mockGitConnect = {
@@ -24,22 +24,21 @@ describe("Bloginator", function() {
     this.blog = new Blog(this.origin);
   });
 
-  it("Should initialize a bloginator with master branch default", function() {
-    const { posts, remote, name, branch, updating } = this.blog;
-    expect(posts).to.be.null;
+  it("Should initialize a blog with master branch default", function() {
+    const { remote, name, branch, updating } = this.blog;
     expect(remote).to.equal(this.origin);
     expect(name).to.equal("Blog");
     expect(branch).to.equal("master");
   });
 
-  it("Should be able to initialize a bloginator with a branch", function() {
+  it("Should be able to initialize a blog with a branch", function() {
     this.blog = new Blog(this.origin, {branch: this.branch});
     expect(this.branch).to.equal(this.branch);
   });
 
   it("Should initialize with the directories for all repos and for our specific repo", function() {
-    expect(this.blog.baseDir).to.contain("bloginator/public/repos");
-    expect(this.blog.repoDir).to.contain(`bloginator/public/repos/${this.blog.name}`);
+    expect(this.blog.baseDir).to.contain("Blog-O-Matic/public/repos");
+    expect(this.blog.repoDir).to.contain(`Blog-O-Matic/public/repos/${this.blog.name}`);
   });
 
   it("Should call gitConnect on a repo update", function() {
@@ -48,7 +47,6 @@ describe("Bloginator", function() {
       expect(this.mockGitConnect.checkout.called).to.equal(true);
       expect(this.mockGitConnect.clone.called).to.equal(true);
       expect(this.mockTransformer.called).to.equal(true);
-      expect(this.blog.posts).to.equal(posts);
       expect(this.blog._updating).to.equal(false);
     });
   });
