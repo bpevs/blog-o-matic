@@ -1,4 +1,4 @@
-[![npm](https://img.shields.io/npm/v/npm.svg?maxAge=2592000)](https://www.npmjs.com/package/blog-o-matic)
+[![npm](https://img.shields.io/npm/v/blog-o-matic.svg?maxAge=2592000)](https://www.npmjs.com/package/blog-o-matic)
 [![Build Status](https://travis-ci.org/Blanket-Warriors/Blog-O-Matic.svg?branch=master)](https://travis-ci.org/Blanket-Warriors/blog-o-matic)
 [![Dependency Status](https://david-dm.org/Blanket-Warriors/blog-o-matic.svg?style=flat)](https://david-dm.org/Blanket-Warriors/blog-o-matic)
 [![devDependency Status](https://david-dm.org/Blanket-Warriors/blog-o-matic/dev-status.svg)](https://david-dm.org/Blanket-Warriors/blog-o-matic#info=devDependencies)

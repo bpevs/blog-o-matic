@@ -1,6 +1,6 @@
 {
   "name": "blog-o-matic",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Github Markdown to Javascript Object",
   "main": "public/build/index.js",
   "scripts": {
