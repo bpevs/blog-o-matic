@@ -17,7 +17,7 @@ describe("Blog-o-matic", function() {
     Blog = blogInjector({
       "app/utilities/transformer": this.mockTransformer,
       "app/utilities/gitConnect": this.mockGitConnect
-    }).default;
+    });
 
     this.origin = "https://github.com/Blanket-Warriors/Blog";
     this.branch = "2.0";

@@ -3,7 +3,7 @@ import transformer from "app/utilities/transformer";
 import path from "path";
 import fs from "fs";
 
-export default function Blog(remote, options = {}) {
+function Blog(remote, options = {}) {
   if(!remote) {
     throw new Error("Blog needs a remote repo address");
   }
@@ -50,3 +50,5 @@ Blog.prototype.destroy = function() {
       return this.name;
     });
 };
+
+module.exports = Blog;
