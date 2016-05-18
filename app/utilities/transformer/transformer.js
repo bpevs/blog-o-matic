@@ -14,7 +14,7 @@ function markdownToHtml(fileToSearch, urlPath) {
   // Replaces image ./ with the path of the blog post
   const pathRegex = /(?!\!\[.*\]\()\.\/(?=.*\))/g;
   const newText = fileToSearch.replace(pathRegex, urlPath);
-  return md(newText);
+  return md.render(newText);
 }
 
 function createPostObj(postDir, postUrlPath){
@@ -73,8 +73,5 @@ export default function readPosts(repoDir, urlPath) {
         return allPosts;
       }, {});
       return postObj;
-    })
-    .catch(function(err) {
-      console.log(err);
     });
 }

@@ -1,13 +1,14 @@
 {
   "name": "blog-o-matic",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "description": "Github Markdown to Javascript Object",
   "main": "public/build/index.js",
   "scripts": {
     "start": "npm run build && node public/build/index.js",
     "test": "webpack --config webpack/webpack.test.js && mocha public/build/test.js",
     "build": "npm run clean && webpack --config webpack/webpack.base.js --progress --colors --inline",
-    "clean": "rm -rf public/build"
+    "clean": "rm -rf public/build",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",

@@ -32,7 +32,7 @@ Blog.prototype.update = function() {
     .then(posts => {
       this._updating = false;
       this._posts = posts;
-      return posts;
+      return Promise.resolve(posts);
     });
 };
 
@@ -51,4 +51,4 @@ Blog.prototype.destroy = function() {
     });
 };
 
-module.exports = Blog;
+export default Blog;

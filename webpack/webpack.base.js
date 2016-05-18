@@ -58,7 +58,8 @@ module.exports = {
   output: {
     path: path.join(baseDir, "public", "build"),
     publicPath: "/build/",
-    filename: "index.js"
+    filename: "index.js",
+    libraryTarget: "umd"
   },
 
   resolve: {
