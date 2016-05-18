@@ -17,7 +17,9 @@ describe("Blog-o-matic", function() {
     Blog = blogInjector({
       "app/utilities/transformer": this.mockTransformer,
       "app/utilities/gitConnect": this.mockGitConnect
-    });
+    }).default;
+
+    console.log(Blog);
 
     this.origin = "https://github.com/Blanket-Warriors/Blog";
     this.branch = "2.0";
@@ -37,8 +39,8 @@ describe("Blog-o-matic", function() {
   });
 
   it("Should initialize with the directories for all repos and for our specific repo", function() {
-    expect(this.blog.baseDir).to.contain("Blog-O-Matic/public/repos");
-    expect(this.blog.repoDir).to.contain(`Blog-O-Matic/public/repos/${this.blog.name}`);
+    expect(this.blog.baseDir).to.contain("/public/repos");
+    expect(this.blog.repoDir).to.contain(`/public/repos/${this.blog.name}`);
   });
 
   it("Should call gitConnect on a repo update", function() {
