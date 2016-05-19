@@ -19,11 +19,10 @@ describe("Blog-o-matic", function() {
       "app/utilities/gitConnect": this.mockGitConnect
     }).default;
 
-    console.log(Blog);
-
     this.origin = "https://github.com/Blanket-Warriors/Blog";
+    this.root = "/public/repos";
     this.branch = "2.0";
-    this.blog = new Blog(this.origin);
+    this.blog = new Blog(this.origin, this.root);
   });
 
   it("Should initialize a blog with master branch default", function() {
@@ -34,13 +33,13 @@ describe("Blog-o-matic", function() {
   });
 
   it("Should be able to initialize a blog with a branch", function() {
-    this.blog = new Blog(this.origin, {branch: this.branch});
+    this.blog = new Blog(this.origin, this.root, {branch: this.branch});
     expect(this.branch).to.equal(this.branch);
   });
 
   it("Should initialize with the directories for all repos and for our specific repo", function() {
-    expect(this.blog.baseDir).to.contain("/public/repos");
-    expect(this.blog.repoDir).to.contain(`/public/repos/${this.blog.name}`);
+    expect(this.blog.rootDirectory).to.contain(this.root);
+    expect(this.blog.repoDirectory).to.contain(`${this.root}/${this.blog.name}`);
   });
 
   it("Should call gitConnect on a repo update", function() {

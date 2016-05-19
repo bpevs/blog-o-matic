@@ -1,11 +1,3 @@
-Index
-----------
-
-The root of blog-o-matic.  This holds the entire application.
-
-Usage
-----------
-
 Blog Class
 -----------
 
@@ -13,6 +5,9 @@ Blog Class
 
 #### remote
 This is the repository that blog-o-matic pulls blog posts from. This should be a string, something like the form of: `"https://github.com/Blanket-Warriors/Blog"`
+
+#### rootDirectory
+This is a string that represents where our repositories are being cloned and contained. This should be a string that points to a local directory
 
 #### name
 This is the string name of our repository. We grab it from our remote url. For instance, in the case of `"https://github.com/Blanket-Warriors/Blog"`, our repository's name would be `"Blog"`.
@@ -23,14 +18,11 @@ This is a string representing the name of the branch that we are pulling from. S
 #### assetsUrl
 This is the url that we want to prepend to url's in our posts. For example, if we use `/blog-assets/`, then this will find all of our images that use a `./` path, and replace this with `/blog-assets/[name]`. This lets us continue referencing images with local urls on Github, but serve them correctly from our server.
 
-#### baseDir
-This is a string that represents where our repositories are being cloned and contained. This defaults to `public/repos`.
+#### repoDirectory
+This is a string representing the repository where our blog is being contained (rather than all of our repositories). This is in relation to the repoDirectory and defaults to `[rootDirectory]/[name]`.
 
-#### repoDir
-This is a string representing the repository where our blog is being contained (rather than all of our repositories). This is done by appending our blog's name to our `baseDir`.
-
-#### postsDir
-This is where our blog posts are being contained (within our repository). The default is in `[repoDir]/posts`.
+#### postsDirectory
+This is where our blog posts are being contained (within our repository). This is in relation to the repoDirectory and defaults to `[rootDirectory]/[repoDirectory]/posts`.
 
 ### Methods
 

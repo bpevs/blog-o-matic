@@ -11,9 +11,16 @@ This is a node.js module that can pull down repositories from Git, and turn REAM
 Example Usage:
 ```js
 import Blog from "blog-o-matic";
-const repository = "https://github.com/Blanket-Warriors/Blog";
-const branch = "2.0";
-const myBlog = new Blog(repository, branch);
+import path from "path";
+const blogRepository = "https://github.com/Blanket-Warriors/Blog";
+const blogOptions = {
+  branch: "2.0",
+  assetsUrl: "/blog-assets"
+};
+const blogDirectory = path.resolve(__dirname, "../../public/assets");
+
+// Initialize the blog
+const blog = new Blog(blogRepository, blogDirectory, blogOptions);
 
 // Update my blog
 myBlog.update().then(function(posts) {
@@ -40,14 +47,24 @@ import Blog from "blog-o-matic";
 import path from "path";
 
 const server = express();
-const blog = new Blog("https://github.com/Blanket-Warriors/Blog", {
+const blogRepository = "https://github.com/Blanket-Warriors/Blog";
+const blogOptions = {
   branch: "2.0",
   assetsUrl: "/blog-assets"
-});
-blog.update();
+};
 
+// Initialize the blog
+const blog = new Blog(blogRepository, path.resolve(__dirname, "../../public/assets"), blogOptions);
+blog.update()
+  .then(function(posts) {
+    console.log("Updated!", Object.keys(posts));
+  }, function(error) {
+    console.log("error!", error);
+  });
+
+// Serve the blog
 server.use("/blog/update", () => blog.update());
-server.use("/blog-assets", express.static(blog.postsDir));
+server.use("/blog-assets", express.static(blog.postsDirectory));
 server.use("/blog", function(request, response) {
   const alias = request.url.replace(/\//g, "");
   const blogPost = blog.get(alias);
