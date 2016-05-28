@@ -39,12 +39,12 @@ Blog.prototype.update = function() {
     });
 };
 
-Blog.prototype.get = function(alias) {
-  if(alias) {
-    return this._posts[alias];
-  } else {
-    return this._posts;
-  }
+Blog.prototype.getPost = function(alias) {
+  return this._posts[alias];
+};
+
+Blog.prototype.get = function() {
+  return this._posts;
 };
 
 Blog.prototype.destroy = function() {
