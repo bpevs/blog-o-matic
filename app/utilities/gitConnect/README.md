@@ -1,9 +1,9 @@
 GitConnect
------------
-
+==========
 GitConnect is how we interact with Git from our javascript.
 
-### Usage
+How to use
+----------
 #### Options
 All methods accept an options object, and passes them straight into `exec`. It is always the last argument in a method.  This is especially used for `cwd` option, which changes where our git processes are taking place.
 ```js

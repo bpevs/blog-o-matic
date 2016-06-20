@@ -1,8 +1,7 @@
 Blog Class
------------
-
-### Properties
-
+==========
+Properties
+----------
 #### remote
 This is the repository that blog-o-matic pulls blog posts from. This should be a string, something like the form of: `"https://github.com/Blanket-Warriors/Blog"`
 
@@ -24,8 +23,8 @@ This is a string representing the repository where our blog is being contained (
 #### postsDirectory
 This is where our blog posts are being contained (within our repository). This is in relation to the repoDirectory and defaults to `[rootDirectory]/[repoDirectory]/posts`.
 
-### Methods
-
+Methods
+-------
 #### update
 This method updates our repository by either cloning or hard resetting. We choose to hard-reset to the origin instead of pulling in order to avoid issues with forced-updates. We then return our new posts object as our state.
 

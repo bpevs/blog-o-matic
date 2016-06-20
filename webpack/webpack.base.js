@@ -5,7 +5,7 @@ const webpack = require("webpack");
 const baseDir = path.resolve(__dirname, "..");
 
 /* Inform webpack that our node modules are commonjs
-======================================================================= */
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 const nodeModules = {};
 fs.readdirSync(path.join(baseDir, "node_modules"))
   .filter(function(file) {
@@ -15,19 +15,9 @@ fs.readdirSync(path.join(baseDir, "node_modules"))
     nodeModules[module] = "commonjs " + module;
   });
 
-if(process.env["NODE_ENV"] === "development") {
-  const sourceMapBanner = "require('source-map-support').install();";
-  config.plugins = config.plugins.concat([
-    new webpack.BannerPlugin(sourceMapBanner, {
-      entryOnly: false, // Adds banner to every generated file
-      raw: true // Prepend this text without making any changes
-    })
-  ]);
-}
-
 /* Set default resolution path to the same name as the folder
  * eg `app/components/Button` finds `app/components/Button/Button.js`
-======================================================================= */
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 function DirectoryDefaultFilePlugin(files) {}
 
 DirectoryDefaultFilePlugin.prototype.apply = function(resolver) {
@@ -37,7 +27,7 @@ DirectoryDefaultFilePlugin.prototype.apply = function(resolver) {
     resolver.fileSystem.stat(directory, function(error, stat) {
       if (error || !stat) return done();
       if (!stat.isDirectory()) return done();
-      if(Boolean(directory.match(/node_modules/))) return done();
+      if (directory.match(/node_modules/)) return done();
 
       resolver.doResolve("file", {
         path: req.path,
@@ -51,8 +41,8 @@ DirectoryDefaultFilePlugin.prototype.apply = function(resolver) {
 };
 
 /* Default Configuration
-======================================================================= */
-module.exports = {
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+var defaultConfiguration = {
   baseDir: baseDir, // Needed because our webpack files are in a folder
   entry: path.join(baseDir, "app/index.js"),
   output: {
@@ -103,3 +93,15 @@ module.exports = {
 
   eslint: { configFile: path.join(baseDir, ".eslintrc.js") }
 };
+
+if(process.env["NODE_ENV"] === "development") {
+  const sourceMapBanner = "require('source-map-support').install();";
+  defaultConfiguration.plugins = defaultConfiguration.plugins.concat([
+    new webpack.BannerPlugin(sourceMapBanner, {
+      entryOnly: false, // Adds banner to every generated file
+      raw: true // Prepend this text without making any changes
+    })
+  ]);
+}
+
+module.exports = defaultConfiguration;

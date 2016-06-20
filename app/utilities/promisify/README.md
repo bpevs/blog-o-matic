@@ -1,8 +1,9 @@
 Promisify
------------
+=========
 This module is simply to let us use Node.js methods in the style of an ES2015 Promise.
 
-### Usage
+How to use
+----------
 ```js
 import fs from "fs";
 const readdir$ = promisify(fs.readdir);

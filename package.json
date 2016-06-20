@@ -1,6 +1,6 @@
 {
   "name": "blog-o-matic",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Github Markdown to Javascript Object",
   "main": "public/build/index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "url": "git+https://github.com/blanket-warriors/blog-o-matic.git"
   },
   "author": "Blanket Warriors",
-  "license": "ISC",
+  "license": "MIT",
   "babel": {
     "presets": [
       "stage-0",
