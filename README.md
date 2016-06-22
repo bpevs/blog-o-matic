@@ -5,7 +5,7 @@
 
 Blog-o-Matic
 ============
-This is a node.js module that can pull down repositories from Git, and turn REAMDE's and metadata into Javascript objects.  This is intended to be used with a server that can listen for Github hooks, and pull down a blog hosted in a Git repository. There is an example of an expected blog format on: https://github.com/Blanket-Warriors/Blog.
+This is a node.js module that can pull down repositories from Git, and turn README's and metadata into Javascript objects.  This is intended to be used with a server that can listen for Github hooks, and pull down a blog hosted in a Git repository. There is an example of an expected blog format on: https://github.com/Blanket-Warriors/Blog.
 
 Example Usage:
 ```js
