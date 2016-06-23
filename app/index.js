@@ -1,5 +1,5 @@
 import { clone, checkout, reset, hasRepo, destroy } from "app/utilities/gitConnect";
-import transformer from "app/utilities/transformer";
+import blogToHTML from "app/utilities/blogToHTML";
 import path from "path";
 import fs from "fs";
 
@@ -31,7 +31,7 @@ Blog.prototype.update = function() {
     .then(repo => !repo ? clone(this.remote, { cwd: this.rootDirectory }) : Promise.resolve())
     .then(() => checkout(this.branch, { cwd: this.repoDirectory }))
     .then(() => reset(this.branch, { cwd: this.repoDirectory }))
-    .then(() => transformer(this.repoDirectory, this.assetsUrl))
+    .then(() => blogToHTML(this.repoDirectory, this.assetsUrl))
     .then(posts => {
       this._updating = false;
       this._posts = posts;
@@ -43,7 +43,7 @@ Blog.prototype.getPost = function(alias) {
   return this._posts[alias];
 };
 
-Blog.prototype.get = function() {
+Blog.prototype.getAllPosts = function() {
   return this._posts;
 };
 

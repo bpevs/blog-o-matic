@@ -5,7 +5,7 @@ var Blog;
 
 describe("Blog-o-matic", function() {
   beforeEach(function() {
-    this.mockTransformer = sinon.stub().returns(Promise.resolve());
+    this.mockBlogToHTML = sinon.stub().returns(Promise.resolve());
     this.mockGitConnect = {
       checkout: sinon.stub().returns(Promise.resolve()),
       clone:    sinon.stub().returns(Promise.resolve()),
@@ -15,7 +15,7 @@ describe("Blog-o-matic", function() {
     };
 
     Blog = blogInjector({
-      "app/utilities/transformer": this.mockTransformer,
+      "app/utilities/blogToHTML": this.mockBlogToHTML,
       "app/utilities/gitConnect": this.mockGitConnect
     }).default;
 
@@ -47,7 +47,7 @@ describe("Blog-o-matic", function() {
       expect(this.mockGitConnect.reset.called).to.equal(true);
       expect(this.mockGitConnect.checkout.called).to.equal(true);
       expect(this.mockGitConnect.clone.called).to.equal(true);
-      expect(this.mockTransformer.called).to.equal(true);
+      expect(this.mockBlogToHTML.called).to.equal(true);
       expect(this.blog._updating).to.equal(false);
     });
   });

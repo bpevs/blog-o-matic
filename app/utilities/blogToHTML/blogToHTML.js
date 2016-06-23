@@ -56,13 +56,16 @@ export default function readPosts(repoDir, urlPath) {
     cwd: repoDir
   };
 
-  return glob$("**/*.yaml", options)
+  return readdir$(repoDir)
+    .then(function() {
+      return glob$("**/*.yaml", options);
+    })
     .then(function(metaDataPaths) {
       const blog = metaDataPaths.map(function pathsToPostObjects(metaDataPath){
         const matchBeforeLastSlash = /^(.*[\\\/])/;
         const postDir = metaDataPath.match(matchBeforeLastSlash)[0];
         const postAlias = metaDataPath.split("/").reverse()[1];
-        const postUrlPath = path.join(urlPath, postAlias, "/");
+        const postUrlPath = path.join(urlPath || "./", postAlias, "/");
         return createPostObj(postDir, postUrlPath);
       });
       return Promise.all(blog);
