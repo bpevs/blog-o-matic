@@ -31,8 +31,8 @@ Updating the blog will clone the repo if it hasn't been updated before, and will
 
 After it has been cloned down, we can feel free to access properties and various methods:
 ```js
-myBlog.get();
-myBlog.get("my-blog-post");
+myBlog.getAllPosts;
+myBlog.getPost("my-blog-post");
 myBlog.destroy();
 ```
 
@@ -67,11 +67,11 @@ server.use("/blog/update", () => blog.update());
 server.use("/blog-assets", express.static(blog.postsDirectory));
 server.use("/blog", function(request, response) {
   const alias = request.url.replace(/\//g, "");
-  const blogPost = blog.get(alias);
+  const blogPost = blog.getPost(alias);
   if(blogPost) {
     response.send(blogPost.post);
   } else {
-    response.send(Object.keys(blog.get()));
+    response.send(Object.keys(blog.getAllPosts()));
   }
 });
 
