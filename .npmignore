@@ -1,6 +1,6 @@
 # Ignore these folders to decrease download size of project
 /node_modules
-/public/repos
+/source
 
 # Ignore system-created files
 .DS_Store

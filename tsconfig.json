@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "es6",
+      "scripthost"
+    ],
+    "noImplicitAny": false,
+    "paths": {
+      "*": [
+        "node_modules/*",
+        "/node_modules/*"
+      ]
+    },
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "target": "es5"
+  },
+  "exclude": [
+    "node_modules",
+    "/node_modules",
+    "**/*dist/**/*",
+    "**/*.test.js"
+  ],
+  "include": [ "./**/*" ]
+}
