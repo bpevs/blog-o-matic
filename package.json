@@ -47,6 +47,7 @@
     "collectCoverageFrom": [
       "./**/*.ts"
     ],
+    "coverageDirectory": "./coverage",
     "coveragePathIgnorePatterns": [
       "node_modules",
       "dist",
