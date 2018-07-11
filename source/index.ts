@@ -1,10 +1,13 @@
-import * as path from "path";
-import { buildContentMap } from "./modules/buildContentMap";
-import { optimizeImages } from "./modules/optimizeImages";
+import * as path from "path"
+import { argv } from "yargs"
+import { Options } from "./definitions"
+import { buildContentMap } from "./modules/buildContentMap"
+import { optimizeImages } from "./modules/optimizeImages"
 
-const options = {
-  input: path.resolve(__dirname, "../example"),
-  output: path.resolve(__dirname, "../public"),
-};
+const options: Options = {
+  input: path.resolve(process.cwd(), argv.in || "./content"),
+  output: path.resolve(process.cwd(), argv.out || "./public"),
+  pretty: argv.pretty || true,
+}
 
-buildContentMap(options).then(() => optimizeImages(options));
+buildContentMap(options).then(() => optimizeImages(options))

@@ -17,5 +17,5 @@ module.exports = function wallaby() {
       "packages/**/*.test.js",
       "packages/**/*.test.jsx",
     ],
-  };
-};
+  }
+}

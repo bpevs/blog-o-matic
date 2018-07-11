@@ -42,7 +42,7 @@
     "prefer-function-over-method": true,
     "prefer-readonly": true,
     "quotemark": [ true, "double", "jsx-double", "avoid-template" ],
-    "semicolon": [false, "never" ],
+    "semicolon": [ true, "never" ],
     "trailing-comma": [true, { "multiline": "always", "singleline": "never" }],
     "whitespace": [
       true,

@@ -11,50 +11,54 @@
  *  - https://medium.com/front-end-hacking/progressive-image-loading-and-intersectionobserver-d0359b5d90cd
  */
 
- import * as path from "path";
- import * as sharp from "sharp";
- sharp.concurrency(2);
+const sharp = require("sharp")
+import * as path from "path"
+sharp.concurrency(2)
 
- import { findAll } from "../utilities/findAll";
- import { createDir } from "../utilities/fsWrappers";
- import * as log from "../utilities/log";
- import { isRawImage } from "../utilities/validators";
+import { findAll } from "../utilities/findAll"
+import { createDir } from "../utilities/fsWrappers"
+import * as log from "../utilities/log"
+import { isRawImage } from "../utilities/validators"
 
 
- interface ContentOptions {
-  input: string;
-  output: string;
+const imageSizes = {
+  large: { height: 1000, width: 1000 },
+  medium: { height: 600, width: 600 },
+  small: { height: 200, width: 200 },
+  tiny: { height: 30 },
 }
 
 
- export async function optimizeImages({ input, output }: ContentOptions) {
-  log.start("START IMAGE OPTIMIZATION");
+interface ContentOptions {
+  input: string
+  output: string
+}
 
-  const images: any[] = await findAll(input, isRawImage);
+export async function optimizeImages({ input, output }: ContentOptions) {
+  log.start("START IMAGE OPTIMIZATION")
+
+  const images: any[] = await findAll(input, isRawImage)
+
   const imagePromises = images.map((imagePath, index) => {
-    const imageName = imagePath.split("/").reverse()[0];
-    const readPath = path.join(input, imagePath);
-    const writePath = path.join(output, imagePath);
+    const imageName = imagePath.split("/").reverse()[0]
+    const readPath = path.join(input, imagePath)
+    const writePath = path.join(output, imagePath)
 
-    const writeLargePath = path.join(writePath, "../../large");
-    const writeMediumPath = path.join(writePath, "../../medium");
-    const writeSmallPath = path.join(writePath, "../../small");
-    const writeTinyPath = path.join(writePath, "../../tiny");
+    const resizeImages = Object.keys(imageSizes)
+      .map(async function resizeImage(sizeName: string) {
+        const imageDirPath = path.join(writePath, `../../${sizeName}`)
+        const imagePath = path.join(imageDirPath, imageName)
+        const { height, width } = imageSizes[sizeName]
 
-    const writePaths = [ writeLargePath, writeMediumPath, writeSmallPath, writeTinyPath ]
-    const createDirPromises = Promise.all(writePaths.map(createDir));
+        await createDir(imageDirPath)
+        return sharp(readPath).resize(width, height).toFile(imagePath)
+      })
 
-    return createDirPromises
-      .then(() => Promise.all([
-        sharp(readPath).resize(1000, 1000).min().toFile(path.join(writeLargePath, imageName)),
-        sharp(readPath).resize(600, 600).min().toFile(path.join(writeMediumPath, imageName)),
-        sharp(readPath).resize(200, 200).min().toFile(path.join(writeSmallPath, imageName)),
-        sharp(readPath).resize(30).toFile(path.join(writeTinyPath, imageName)),
-      ]))
-      .then(() => log.progress(index + 1, images.length));
-  });
+    return Promise.all(resizeImages)
+      .then(() => log.progress(index + 1, images.length))
+  })
 
-  const imageResults = await Promise.all(imagePromises);
-  log.done("DONE IMAGE OPTIMIZATION");
-  return imageResults;
+  const imageResults = await Promise.all(imagePromises)
+  log.done("DONE IMAGE OPTIMIZATION")
+  return imageResults
 }

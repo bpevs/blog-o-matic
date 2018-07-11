@@ -2,6 +2,7 @@
 /node_modules
 /dist
 /public
+/.rpt2_cache
 
 # Ignore system-created files
 .DS_Store
