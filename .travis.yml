@@ -21,3 +21,4 @@ jobs:
         api_key: $NPM_API_KEY
         on:
           branch: master
+          repo: ivebencrazy/blog-o-matic

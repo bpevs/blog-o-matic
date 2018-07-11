@@ -10,11 +10,15 @@ Manage your blog content so you can serve the static content with a file server
 
 Usage
 -----
+Expects a particular format for posts; documentation in the near future, but for now, just check out our [example directory](./content).
+
 package.json
 ```json
 {
+  ...
   "scripts": {
     "build": "blog-o-matic --in=./my-blog --out=./public/blog"
   }
+  ...
 }
 ```
