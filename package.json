@@ -5,25 +5,19 @@
   "author": "Ben Pevsner",
   "engine": "node >= 4.0.0",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/blanket-warriors/blog-o-matic.git"
-  },
   "main": "dist/index.js",
+  "repository": "git+https://github.com/ivebencrazy/blog-o-matic.git",
   "bin": {
     "blog-o-matic": "./bin/blog-o-matic"
   },
   "scripts": {
+    "build": "tsc -p 'tsconfig.json' --outDir 'dist'",
+    "prepublish": "npm run build",
     "start": "npm run build:commonjs -- --watch",
-    "build": "run-p build:* --aggregate-output",
-    "build:commonjs": "tsc -p 'tsconfig.json' --outDir 'dist' --module 'commonjs'",
-    "build:iife": "rollup -c ./rollup.config.js",
-    "example": "npm run build && node dist/index.js --in=./example",
     "test": "run-p --aggregate-output test:lint test:unit",
-    "test:coverage": "npm run test:unit -- --coverage",
+    "test:coverage": "jest --colors --coverage --silent",
     "test:lint": "tslint --project ./tsconfig.json",
-    "test:unit": "jest --colors",
-    "prepublish": "npm run build"
+    "test:unit": "jest --colors --silent"
   },
   "dependencies": {
     "sharp": "^0.20.5",
@@ -37,8 +31,6 @@
     "jest": "^23.3.0",
     "jest-cli": "^23.3.0",
     "npm-run-all": "^4.1.3",
-    "rollup": "^0.62.0",
-    "rollup-plugin-typescript2": "^0.15.1",
     "ts-jest": "^23.0.0",
     "tslint": "^5.10.0",
     "tslint-eslint-rules": "^5.3.1",

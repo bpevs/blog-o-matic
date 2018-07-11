@@ -16,7 +16,6 @@ import { writeMetaFiles } from "../utilities/writeMetaFiles"
 
 
 export async function buildContentMap(options: Options): Promise<void> {
-  console.log(options)
   await createDir(options.output)
 
   log.start("START CONTENT MAP")

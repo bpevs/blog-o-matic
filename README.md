@@ -7,6 +7,14 @@ Blog-o-Matic
 ============
 Manage your blog content so you can serve the static content with a file server
 
-```
-blog-o-matic
+
+Usage
+-----
+package.json
+```json
+{
+  "scripts": {
+    "build": "blog-o-matic --in=./my-blog --out=./public/blog"
+  }
+}
 ```
