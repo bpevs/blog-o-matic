@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "allowJs": true,
+    "allowJs": false,
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "lib": [
@@ -26,5 +26,5 @@
     "**/*dist/**/*",
     "**/*.test.js"
   ],
-  "include": [ "./**/*" ]
+  "include": [ "./source**/*" ]
 }

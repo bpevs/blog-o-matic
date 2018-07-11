@@ -4,7 +4,7 @@ import { readdir, stat } from "fs";
 import * as path from "path";
 
 
-function findThings(searchPath, predicate, rootPath = searchPath, done) {
+function findThings(searchPath, predicate, rootPath = searchPath, done): void {
   let results: any[] = [];
 
   readdir(searchPath, (error, items) => {
@@ -36,7 +36,7 @@ function findThings(searchPath, predicate, rootPath = searchPath, done) {
 }
 
 
-export function findAll(rootPath, predicate) {
+export function findAll(rootPath, predicate): Promise<string[]> {
   return new Promise(resolve => {
     findThings(rootPath, predicate, undefined, resolve);
   });

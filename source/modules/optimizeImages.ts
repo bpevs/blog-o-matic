@@ -17,11 +17,13 @@ import * as sharp from "sharp";
 sharp.concurrency(2);
 
 import { findAll } from "../utilities/findAll";
+import { createDir } from "../utilities/fsWrappers";
 import * as log from "../utilities/log";
+import { isRawImage } from "../utilities/validators";
 
 const root = path.join(__dirname, "../");
 const contentRoot = path.join(root, "content");
-const isRawImage = itemPath => itemPath.match(/\/raw\/.*(\.jpg|\.png)$/);
+
 
 log.start("START IMAGE OPTIMIZATION");
 
@@ -34,11 +36,7 @@ findAll(contentRoot, isRawImage).then((images: any[]) => images.forEach((imagePa
   const writeSmallPath = path.join(readPath, "../../small");
   const writeTinyPath = path.join(readPath, "../../tiny");
 
-  [ writeLargePath, writeMediumPath, writeSmallPath, writeTinyPath ].forEach(path => {
-    if (!fs.existsSync(path)) {
-      fs.mkdirSync(path);
-    }
-  });
+  [ writeLargePath, writeMediumPath, writeSmallPath, writeTinyPath ].forEach(createDir);
 
   Promise.all([
     sharp(readPath).resize(1000, 1000).min().toFile(path.join(writeLargePath, imageName)),
