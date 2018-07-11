@@ -12,7 +12,7 @@
   },
   "scripts": {
     "build": "tsc -p 'tsconfig.json' --outDir 'dist'",
-    "prepare": "npm install && npm test && npm run build",
+    "prepublishOnly": "npm install && npm test && npm run build",
     "start": "npm run build:commonjs -- --watch",
     "test": "run-p --aggregate-output test:lint test:unit",
     "test:coverage": "jest --colors --coverage --silent",
