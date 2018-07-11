@@ -15,13 +15,17 @@ jobs:
       script: npm run test:coverage
 
     - stage: Build
+      skip_cleanup: true
       script: npm run build
 
     - stage: NPM release
+      skip_cleanup: true
       script: echo "Deploying to npm ..."
       deploy:
-        provider: npm
         api_key: $NPM_API_KEY
+        email: $EMAIL
+        provider: npm
+        tag: next
         on:
           branch: master
           repo: ivebencrazy/blog-o-matic
