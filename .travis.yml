@@ -25,7 +25,7 @@ jobs:
         api_key: $NPM_API_KEY
         email: $EMAIL
         provider: npm
-        tag: next
+        tag: latest
         on:
           branch: master
           repo: ivebencrazy/blog-o-matic
