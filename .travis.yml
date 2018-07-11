@@ -8,13 +8,16 @@ script: npm test
 
 jobs:
   include:
-    - stage: linting
+    - stage: Linting
       script: npm run test:lint
-    - stage: unit test
+
+    - stage: Unit test
       script: npm run test:coverage
-    - stage: build
+
+    - stage: Build
       script: npm run build
-    - stage: npm release
+
+    - stage: NPM release
       script: echo "Deploying to npm ..."
       deploy:
         provider: npm
