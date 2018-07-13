@@ -22,6 +22,7 @@ import { isRawImage } from "../utilities/validators"
 
 
 const imageSizes = {
+  images: { height: 1000, width: 1000 },
   large: { height: 1000, width: 1000 },
   medium: { height: 600, width: 600 },
   small: { height: 200, width: 200 },

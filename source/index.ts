@@ -2,6 +2,7 @@ import * as path from "path"
 import { argv } from "yargs"
 import { Options } from "./definitions"
 import { buildContentMap } from "./modules/buildContentMap"
+import { copyContent } from "./modules/copyContent"
 import { optimizeImages } from "./modules/optimizeImages"
 
 
@@ -12,6 +13,7 @@ const options: Options = {
 }
 
 
-export const buildBlog = buildContentMap(options)
+export const buildBlog = copyContent(options)
+  .then(() => buildContentMap(options))
   .then(() => optimizeImages(options))
   .then(() => options.output)

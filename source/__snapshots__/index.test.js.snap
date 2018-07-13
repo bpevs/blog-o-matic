@@ -1,47 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Should create content.json 1`] = `
-Object {
-  "authors": Array [
-    "Ben Pevsner",
-  ],
-  "metadata": Array [
-    Object {
-      "author": "Ben Pevsner",
-      "contentRoot": "/galleries/sausilito/metadata.json",
-      "contentType": "gallery",
-      "createdDate": "2017-09-09",
-      "id": "Sausilito",
-      "tags": Array [
-        "photos",
-        "travel",
-      ],
-      "title": "Sausilito Photos",
-    },
-    Object {
-      "author": "Ben Pevsner",
-      "contentRoot": "/posts/coffee/flywheel/metadata.json",
-      "contentType": "article",
-      "createdDate": "2018-05-08",
-      "id": "flywheel",
-      "series": "San Francisco Coffee",
-      "tags": Array [
-        "coffee",
-      ],
-      "title": "Flywheel Coffee",
-    },
-  ],
-  "series": Array [
-    "San Francisco Coffee",
-  ],
-  "tags": Array [
-    "photos",
-    "travel",
-    "coffee",
-  ],
-}
-`;
-
 exports[`Should create metadata.json 1`] = `
 Object {
   "author": "Ben Pevsner",

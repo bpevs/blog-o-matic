@@ -1,6 +1,6 @@
 {
   "name": "blog-o-matic",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Human Source => Useful Static Files",
   "author": "Ben Pevsner",
   "engine": "node >= 4.0.0",
@@ -13,7 +13,7 @@
   "scripts": {
     "build": "tsc -p 'tsconfig.json' --outDir 'dist'",
     "prepublishOnly": "npm install && npm test && npm run build",
-    "start": "npm run build:commonjs -- --watch",
+    "start": "npm run build -- --watch",
     "test": "run-p --aggregate-output test:lint test:unit",
     "test:coverage": "jest --colors --coverage --silent",
     "test:lint": "tslint --project ./tsconfig.json",
