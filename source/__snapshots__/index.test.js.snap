@@ -20,6 +20,18 @@ Object {
     },
     Object {
       "author": "Ben Pevsner",
+      "contentRoot": "/posts/tech/favioli/metadata.json",
+      "contentType": "article",
+      "createdDate": "2018-07-06",
+      "id": "favioli",
+      "series": "Javascript Projects",
+      "tags": Array [
+        "code",
+      ],
+      "title": "Making Favioli",
+    },
+    Object {
+      "author": "Ben Pevsner",
       "contentRoot": "/posts/coffee/flywheel/metadata.json",
       "contentType": "article",
       "createdDate": "2018-05-08",
@@ -32,11 +44,13 @@ Object {
     },
   ],
   "series": Array [
+    "Javascript Projects",
     "San Francisco Coffee",
   ],
   "tags": Array [
     "photos",
     "travel",
+    "code",
     "coffee",
   ],
 }
