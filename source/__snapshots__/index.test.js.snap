@@ -8,15 +8,15 @@ Object {
   "metadata": Array [
     Object {
       "author": "Ben Pevsner",
-      "contentRoot": "/galleries/sausilito/metadata.json",
-      "contentType": "gallery",
-      "createdDate": "2017-09-09",
-      "id": "Sausilito",
+      "contentRoot": "/posts/coffee/flywheel/metadata.json",
+      "contentType": "article",
+      "createdDate": "2018-05-08",
+      "id": "flywheel",
+      "series": "San Francisco Coffee",
       "tags": Array [
-        "photos",
-        "travel",
+        "coffee",
       ],
-      "title": "Sausilito Photos",
+      "title": "Flywheel Coffee",
     },
     Object {
       "author": "Ben Pevsner",
@@ -32,26 +32,26 @@ Object {
     },
     Object {
       "author": "Ben Pevsner",
-      "contentRoot": "/posts/coffee/flywheel/metadata.json",
-      "contentType": "article",
-      "createdDate": "2018-05-08",
-      "id": "flywheel",
-      "series": "San Francisco Coffee",
+      "contentRoot": "/galleries/sausilito/metadata.json",
+      "contentType": "gallery",
+      "createdDate": "2017-09-09",
+      "id": "Sausilito",
       "tags": Array [
-        "coffee",
+        "photos",
+        "travel",
       ],
-      "title": "Flywheel Coffee",
+      "title": "Sausilito Photos",
     },
   ],
   "series": Array [
-    "Javascript Projects",
     "San Francisco Coffee",
+    "Javascript Projects",
   ],
   "tags": Array [
+    "coffee",
+    "code",
     "photos",
     "travel",
-    "code",
-    "coffee",
   ],
 }
 `;
