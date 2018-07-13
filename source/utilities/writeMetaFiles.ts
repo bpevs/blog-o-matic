@@ -74,8 +74,6 @@ function writeMetaJSON(inputPath, outputPath, metadata, logPretty) {
 
 
 function formatMeta(inputPath, data) {
-  if (data.draft) { return null }
-
   return {
     author: data.author,
     contentRoot: inputPath,
