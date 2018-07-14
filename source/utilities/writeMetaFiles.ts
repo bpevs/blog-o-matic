@@ -79,6 +79,7 @@ function formatMeta(inputPath, data) {
     contentRoot: inputPath,
     contentType: data.contentType,
     createdDate: data.createdDate,
+    draft: data.draft,
     id: data.id,
     series: data.series,
     tags: data.tags,

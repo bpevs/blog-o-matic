@@ -1,6 +1,6 @@
 {
   "name": "blog-o-matic",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Human Source => Useful Static Files",
   "author": "Ben Pevsner",
   "engine": "node >= 4.0.0",
