@@ -10,7 +10,7 @@
       "scripthost"
     ],
     "module": "commonjs",
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "paths": {
       "*": [
         "node_modules/*",
