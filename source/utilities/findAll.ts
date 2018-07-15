@@ -42,7 +42,10 @@ function findThings(
 }
 
 
-export function findAll(rootPath, predicate): Promise<string[]> {
+export function findAll(
+  rootPath: string,
+  predicate: (...args: any[]) => boolean,
+): Promise<string[]> {
   return new Promise(resolve => {
     findThings(rootPath, predicate, undefined, resolve)
   })

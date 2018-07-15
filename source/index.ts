@@ -9,9 +9,10 @@ import { optimizeImages } from "./modules/optimizeImages"
 const options: Options = {
   input: path.resolve(process.cwd(), argv.in || "./content"),
   output: path.resolve(process.cwd(), argv.out || "./public"),
-  pretty: argv.pretty || true,
+  pretty: argv.pretty || false,
 }
 
+console.log("\n-------------------------------------")
 
 export const buildBlog = copyContent(options)
   .then(() => buildContentMap(options))

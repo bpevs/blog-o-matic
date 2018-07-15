@@ -1,6 +1,6 @@
 {
   "name": "blog-o-matic",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "Human Source => Useful Static Files",
   "author": "Ben Pevsner",
   "engine": "node >= 4.0.0",
@@ -11,7 +11,7 @@
     "blog-o-matic": "./bin/blog-o-matic"
   },
   "scripts": {
-    "build": "tsc -p 'tsconfig.json' --outDir 'dist'",
+    "build": "tsc -p 'tsconfig.json' --outDir 'dist' && node dist/index.js",
     "prepublishOnly": "npm install && npm test && npm run build",
     "start": "npm run build -- --watch",
     "test": "run-p --aggregate-output test:lint test:unit",

@@ -21,7 +21,12 @@ import * as log from "../utilities/log"
 import { isRawImage } from "../utilities/validators"
 
 
-const imageSizes = {
+interface ImageMeta {
+  height?: number
+  width?: number
+}
+
+const imageSizes: { [key: string]: ImageMeta } = {
   images: { height: 1000, width: 1000 },
   large: { height: 1000, width: 1000 },
   medium: { height: 600, width: 600 },
@@ -40,26 +45,31 @@ export async function optimizeImages({ input, output }: ContentOptions) {
 
   const images: any[] = await findAll(input, isRawImage)
 
-  const imagePromises = images.map((imagePath, index) => {
+  const imageResults = await Promise.all(images.map(async (imagePath, index) => {
     const imageName = imagePath.split("/").reverse()[0]
     const readPath = path.join(input, imagePath)
     const writePath = path.join(output, imagePath)
 
-    const resizeImages = Object.keys(imageSizes)
+    const resizeImages = await Promise.all(Object.keys(imageSizes)
       .map(async function resizeImage(sizeName: string) {
-        const imageDirPath = path.join(writePath, `../../${sizeName}`)
-        const imagePath = path.join(imageDirPath, imageName)
         const { height, width } = imageSizes[sizeName]
 
+        const imageDirPath = path.join(writePath, `../../${sizeName}`)
+        const imagePath = path.join(imageDirPath, imageName)
+
         await createDir(imageDirPath)
-        return sharp(readPath).resize(width, height).toFile(imagePath)
-      })
 
-    return Promise.all(resizeImages)
-      .then(() => log.progress(index + 1, images.length))
-  })
+        return sharp(readPath)
+          .resize(width, height)
+          .min()
+          .toFile(imagePath)
+      }))
 
-  const imageResults = await Promise.all(imagePromises)
+    log.progress(index + 1, images.length)
+
+    return resizeImages
+  }))
+
   log.done("DONE IMAGE OPTIMIZATION")
   return imageResults
 }

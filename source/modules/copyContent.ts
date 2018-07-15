@@ -1,7 +1,6 @@
-import * as fs from "fs"
 import { Options } from "../definitions"
 import { findAll } from "../utilities/findAll"
-import { createDir } from "../utilities/fsWrappers"
+import { copyFile, createDir } from "../utilities/fsWrappers"
 import * as log from "../utilities/log"
 import { isImage, isMetadata } from "../utilities/validators"
 
@@ -26,15 +25,19 @@ export async function copyContent(options: Options): Promise<void> {
     return !metadata && !image && !stat.isDirectory()
   })
 
-  content.forEach(async (filePath: string) => {
-    const fileParentPath = (options.output + filePath).split("/")
-    fileParentPath.pop()
-
-    await createDir(fileParentPath.join("/"))
+  await Promise.all(content.map(async (filePath: string) => {
     const input = options.input + filePath
     const output = options.output + filePath
-    fs.copyFile(input, output, fs.constants.COPYFILE_FICLONE, (...args) => args)
-  })
+
+    const fileParentPath = output.indexOf("/") === -1
+      ? output
+      : output.substring(0, output.lastIndexOf("/"))
+
+    await createDir(fileParentPath)
+    await copyFile(input, output)
+
+    log.progress("- " + input)
+  }))
 
   log.done("DONE COPY CONTENT")
 }

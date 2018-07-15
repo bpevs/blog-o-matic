@@ -31,7 +31,7 @@ export function writeMetaFiles(
       data.metadata.push(listedMeta)
 
       if (listedMeta.tags) {
-        listedMeta.tags.forEach(tag => data.tags.add(tag))
+        listedMeta.tags.forEach((tag: string) => data.tags.add(tag))
       }
 
       if (listedMeta.author) {
@@ -57,7 +57,12 @@ export function writeMetaFiles(
   )
 }
 
-function writeMetaJSON(inputPath, outputPath, metadata, logPretty) {
+function writeMetaJSON(
+  inputPath: string,
+  outputPath: string,
+  metadata: any,
+  logPretty: number,
+) {
   if (metadata.contentType !== "gallery") {
     return writeJSON(outputPath, JSON.stringify(metadata, null, logPretty))
   }
@@ -73,10 +78,13 @@ function writeMetaJSON(inputPath, outputPath, metadata, logPretty) {
 
 
 
-function formatMeta(inputPath, data) {
+function formatMeta(
+  inputPath: string,
+  data: any,
+) {
   return {
     author: data.author,
-    contentRoot: inputPath,
+    contentRoot: inputPath.replace("/metadata.json", ""),
     contentType: data.contentType,
     createdDate: data.createdDate,
     draft: data.draft,
