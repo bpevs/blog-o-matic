@@ -7,15 +7,12 @@ module.exports = function wallaby() {
     files: [
       "tsconfig.json",
       "jestsetup.js",
-      "packages/**/*.ts",
-      "packages/**/*.tsx",
-      "!packages/**/*.test.ts",
-      "!packages/**/*.test.tsx",
+      "source/**/*.ts",
+      "!source/**/*.test.ts",
     ],
     testFramework: "jest",
     tests: [
-      "packages/**/*.test.js",
-      "packages/**/*.test.jsx",
+      "source/**/*.test.js",
     ],
   }
 }
