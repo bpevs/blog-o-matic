@@ -1,0 +1,23 @@
+{
+  "name": "@blog-o-matic/editor-client",
+  "version": "4.0.0",
+  "private": true,
+  "dependencies": {
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-scripts": "2.1.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build && npm run mkdir && npm run cp",
+    "test": "react-scripts test",
+    "mkdir": "mkdir -p ../../dist/client",
+    "cp": "cp -r ./build ../../dist/client"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

@@ -1,0 +1,11 @@
+# Ignore Directories that aren't dist
+examples
+source
+node_modules
+
+# Ignore system-created files
+._*
+.DS_Store
+.Spotlight-V100
+.Trashes
+**/*.log

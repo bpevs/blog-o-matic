@@ -1,25 +1,20 @@
 [![npm](https://img.shields.io/npm/v/blog-o-matic.svg?maxAge=2592000)](https://www.npmjs.com/package/blog-o-matic)
-[![Build Status](https://travis-ci.org/ivebencrazy/blog-o-matic.svg?branch=master)](https://travis-ci.org/ivebencrazy/blog-o-matic)
 [![Dependency Status](https://david-dm.org/ivebencrazy/blog-o-matic.svg?style=flat)](https://david-dm.org/ivebencrazy/blog-o-matic)
 [![devDependency Status](https://david-dm.org/ivebencrazy/blog-o-matic/dev-status.svg)](https://david-dm.org/ivebencrazy/blog-o-matic#info=devDependencies)
 
 
 Blog-o-Matic
 ============
-Manage your blog content so you can serve the static content with a file server
+Somehow, I'm doing that thing again where I want to make something simple, and end up making a whole infrastructure... Blog-o-Matic manages your blog content so you can serve your content with a static file server. Blog-o-Matic is made to solve these problems:
 
+1. **Preview generated `*.md` files with any tool**
+With Blog-o-Matic-optimized content, you should be able to view and edit this content in something like [Byword](https://www.bywordapp.com/), or your favorite text editor. You should have the ability to sync the input directory over something like iCloud, Google Drive, or Dropbox to make edits, then publish changes on your computer.
 
-Usage
------
-Expects a particular format for posts; documentation in the near future, but for now, just check out our [example directory](./content).
+2. **Process content into a standard format for consumption**
+Should minify images into multiple sizes for responsive design, transform `md => html | react components`, etc.
 
-package.json
-```json
-{
-  ...
-  "scripts": {
-    "build": "blog-o-matic --in=./my-blog --out=./public/blog"
-  }
-  ...
-}
-```
+3. **Should have its own preview editor**
+Should have a simple static server for use during the development process. This will serve the built files that Blog-o-Matic deploys to the static file server, so you can preview it in the form of a website.
+
+4. **Should publish static files**
+Blog-o-Matic should be able to build and publish any combination of md, html, and minified resources to a static file server. Should keep track of file creation, and have some basic presets for publishing (scp, AWS, export to file, etc)

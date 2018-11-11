@@ -1,20 +1,21 @@
 {
   "compilerOptions": {
-    "allowJs": false,
+    "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
+    "jsx": "react",
     "lib": [
       "dom",
       "dom.iterable",
       "es6",
       "scripthost"
     ],
-    "module": "commonjs",
     "noImplicitAny": true,
+    "noUnusedLocals": true,
     "paths": {
       "*": [
+        "build/*",
         "node_modules/*",
-        "/node_modules/*"
       ]
     },
     "sourceMap": true,
@@ -23,9 +24,14 @@
   },
   "exclude": [
     "node_modules",
-    "/node_modules",
+    "**/*build/**/*",
+    "**/*node_modules/**/*",
     "**/*dist/**/*",
-    "**/*.test.js"
+    "**/*.test.js",
+    "**/*.test.jsx"
   ],
-  "include": [ "./source**/*" ]
+  "include": [
+    "./definitions.d.ts",
+    "./packages/**/*"
+  ]
 }

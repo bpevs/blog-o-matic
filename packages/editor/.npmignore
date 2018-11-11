@@ -1,13 +1,12 @@
-# Ignore these folders to decrease download size of project
-/build
+# Ignore Directories that aren't dist
+build
 coverage
-dist
+source
 node_modules
 
 # Ignore system-created files
+._*
 .DS_Store
 .Spotlight-V100
 .Trashes
-.vscode
-._*
 **/*.log

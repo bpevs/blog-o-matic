@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "declaration": true
+  },
+  "extends": "../../tsconfig",
+  "include": [
+    "../../definitions.d.ts",
+    "./source/index.ts"
+  ]
+}
