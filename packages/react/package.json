@@ -1,0 +1,29 @@
+{
+  "name": "@blog-o-matic/react",
+  "version": "4.0.0",
+  "description": "Recat components for superior Blog-o-Matic integration",
+  "author": "Ben Pevsner",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "repository": "git+https://github.com/ivebencrazy/blog-o-matic.git",
+  "bugs": "https://github.com/ivebencrazy/blog-o-matic/issues",
+  "homepage": "https://github.com/ivebencrazy/blog-o-matic#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "run-p build:* --aggregate-output",
+    "build:commonjs": "tsc -p 'tsconfig.json' --outDir 'dist' --module 'commonjs'",
+    "link": "npm link",
+    "start": "npm run build:commonjs -- --watch"
+  },
+  "dependencies": {
+    "react": "^16.6.3"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "react-dom": "^16.6.3",
+    "typescript": "^3.2.2"
+  }
+}

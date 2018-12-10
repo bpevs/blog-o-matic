@@ -1,0 +1,15 @@
+{
+  "lerna": "2.9.0",
+  "version": "4.0.0",
+  "command": {
+    "publish": {
+      "allowBranch": "master"
+    }
+  },
+  "packages": [
+    "packages/cli",
+    "packages/editor",
+    "packages/react",
+    "packages/server"
+  ]
+}
