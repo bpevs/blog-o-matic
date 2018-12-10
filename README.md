@@ -3,7 +3,7 @@
 [![devDependency Status](https://david-dm.org/ivebencrazy/blog-o-matic/dev-status.svg)](https://david-dm.org/ivebencrazy/blog-o-matic#info=devDependencies)
 
 
-Blog-o-Matic
+Blog-o-Matic 😳😳🤖😳
 ============
 Somehow, I'm doing that thing again where I want to make something simple, and end up making a whole infrastructure... Blog-o-Matic manages your blog content so you can serve your content with a static file server. Blog-o-Matic is made to solve these problems:
 
@@ -18,3 +18,9 @@ Should have a simple static server for use during the development process. This 
 
 4. **Should publish static files**
 Blog-o-Matic should be able to build and publish any combination of md, html, and minified resources to a static file server. Should keep track of file creation, and have some basic presets for publishing (scp, AWS, export to file, etc)
+
+More detailed example usage is found in each individual package:
+- [CLI Tool](./packages/cli)
+- [Blog Editor](./packages/editor)
+- [Express Middleware](./packages/express)
+- [React Components](./packages/react)
