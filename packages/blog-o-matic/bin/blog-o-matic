@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const argv = require("yargs").argv
-const cli = require("../dist/index")
+const cli = require("@blog-o-matic/cli")
 
 
 const command = argv._[0]

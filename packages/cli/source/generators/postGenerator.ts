@@ -1,35 +1,10 @@
-import { promisify } from "@civility/utilities"
+import { get, promisify } from "@civility/utilities"
 import * as fs from "fs"
 import { prompt } from "inquirer"
+import { safeLoad } from "js-yaml"
 import { join } from "path"
 import { postTemplate } from "../templates"
 const writeFile = promisify(fs.writeFile)
-
-
-const questions = [
-  {
-    default: new Date().toLocaleString(undefined, {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    }),
-    message: "title:",
-    name: "TITLE",
-    type: "input",
-  },
-  {
-    default: "Ben Pevsner",
-    message: "author:",
-    name: "AUTHOR",
-    type: "input",
-  },
-  {
-    default: "San Francisco",
-    message: "location:",
-    name: "LOCATION",
-    type: "input",
-  },
-]
 
 
 interface IPost {
@@ -45,6 +20,33 @@ export async function postGenerator() {
   if (!fs.existsSync("./blog.config.yml")) {
     throw new Error("This is not a blog! Please go to the dir where blog.config.yml exists.")
   }
+
+  const config = safeLoad(fs.readFileSync("./blog.config.yml", "utf8")) || {}
+
+  const questions = [
+    {
+      default: new Date().toLocaleString(undefined, {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      }),
+      message: "title:",
+      name: "TITLE",
+      type: "input",
+    },
+    {
+      default: get(config, [ "blog", "author" ]) || "",
+      message: "author:",
+      name: "AUTHOR",
+      type: "input",
+    },
+    {
+      default: get(config, [ "blog", "location" ]) || "",
+      message: "location:",
+      name: "LOCATION",
+      type: "input",
+    },
+  ]
 
   const { AUTHOR = "", LOCATION = "", TITLE = "" } = await prompt(questions) as IPost
   const filename = TITLE.replace(",", "").replace(/[^a-zA-Z0-9_.@()-]/g, "-").toLowerCase()

@@ -1,8 +1,13 @@
 export const basicQs = [
   {
+    message: "What is your name?",
+    name: "AUTHOR",
+    type: "input",
+  },
+  {
     default: "my-blog",
-    message: "What is the name of this blog?",
-    name: "NAME",
+    message: "What is the title of this blog?",
+    name: "TITLE",
     type: "input",
   },
   {
@@ -12,7 +17,7 @@ export const basicQs = [
     type: "input",
   },
   {
-    choices: [ "SCP", "Copy&Paste" ],
+    choices: [ "scp", "Copy&Paste" ],
     message: "How would you like to publish your blog?",
     name: "SERVICE",
     type: "list",

@@ -1,17 +1,19 @@
 import { promisify } from "@civility/utilities"
 import * as fs from "fs"
-import { prompt } from "inquirer"
+import { createPromptModule } from "inquirer"
 import { join } from "path"
 import { configTemplate, ignoreTemplate, privateTemplate } from "../templates"
 import { basicQs, scpQs, sshQs } from "./blogQuestions"
+const prompt = createPromptModule()
 const homedir = require("os").homedir()
 const mkdir = promisify(fs.mkdir)
 const writeFile = promisify(fs.writeFile)
 
 
 export interface IConfig {
+  AUTHOR: string
   DATE_FORMAT: string
-  NAME: string
+  TITLE: string
   SERVICE: string
 }
 
@@ -28,7 +30,7 @@ export async function blogGenerator() {
   console.log("\n😳😳🤖😳 WELCOME TO BLOG-O-MATIC! 😳😳🤖😳\n")
 
   const config = await prompt(basicQs) as IConfig
-  const privateInfo: IPrivate | null = config.SERVICE === "SCP"
+  const privateInfo: IPrivate | null = config.SERVICE === "scp"
     ? await prompt(scpQs) as IPrivate
     : null
 
@@ -39,7 +41,7 @@ export async function blogGenerator() {
 
   try {
     await Promise.all([
-      mkdir(config.NAME),
+      mkdir(config.TITLE),
       mkdir(join(homedir, ".blog-o-matic"), { recursive: true }),
     ])
   } catch (error) {
@@ -47,20 +49,20 @@ export async function blogGenerator() {
   }
 
   await Promise.all([
-    writeFile(join(config.NAME, "blog.config.yml"), configTemplate(config)),
-    writeFile(join(config.NAME, ".blogignore"), ignoreTemplate()),
-    mkdir(join(config.NAME, "resources")),
-    mkdir(join(config.NAME, "posts")),
+    writeFile(join(config.TITLE, "blog.config.yml"), configTemplate(config)),
+    writeFile(join(config.TITLE, ".blogignore"), ignoreTemplate()),
+    mkdir(join(config.TITLE, "resources")),
+    mkdir(join(config.TITLE, "posts")),
   ])
 
   if (privateInfo) {
-    writeFile(join(homedir, ".blog-o-matic", `${config.NAME}.yml`), privateTemplate(privateInfo))
+    writeFile(join(homedir, ".blog-o-matic", `${config.TITLE}.yml`), privateTemplate(privateInfo))
   }
 
   console.log(`
     Congratulations! 🎉 🎉 🎉
     Blog-o-Matic successfully created your edit folder!
     You can write whatever you want in here!
-    (Or if you're lazy like us, you can run \`blog generate post\`)
+    (Or if you're lazy like us, you can run \`blog post\`)
   `)
 }

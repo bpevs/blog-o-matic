@@ -4,8 +4,7 @@ export const postTemplate = ({
   TITLE = "",
   CREATED = "",
   UPDATED = "",
-}: any) => `
----
+}: any) => `---
 title: ${TITLE}
 author: ${AUTHOR}
 created: ${CREATED}
