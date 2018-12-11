@@ -27,6 +27,7 @@ export const scpQs = [
     type: "input",
   },
   {
+    default: "8080",
     message: "What port should we connect to?",
     name: "PORT",
     type: "input",

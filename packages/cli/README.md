@@ -9,17 +9,19 @@ Usage
 npm install -g @blog-o-matic/cli
 
 cd ./my-blog
-blog init # Generate a blog, save any service keys
+blog init # Generate a blog in current dir, save publish settings to ~/.blog-o-matic
+blog post # Generate a blog post
 blog edit # Serve locally as a website; preview and make edits
 blog publish # Build and push blog to static server
 blog backup ~/my-backup # Build and copy body the edit and build directories
 ```
 
-Blog-o-Matic automatically minimizes server uploads by looking at filenames
-If you modified a file, you can force upload it in a few ways:
+Blog posts are checked for changes before each publish.
+Blog-o-Matic automatically minimizes server uploads by looking at the names of resource files.
+If you modified a resource file and want to publish it, you can force upload it in a few ways:
 ```sh
 blog publish ./resources/my-image-1.jpg # Re-upload a file.
-blog publish ./posts/my-post-1.md --force # Upload edits and all files
+blog publish ./posts/my-post-1.md --force # Upload edits and all files related to a post
 blog publish --force # Upload the edit folder; re-upload all files
 ```
 
