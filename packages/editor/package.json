@@ -13,13 +13,14 @@
     "access": "public"
   },
   "scripts": {
-    "start": "run-s build start:server",
-    "start:client": "(cd ./source/client && npm run build)",
+    "start": "run-s build watch:client start:server",
+    "start:client": "(cd ./source/client && npm run start)",
     "start:server": "run-p watch:server serve",
     "build": "run-p build:*",
     "build:client": "(cd ./source/client && npm run build)",
     "build:server": "tsc -p 'tsconfig.json' --outDir 'dist'",
     "serve": "node ./dist/index.js",
+    "watch:client": "(cd ./source/client && npm run build -- --watch)",
     "watch:server": "npm run build:server -- --watch"
   },
   "dependencies": {

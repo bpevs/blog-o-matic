@@ -1,24 +1,21 @@
 import React from "react"
 import "./App.css"
-import logo from "./logo.svg"
+import Textbox from "./components/textbox"
+
 
 export default function() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>The Blog</h1>
+      <Textbox style={{
+        border: "1px solid black",
+        color: "black",
+        height: "100%",
+        margin: "20px",
+        maxWidth: "1200px",
+        padding: "10px 30px 10px 30px",
+        width: "95%",
+      }} />
     </div>
   )
 }
