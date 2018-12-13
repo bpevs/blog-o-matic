@@ -28,6 +28,7 @@
     "@types/inquirer": "0.0.43",
     "@types/jest": "^23.3.10",
     "@types/js-yaml": "^3.11.2",
+    "@types/ncp": "^2.0.1",
     "@types/node": "^10.12.12",
     "@types/react": "^16.7.13",
     "@types/react-dom": "^16.0.11",
