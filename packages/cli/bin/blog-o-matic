@@ -9,6 +9,13 @@ const command = argv._[0]
 
 if (command === "init") cli.blogGenerator()
 if (command === "post") cli.postGenerator()
+if (command === "edit") {
+  const yamlFile = path.resolve(process.cwd(), "blog.config.yml")
+  if (!fs.existsSync(yamlFile)) {
+    throw new Error("This is not a blog! Please go to the dir where blog.config.yml exists.")
+  }
+  cli.preview(process.cwd())
+}
 if (command === "publish") {
   const yamlFile = path.resolve(process.cwd(), "blog.config.yml")
   if (!fs.existsSync(yamlFile)) {
