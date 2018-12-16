@@ -16,7 +16,6 @@
     "start": "run-p watch serve",
     "build": "tsc -p 'tsconfig.json' --outDir 'dist'",
     "link": "npm link",
-    "prepublishOnly": "npm install && npm test && npm run build",
     "watch": "npm run build -- --watch"
   },
   "devDependencies": {

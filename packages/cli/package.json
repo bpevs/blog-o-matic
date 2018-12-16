@@ -18,7 +18,6 @@
   "scripts": {
     "start": "npm run build && node dist/index.js",
     "build": "tsc -p 'tsconfig.json' --outDir 'dist'",
-    "prepublishOnly": "npm install && npm test && npm run build",
     "link": "npm link"
   },
   "dependencies": {
