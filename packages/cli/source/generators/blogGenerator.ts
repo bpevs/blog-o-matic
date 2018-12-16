@@ -2,46 +2,32 @@ import { promisify } from "@civility/utilities"
 import * as fs from "fs"
 import { createPromptModule } from "inquirer"
 import { join } from "path"
+import { IBlog, IPrivateConfig } from "../definitions"
 import { configTemplate, ignoreTemplate, privateTemplate } from "../templates"
 import { basicQs, scpQs, sshQs } from "./blogQuestions"
+
 const prompt = createPromptModule()
 const homedir = require("os").homedir()
 const mkdir = promisify(fs.mkdir)
 const writeFile = promisify(fs.writeFile)
 
 
-export interface IConfig {
-  AUTHOR: string
-  DATE_FORMAT: string
-  TITLE: string
-  SERVICE: string
-}
-
-export interface IPrivate {
-  FILESYSTEM_LOCATION?: string
-  PORT?: string
-  SERVER_LOCATION?: string
-  SSH_LOCATION?: string
-  USE_SSH?: boolean
-}
-
-
 export async function blogGenerator() {
   console.log("\n😳😳🤖😳 WELCOME TO BLOG-O-MATIC! 😳😳🤖😳\n")
 
-  const config = await prompt(basicQs) as IConfig
-  const privateInfo: IPrivate | null = config.SERVICE === "scp"
-    ? await prompt(scpQs) as IPrivate
+  const config = await prompt(basicQs) as IBlog
+  const privateInfo: IPrivateConfig | null = config.publisher === "scp"
+    ? await prompt(scpQs) as IPrivateConfig
     : null
 
-  if (privateInfo && privateInfo.USE_SSH) {
-    const LOCATION_PROMPTS = await prompt(sshQs) as { SSH_LOCATION: string }
-    privateInfo.SSH_LOCATION = LOCATION_PROMPTS.SSH_LOCATION
+  if (privateInfo && privateInfo.scp && privateInfo.scp.ssh) {
+    const { ssh } = await prompt(sshQs) as { ssh: string }
+    privateInfo.scp.ssh = ssh
   }
 
   try {
     await Promise.all([
-      mkdir(config.TITLE),
+      mkdir(config.title),
       mkdir(join(homedir, ".blog-o-matic"), { recursive: true }),
     ])
   } catch (error) {
@@ -49,14 +35,14 @@ export async function blogGenerator() {
   }
 
   await Promise.all([
-    writeFile(join(config.TITLE, "blog.config.yml"), configTemplate(config)),
-    writeFile(join(config.TITLE, ".blogignore"), ignoreTemplate()),
-    mkdir(join(config.TITLE, "resources")),
-    mkdir(join(config.TITLE, "posts")),
+    writeFile(join(config.title, "blog.config.yml"), configTemplate(config)),
+    writeFile(join(config.title, ".blogignore"), ignoreTemplate()),
+    mkdir(join(config.title, "resources")),
+    mkdir(join(config.title, "posts")),
   ])
 
   if (privateInfo) {
-    writeFile(join(homedir, ".blog-o-matic", `${config.TITLE}.yml`), privateTemplate(privateInfo))
+    writeFile(join(homedir, ".blog-o-matic", `${config.title}.yml`), privateTemplate(privateInfo))
   }
 
   console.log(`

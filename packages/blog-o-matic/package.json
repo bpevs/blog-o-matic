@@ -1,7 +1,7 @@
 {
   "name": "blog-o-matic",
   "version": "4.0.3",
-  "description": "Alias for @blog-o-matic/cli",
+  "description": "Runs Blog-o-Matic CLI",
   "main": "bin/blog-o-matic",
   "author": "Ben Pevsner",
   "license": "MIT",
@@ -15,8 +15,6 @@
     "blog": "./bin/blog-o-matic"
   },
   "dependencies": {
-    "@blog-o-matic/cli": "^4.0.3",
-    "@blog-o-matic/editor": "^4.0.2",
-    "yargs": "^12.0.5"
+    "@blog-o-matic/cli": "^4.0.3"
   }
 }

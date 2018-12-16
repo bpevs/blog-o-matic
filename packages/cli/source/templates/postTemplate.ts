@@ -1,16 +1,16 @@
 export const postTemplate = ({
-  AUTHOR = "",
-  LOCATION = "",
-  TITLE = "",
-  CREATED = "",
-  UPDATED = "",
+  author = "",
+  location = "",
+  title = "",
+  created = "",
+  updated = "",
 }: any) => `---
-title: ${TITLE}
-author: ${AUTHOR}
-created: ${CREATED}
-updated: ${UPDATED}
-location: ${LOCATION}
+title: ${title}
+author: ${author}
+created: ${created}
+updated: ${updated}
+location: ${location}
 ---
-# My Blog Post
+# ${title}
 
 `

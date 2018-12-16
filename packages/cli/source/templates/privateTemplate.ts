@@ -1,19 +1,12 @@
 import { forEach } from "@civility/utilities"
-
-export interface IPrivateTemplateProps {
-  FILESYSTEM_LOCATION?: string
-  PORT?: string
-  SERVER_LOCATION?: string
-  SSH_LOCATION?: string
-  USE_SSH?: boolean
-}
+import { IPrivateConfig } from "../definitions"
 
 
-export const privateTemplate = (args: IPrivateTemplateProps = {}) => {
+export const privateTemplate = (args: IPrivateConfig = {}) => {
   let template = ""
 
-  forEach(args, (item, name) => {
-    if (item) template += `${name}: ${item}\n`
+  forEach(args, (item: any, name: string) => {
+    if (item != null) template += `${name}: ${item}\n`
   })
 
   return template

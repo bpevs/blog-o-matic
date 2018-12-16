@@ -1,20 +1,15 @@
-export interface IBlogTemplateProps {
-  AUTHOR: string
-  DATE_FORMAT: string
-  SERVICE: string
-  TITLE: string
-}
+import { IBlog } from "../definitions"
 
 export const configTemplate = ({
-  AUTHOR,
-  DATE_FORMAT,
-  SERVICE,
-  TITLE,
-}: IBlogTemplateProps): string => `version: 4.0.0
+  author,
+  dateFormat,
+  publisher,
+  title,
+}: IBlog): string => `version: 4.0.0
 blog:
-  title: ${TITLE}
-  author: ${AUTHOR}
-  dateformat: ${DATE_FORMAT}
-  service: ${SERVICE}
+  title: ${title}
+  author: ${author}
+  dateformat: ${dateFormat}
+  publisher: ${publisher}
 
 `

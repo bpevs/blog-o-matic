@@ -1,9 +1,3 @@
 #!/usr/bin/env node
-const argv = require("yargs").argv
 const cli = require("@blog-o-matic/cli")
-
-
-const command = argv._[0]
-
-if (command === "init") cli.blogGenerator()
-if (command === "post") cli.postGenerator()
+cli.start()

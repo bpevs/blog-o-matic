@@ -1,7 +1,7 @@
 {
   "name": "@blog-o-matic/cli",
   "version": "4.0.3",
-  "description": "Blog-o-Matic CLI",
+  "description": "Exporter for Blog-o-Matic CLI",
   "author": "Ben Pevsner",
   "license": "MIT",
   "main": "dist/index.js",
@@ -11,9 +11,6 @@
   "homepage": "https://github.com/ivebencrazy/blog-o-matic#readme",
   "publishConfig": {
     "access": "public"
-  },
-  "bin": {
-    "blog": "./bin/blog-o-matic"
   },
   "scripts": {
     "start": "npm run build && node dist/index.js",
