@@ -1,6 +1,6 @@
 {
   "name": "@blog-o-matic/react",
-  "version": "4.0.1-alpha.0",
+  "version": "4.0.2-alpha.0",
   "description": "Recat components for superior Blog-o-Matic integration",
   "author": "Ben Pevsner",
   "license": "MIT",
@@ -25,6 +25,5 @@
     "npm-run-all": "^4.1.5",
     "react-dom": "^16.6.3",
     "typescript": "^3.2.2"
-  },
-  "gitHead": "24dc6813d0373687c7e405b425aade93c1269df1"
+  }
 }
