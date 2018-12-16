@@ -1,6 +1,6 @@
 {
   "name": "blog-o-matic",
-  "version": "4.0.1-alpha.0",
+  "version": "4.0.2-alpha.0",
   "description": "Alias for @blog-o-matic/cli",
   "main": "bin/blog-o-matic",
   "author": "Ben Pevsner",
@@ -15,7 +15,7 @@
     "blog": "./bin/blog-o-matic"
   },
   "dependencies": {
-    "@blog-o-matic/cli": "^4.0.1-alpha.0",
+    "@blog-o-matic/cli": "^4.0.2-alpha.0",
     "yargs": "^12.0.5"
   },
   "gitHead": "24dc6813d0373687c7e405b425aade93c1269df1"
