@@ -17,7 +17,7 @@
     "test:coverage": "npm run test:unit -- --coverage",
     "test:ci": "jest --ci --maxWorkers=1",
     "test:lint": "tslint --project ./tsconfig.json",
-    "test:unit": "jest",
+    "test:unit": "jest --color",
     "test:watch": "jest --watch"
   },
   "dependencies": {
@@ -71,6 +71,9 @@
       "ts",
       "js"
     ],
+    "moduleNameMapper": {
+      ".css$": "<rootDir>/__mocks__/css.js"
+    },
     "testMatch": [
       "**/*.test.js"
     ],
