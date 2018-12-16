@@ -53,8 +53,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "npm run test:lint",
-      "pre-push": "npm-run-all test:lint build",
-      "pre-publish": "npm-run-all test build"
+      "pre-push": "npm-run-all test:lint build"
     }
   },
   "jest": {
