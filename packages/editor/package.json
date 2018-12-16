@@ -13,7 +13,7 @@
     "access": "public"
   },
   "scripts": {
-    "postinstall": "(cd ./source/client && npm install)",
+    "prepare": "(cd ./source/client && npm install)",
     "start": "run-s build watch:client start:server",
     "start:client": "(cd ./source/client && npm run start)",
     "start:server": "run-p watch:server serve",
