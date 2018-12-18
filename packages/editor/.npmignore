@@ -1,5 +1,4 @@
 # Ignore Directories that aren't dist
-build
 coverage
 source
 node_modules
