@@ -26,15 +26,27 @@ export const basicQs = [
 
 export const scpQs = [
   {
-    default: "username@example.com",
-    message: "Where is your server located?",
-    name: "remoteLocation",
+    default: "example.com",
+    message: "Host: ",
+    name: "host",
+    type: "input",
+  },
+  {
+    default: "",
+    message: "Port: ",
+    name: "port",
+    type: "input",
+  },
+  {
+    default: "",
+    message: "User: ",
+    name: "user",
     type: "input",
   },
   {
     default: "~/documents/my-blog",
-    message: "Where is your blog located on the server?",
-    name: "remoteFsLocation",
+    message: "Path on server:",
+    name: "path",
     type: "input",
   },
   {

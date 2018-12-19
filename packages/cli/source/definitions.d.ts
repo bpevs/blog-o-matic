@@ -19,8 +19,10 @@ export interface IPost {
 
 export interface IPrivateConfig {
   scp?: {
-    remoteFsLocation: string
-    remoteLocation: string
+    host: string
+    path: string
+    port?: string
+    user?: string
     ssh?: boolean | string,
   }
 }

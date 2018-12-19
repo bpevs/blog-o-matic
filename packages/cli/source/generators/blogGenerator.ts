@@ -16,13 +16,13 @@ export async function blogGenerator() {
   console.log("\n😳😳🤖😳 WELCOME TO BLOG-O-MATIC! 😳😳🤖😳\n")
 
   const config = await prompt(basicQs) as IBlog
-  const privateInfo: IPrivateConfig | null = config.publisher === "scp"
+  const privateConfig: IPrivateConfig | null = config.publisher === "scp"
     ? await prompt(scpQs) as IPrivateConfig
     : null
 
-  if (privateInfo && privateInfo.scp && privateInfo.scp.ssh) {
+  if (privateConfig && privateConfig.scp && privateConfig.scp.ssh) {
     const { ssh } = await prompt(sshQs) as { ssh: string }
-    privateInfo.scp.ssh = ssh
+    privateConfig.scp.ssh = ssh
   }
 
   try {
@@ -41,8 +41,8 @@ export async function blogGenerator() {
     mkdir(join(config.title, "posts")),
   ])
 
-  if (privateInfo) {
-    writeFile(join(homedir, ".blog-o-matic", `${config.title}.yml`), privateTemplate(privateInfo))
+  if (privateConfig) {
+    writeFile(join(homedir, ".blog-o-matic", `${config.title}.yml`), privateTemplate(privateConfig))
   }
 
   console.log(`

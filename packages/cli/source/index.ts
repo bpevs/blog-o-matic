@@ -1,10 +1,11 @@
 import { existsSync, readFileSync } from "fs"
 import { safeLoad } from "js-yaml"
-import { resolve } from "path"
+import { join, resolve } from "path"
 import { argv } from "yargs"
 import { blogGenerator, postGenerator } from "./generators"
 import { preview } from "./preview"
-import { fsPublisher } from "./publishers"
+import { fsPublisher, scpPublisher } from "./publishers"
+const homedir = require("os").homedir()
 
 
 export {
@@ -12,6 +13,7 @@ export {
   fsPublisher,
   postGenerator,
   preview,
+  scpPublisher,
   start,
 }
 
@@ -38,6 +40,11 @@ function start() {
   if (command === "post") return postGenerator()
   if (command === "edit") return preview(cwd)
   if (command === "publish" && publisher === "fs") return fsPublisher(cwd, config)
+
+  const privateConfigPath = join(homedir, ".blog-o-matic", `${config.blog.title}.yml`)
+  const privateConfig = safeLoad(readFileSync(privateConfigPath, "utf8")) || {}
+
+  if (command === "publish" && publisher === "scp") return scpPublisher(cwd, config, privateConfig)
 
   console.log("Looks like you could use a little help!")
   console.log(helpText)
