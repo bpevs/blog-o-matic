@@ -3,5 +3,4 @@ export const ignoreTemplate = () => `
 .Spotlight-V100
 .Trashes
 ._*
-
 `

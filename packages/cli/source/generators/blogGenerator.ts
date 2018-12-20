@@ -1,13 +1,14 @@
 import { promisify } from "@civility/utilities"
 import * as fs from "fs"
 import { createPromptModule } from "inquirer"
+import { dump } from "js-yaml"
 import { join } from "path"
-import { IBlog, IPrivateConfig } from "../definitions"
-import { configTemplate, ignoreTemplate, privateTemplate } from "../templates"
-import { basicQs, scpQs, sshQs } from "./blogQuestions"
+import { IConfig } from "../definitions"
+import { ignoreTemplate } from "../templates"
+import * as q from "./questions"
+
 
 const prompt = createPromptModule()
-const homedir = require("os").homedir()
 const mkdir = promisify(fs.mkdir)
 const writeFile = promisify(fs.writeFile)
 
@@ -15,35 +16,31 @@ const writeFile = promisify(fs.writeFile)
 export async function blogGenerator() {
   console.log("\n😳😳🤖😳 WELCOME TO BLOG-O-MATIC! 😳😳🤖😳\n")
 
-  const config = await prompt(basicQs) as IBlog
-  const privateConfig: IPrivateConfig | null = config.publisher === "scp"
-    ? await prompt(scpQs) as IPrivateConfig
-    : null
+  const config = await prompt([
+    q.blogAuthor,
+    q.blogTitle,
+    q.blogPublisher,
+  ]) as IConfig
 
-  if (privateConfig && privateConfig.scp && privateConfig.scp.ssh) {
-    const { ssh } = await prompt(sshQs) as { ssh: string }
-    privateConfig.scp.ssh = ssh
-  }
+  Object.assign(config, { version: "4.0.0" })
 
-  try {
-    await Promise.all([
-      mkdir(config.title),
-      mkdir(join(homedir, ".blog-o-matic"), { recursive: true }),
-    ])
-  } catch (error) {
-    if (error.code === "EEXIST") return console.warn("FAILED: A blog already exists here!")
-  }
+  if (config.publisher === "fs") Object.assign(
+    config,
+    await prompt([ q.blogOut ]),
+  )
+  if (config.publisher === "scp") Object.assign(
+    config,
+    await prompt([ q.host, q.port, q.user, q.path ]),
+  )
+
+  await mkdir(config.title)
 
   await Promise.all([
-    writeFile(join(config.title, "blog.config.yml"), configTemplate(config)),
+    writeFile(join(config.title, "blog.config.yml"), dump(config)),
     writeFile(join(config.title, ".blogignore"), ignoreTemplate()),
     mkdir(join(config.title, "resources")),
     mkdir(join(config.title, "posts")),
   ])
-
-  if (privateConfig) {
-    writeFile(join(homedir, ".blog-o-matic", `${config.title}.yml`), privateTemplate(privateConfig))
-  }
 
   console.log(`
     Congratulations! 🎉 🎉 🎉

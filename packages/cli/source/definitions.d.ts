@@ -1,28 +1,30 @@
-export interface IBlog {
-  author?: string
-  dateFormat?: string
-  out?: string
-  publisher?: string
-  title: string
+export interface IScpPublisher {
+  host: string
+  path: string
+  port?: string
+  user?: string
 }
 
 export interface IConfig {
+  author?: string
+  created: string
+  defaults: IPost
+  out: string
+  publisher?: string
+  publishers: {
+    scp?: IScpPublisher
+  }
+  title: string
+  updated: string
   version: string
-  blog: IBlog
 }
 
 export interface IPost {
   author?: string
-  location?: string
+  created?: string
+  permalink?: string
+  updated?: string
+  tags?: string[]
   title?: string
-}
-
-export interface IPrivateConfig {
-  scp?: {
-    host: string
-    path: string
-    port?: string
-    user?: string
-    ssh?: boolean | string,
-  }
+  [ key: string ]: any
 }

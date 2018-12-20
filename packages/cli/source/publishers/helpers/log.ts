@@ -3,12 +3,11 @@ const white = "\x1b[0m"
 const green = "\x1b[32m"
 const dim = "\x1b[2m"
 const red = "\x1b[31m"
-const div = "\n-------------------------------------"
 const wrapDim = (a: any) => "   " + white + dim + a + white + red
 
 
 export function done(title: string | number) {
-  console.log(white, green, title, white, div)
+  console.log(white, green, title, white)
 }
 
 

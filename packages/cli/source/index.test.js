@@ -6,4 +6,5 @@ test("Should export public API", () => {
   expect(typeof cli.postGenerator).toBe("function")
   expect(typeof cli.preview).toBe("function")
   expect(typeof cli.fsPublisher).toBe("function")
+  expect(typeof cli.scpPublisher).toBe("function")
 })

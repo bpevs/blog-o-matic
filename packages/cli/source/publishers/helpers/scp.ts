@@ -13,9 +13,10 @@ export interface ISCPOptions {
   user?: string
 }
 
-export function send({ file, host, path, port = "22", user }: ISCPOptions) {
+export function send({ file, host, path, port, user }: ISCPOptions) {
   const url = (user == null ? "" : user + "@") + host + ":" + path
-  return exec(`scp -r -P ${port} -o "ControlMaster no" ${file} ${url}`)
+  const portText = port ? `-P ${port}` : ""
+  return exec(`scp -r ${portText} -o "ControlMaster no" ${file} ${url}`)
 }
 
 

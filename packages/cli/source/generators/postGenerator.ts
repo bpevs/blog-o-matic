@@ -1,50 +1,34 @@
-import { get, promisify } from "@civility/utilities"
+import { promisify } from "@civility/utilities"
 import * as fs from "fs"
 import { prompt } from "inquirer"
-import { safeLoad } from "js-yaml"
+import { load } from "js-yaml"
 import { join } from "path"
 import { IPost } from "../definitions"
 import { postTemplate } from "../templates"
+import * as q from "./questions"
 const writeFile = promisify(fs.writeFile)
+const now = new Date().getTime()
 
 
 export async function postGenerator() {
   console.log("\n😳😳🤖😳 LET'S MAKE A BLOG POST! 😳😳🤖😳\n")
 
-  const config = safeLoad(fs.readFileSync("./blog.config.yml", "utf8")) || {}
+  const config = load(fs.readFileSync("./blog.config.yml", "utf8")) || {}
 
-  const questions = [
-    {
-      default: new Date().toLocaleString(undefined, {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      }),
-      message: "title:",
-      name: "title",
-      type: "input",
-    },
-    {
-      default: get(config, [ "blog", "author" ]) || "",
-      message: "author:",
-      name: "author",
-      type: "input",
-    },
-    {
-      default: get(config, [ "blog", "location" ]) || "",
-      message: "location:",
-      name: "location",
-      type: "input",
-    },
-  ]
+  const { author = "", title = "" } = await prompt([
+    q.postTitle,
+     { ...q.postAuthor, default: config.author || "" },
+   ]) as IPost
 
-  const { author = "", location = "", title = "" } = await prompt(questions) as IPost
-  const filename = title.replace(",", "").replace(/[^a-zA-Z0-9_.@()-]/g, "-").toLowerCase()
-  await writeFile(join("posts", `${filename}.md`), postTemplate({
-    author, location, title,
-    CREATED: new Date().getTime(),
-    UPDATED: new Date().getTime(),
-  }))
+  const permalink = title
+    .replace(",", "")
+    .replace(/[^a-zA-Z0-9_.@()-]/g, "-")
+    .toLowerCase()
+
+  const filePath = join("posts", `${permalink}.md`)
+  const postData = { author, permalink, title, created: now, updated: now }
+
+  await writeFile(filePath, postTemplate(postData))
 
   console.log(`
     Congratulations! 🎉 🎉 🎉
