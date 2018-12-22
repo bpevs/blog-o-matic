@@ -1,17 +1,16 @@
 import { promisify } from "@civility/utilities"
 import * as fs from "fs"
 import { prompt } from "inquirer"
-import { load } from "js-yaml"
+import { dump, load } from "js-yaml"
 import { join } from "path"
 import { IPost } from "../definitions"
-import { postTemplate } from "../templates"
 import * as q from "./questions"
 const writeFile = promisify(fs.writeFile)
-const now = new Date().getTime()
+const now = new Date()
 
 
 export async function postGenerator() {
-  console.log("\n😳😳🤖😳 LET'S MAKE A BLOG POST! 😳😳🤖😳\n")
+  console.log("\n😳 😳 🤖 😳  LET'S MAKE A BLOG POST! 😳 😳 🤖 😳 \n")
 
   const config = load(fs.readFileSync("./blog.config.yml", "utf8")) || {}
 
@@ -27,8 +26,8 @@ export async function postGenerator() {
 
   const filePath = join("posts", `${permalink}.md`)
   const postData = { author, permalink, title, created: now, updated: now }
-
-  await writeFile(filePath, postTemplate(postData))
+  const frontmatter = `---\n${dump(postData)}---\n`
+  await writeFile(filePath, frontmatter + `# ${title}\n`)
 
   console.log(`
     Congratulations! 🎉 🎉 🎉

@@ -4,13 +4,17 @@ import { createPromptModule } from "inquirer"
 import { dump } from "js-yaml"
 import { join } from "path"
 import { IConfig } from "../definitions"
-import { ignoreTemplate } from "../templates"
 import * as q from "./questions"
 
 
 const prompt = createPromptModule()
 const mkdir = promisify(fs.mkdir)
 const writeFile = promisify(fs.writeFile)
+const ignoreText = `.DS_Store
+.Spotlight-V100
+.Trashes
+._*\n
+`
 
 
 export async function blogGenerator() {
@@ -37,7 +41,7 @@ export async function blogGenerator() {
 
   await Promise.all([
     writeFile(join(config.title, "blog.config.yml"), dump(config)),
-    writeFile(join(config.title, ".blogignore"), ignoreTemplate()),
+    writeFile(join(config.title, ".blogignore"), ignoreText),
     mkdir(join(config.title, "resources")),
     mkdir(join(config.title, "posts")),
   ])

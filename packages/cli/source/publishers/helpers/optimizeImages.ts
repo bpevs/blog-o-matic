@@ -40,8 +40,6 @@ export interface ContentOptions {
 }
 
 export async function optimizeImages({ input, output }: ContentOptions) {
-  log.start("START IMAGE OPTIMIZATION")
-
   const images: any[] = await findAll(input, isImage)
 
   const imageResults = await Promise.all(images.map(async (imagePath, index) => {
@@ -61,8 +59,7 @@ export async function optimizeImages({ input, output }: ContentOptions) {
         return sharp(readPath)
           .resize(width, height)
           .resize({ fit: "outside" })
-          .toFormat("webp")
-          .toFile(imagePath.replace(".jpg", ".webp"))
+          .toFile(imagePath)
       }))
 
     log.progress(index + 1, images.length)
@@ -70,6 +67,5 @@ export async function optimizeImages({ input, output }: ContentOptions) {
     return resizeImages
   }))
 
-  log.done("DONE IMAGE OPTIMIZATION")
   return imageResults
 }

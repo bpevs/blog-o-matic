@@ -16,7 +16,7 @@ export async function scpPublisher(cwd: string, config: IConfig) {
       ...config.publishers.scp,
       file: path.resolve(config.out || ""),
     })
-    console.log("DONE", result)
+    console.log("Published to: ", result)
   } catch (error) {
     console.log(error)
   }
