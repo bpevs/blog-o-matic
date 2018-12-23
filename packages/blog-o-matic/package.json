@@ -1,6 +1,6 @@
 {
   "name": "blog-o-matic",
-  "version": "4.0.5",
+  "version": "4.0.6",
   "description": "Runs Blog-o-Matic CLI",
   "main": "bin/blog-o-matic",
   "author": "Ben Pevsner",
@@ -15,6 +15,6 @@
     "blog": "./bin/blog-o-matic"
   },
   "dependencies": {
-    "@blog-o-matic/cli": "^4.0.5"
+    "@blog-o-matic/cli": "^4.0.6"
   }
 }
