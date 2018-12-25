@@ -1,6 +1,6 @@
+import { Only } from "@civility/react"
 import marksy from "marksy"
 import React, { Component, createElement } from "react"
-
 
 const compile = marksy({ createElement })
 
@@ -8,11 +8,20 @@ const compile = marksy({ createElement })
 export default class MyEditor extends Component {
   constructor(props) {
     super(props)
-    this.state = { content: null }
+    this.state = {
+      content: null,
+      list: null,
+    }
     this.onChange = editorState => this.setState({ editorState })
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    const path = window.location.pathname
+    if (path === "/") {
+      const list = await (await fetch("/posts")).json()
+      this.setState({ list })
+    }
+
     fetch("/blog" + window.location.pathname + ".md")
       .then(res => res.text())
       .then(md => {
@@ -25,17 +34,23 @@ export default class MyEditor extends Component {
   }
 
   render() {
+    const { className, style } = this.props
+    const content = this.state.content
+      ? compile(this.state.content, null, {}).tree
+      : null
+
+    const list = this.state.list && this.state.list.length
+      ? this.state.list.map(item => {
+        const name = item.substring(0, item.length - 3)
+        return <li><a href={`/${name}`}>{name}</a></li>
+      })
+      : null
+
     return (
-      <div
-        style={this.props.style}
-        className={this.props.className}>
-      <div>
-        {
-          this.state.content
-            ? compile(this.state.content, null, {}).tree
-            : "No Blog Post Here!"
-        }
-      </div>
+      <div style={style} className={className}>
+        <Only if={content}>{content}</Only>
+        <Only if={list && !content}><ul>{list}</ul></Only>
+        <Only if={!content && !list}>No Blog Post Here!</Only>
       </div>
     )
   }

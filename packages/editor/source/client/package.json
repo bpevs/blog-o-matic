@@ -3,7 +3,7 @@
   "version": "4.0.0",
   "private": true,
   "dependencies": {
-    "draft-js": "^0.10.5",
+    "@civility/react": "^0.1.4",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-scripts": "2.1.1"

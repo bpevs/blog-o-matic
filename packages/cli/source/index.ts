@@ -20,7 +20,7 @@ const helpText = `
 Here are a few commands you can use...
   - \`blog init\`: Generate a blog in this directory
   - \`blog post\`: Generate a post in this blog
-  - \`blog edit\`: Run a preview server of your blog
+  - \`blog preview\`: Run a preview server of your blog
   - \`blog publish\`: Publish your changes!
 `
 
