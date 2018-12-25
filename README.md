@@ -24,3 +24,7 @@ More detailed example usage is found in each individual package:
 - [Blog Editor](./packages/editor)
 - [Express Middleware](./packages/express)
 - [React Components](./packages/react)
+
+Examples
+--------
+- [Example of Blog-o-Matic with Github Pages](https://github.com/ivebencrazy/blog-o-matic-fs-example)
