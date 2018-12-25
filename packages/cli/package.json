@@ -1,6 +1,6 @@
 {
   "name": "@blog-o-matic/cli",
-  "version": "4.0.6",
+  "version": "4.1.0",
   "description": "Exporter for Blog-o-Matic CLI",
   "author": "Ben Pevsner",
   "license": "MIT",
@@ -18,7 +18,7 @@
     "link": "npm link"
   },
   "dependencies": {
-    "@blog-o-matic/editor": "^4.0.6",
+    "@blog-o-matic/editor": "^4.1.0",
     "@civility/utilities": "^0.1.4",
     "inquirer": "^6.2.1",
     "js-yaml": "^3.12.0",
