@@ -3,8 +3,8 @@ import * as fs from "fs"
 import { createPromptModule } from "inquirer"
 import { dump } from "js-yaml"
 import { join } from "path"
-import { IConfig } from "../definitions"
-import * as q from "./questions"
+import { IConfig } from "../../definitions"
+import * as q from "../questions"
 
 
 const prompt = createPromptModule()
