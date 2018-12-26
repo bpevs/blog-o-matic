@@ -1,7 +1,9 @@
 {
   "name": "@blog-o-matic/editor-client",
-  "version": "4.0.0",
-  "private": true,
+  "version": "4.1.0",
+  "private": false,
+  "main": "./index.js",
+  "typings": "./index.d.ts",
   "dependencies": {
     "@civility/react": "^0.1.4",
     "react": "^16.6.3",
@@ -9,11 +11,10 @@
     "react-scripts": "2.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build && npm run mkdir && npm run cp",
-    "test": "react-scripts test",
-    "mkdir": "mkdir -p ../../dist/client",
-    "cp": "cp -r ./build ../../dist/client"
+    "start": "react-scripts build --watch",
+    "start:dev": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test"
   },
   "browserslist": [
     ">0.2%",

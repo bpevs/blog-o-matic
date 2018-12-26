@@ -1,5 +1,5 @@
 # Ignore Directories that aren't dist
-source
+src
 node_modules
 
 # Ignore system-created files

@@ -28,3 +28,19 @@ More detailed example usage is found in each individual package:
 Examples
 --------
 - [Example of Blog-o-Matic with Github Pages](https://github.com/ivebencrazy/blog-o-matic-fs-example)
+
+Development
+-------
+We use [Lerna]() to handle our monorepo, and [Yarn]() to handle dependencies. We can start development utilizing these.
+
+```sh
+npm install -g yarn
+yarn install
+yarn start
+```
+
+Blog-o-Matic should now be linked as a global
+
+```sh
+blog init
+```

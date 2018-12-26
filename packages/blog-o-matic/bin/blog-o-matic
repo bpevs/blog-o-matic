@@ -1,3 +1,2 @@
 #!/usr/bin/env node
-const cli = require("@blog-o-matic/cli")
-cli.start()
+require("../index.js")

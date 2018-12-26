@@ -1,13 +1,18 @@
 # Ignore these folders to decrease download size of project
-/build
+build
 coverage
 dist
 node_modules
+.pnp
+.pnp.js
+.vscode
+
+# Ignore build-files
+**/*.log*
+**/*.local
 
 # Ignore system-created files
 .DS_Store
 .Spotlight-V100
 .Trashes
-.vscode
 ._*
-**/*.log

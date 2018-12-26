@@ -13,18 +13,14 @@
     "access": "public"
   },
   "scripts": {
-    "prepare": "(cd ./source/client && npm install) && npm run build",
-    "start": "run-s build watch:client start:server",
-    "start:client": "(cd ./source/client && npm run start)",
-    "start:server": "run-p watch:server serve",
-    "build": "run-p build:*",
-    "build:client": "(cd ./source/client && npm run build)",
-    "build:server": "tsc -p 'tsconfig.json' --outDir 'dist'",
+    "prepare": "npm run build",
+    "start": "run-s build watch serve",
+    "build": "tsc -p 'tsconfig.json' --outDir 'dist'",
     "serve": "node ./dist/index.js",
-    "watch:client": "(cd ./source/client && npm run build -- --watch)",
-    "watch:server": "npm run build:server -- --watch"
+    "watch": "npm run build -- --watch"
   },
   "dependencies": {
+    "@blog-o-matic/editor-client": "^4.1.0",
     "@civility/utilities": "^0.1.4",
     "express": "^4.16.4",
     "marksy": "^6.1.0",

@@ -13,7 +13,7 @@
     "access": "public"
   },
   "scripts": {
-    "start": "run-p watch serve",
+    "start": "run-s build watch",
     "build": "tsc -p 'tsconfig.json' --outDir 'dist'",
     "link": "npm link",
     "watch": "npm run build -- --watch"

@@ -6,6 +6,6 @@
   "extends": "../../tsconfig",
   "include": [
     "../../definitions.d.ts",
-    "./source/server/index.ts"
+    "./source/index.ts"
   ]
 }

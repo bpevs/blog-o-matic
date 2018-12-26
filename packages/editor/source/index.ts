@@ -5,6 +5,7 @@
  * why it's in the editor, rather than express.
  */
 
+import { middleware } from "@blog-o-matic/editor-client"
 import { promisify } from "@civility/utilities"
 import * as express from "express"
 import * as fs from "fs"
@@ -23,12 +24,9 @@ export function startServer(previewDir: string) {
     res.set("Content-Type", "application/json")
     res.send(JSON.stringify(body))
   })
-  server.use(express.static(resolve(previewDir)))
-  server.use(express.static(resolve(__dirname, "../dist/client/build")))
 
-  server.get("*", (req: { [key: string]: any }, res: { [key: string]: any }) => {
-    res.sendFile(resolve(__dirname, "../dist/client/build/index.html"))
-  })
+  server.use(express.static(resolve(previewDir)))
+  server.get("*", middleware)
 
   server.listen(PORT, () => {
     console.log("listening on port", PORT)
