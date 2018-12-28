@@ -25,6 +25,20 @@ More detailed example usage is found in each individual package:
 - [Express Middleware](./packages/express)
 - [React Components](./packages/react)
 
+
+Structure of a Blog
+--------
+
+When making a blog, Blog-o-Matic uses the following format:
+```
+blog.config.yml # Configuration details
+.blogignore    # Files that shouldn't be published
++ posts        # Markdown files
+  - {posts}.md # Any number of markdown files
++ {static}     # Any number of directories containing static files
+```
+
+
 Examples
 --------
 - [Example of Blog-o-Matic with Github Pages](https://github.com/ivebencrazy/blog-o-matic-fs-example)

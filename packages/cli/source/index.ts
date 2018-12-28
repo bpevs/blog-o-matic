@@ -1,5 +1,5 @@
 import { existsSync, readFileSync } from "fs"
-import { safeLoad } from "js-yaml"
+import { load } from "js-yaml"
 import { resolve } from "path"
 import { argv } from "yargs"
 import { blogGenerator, postGenerator } from "./generators"
@@ -24,15 +24,13 @@ Here are a few commands you can use...
   - \`blog publish\`: Publish your changes!
 `
 
-function start() {
-  const command = argv._[0]
-
+function start(command = argv._[0]) {
   if (command === "init") return blogGenerator()
 
   const cwd = process.cwd()
   const configPath = resolve(cwd, "blog.config.yml")
   if (!existsSync(configPath)) throw new Error("This is not a blog! Please go to the dir where blog.config.yml exists.")
-  const config = safeLoad(readFileSync(configPath, "utf8")) || {}
+  const config = load(readFileSync(configPath, "utf8")) || {}
   const publisher = config.publisher
 
   if (command === "post") postGenerator()

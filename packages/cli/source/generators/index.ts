@@ -1,2 +1,2 @@
 export * from "./blogGenerator/blogGenerator"
-export * from "./postGenerator"
+export * from "./postGenerator/postGenerator"

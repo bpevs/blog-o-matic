@@ -1,2 +1,2 @@
-export * from "./fs"
-export * from "./scp"
+export * from "./fsPublisher/fsPublisher"
+export * from "./scpPublisher/scpPublisher"

@@ -1,10 +1,10 @@
 import { promisify } from "@civility/utilities"
 import * as fs from "fs"
 import { join, resolve } from "path"
-import { IConfig } from "../definitions"
-import { createDir } from "./helpers/fsWrappers"
-import { optimizeImages } from "./helpers/optimizeImages"
-import { parse } from "./helpers/parse"
+import { IConfig } from "../../definitions"
+import { createDir } from "../helpers/fsWrappers"
+import { optimizeImages } from "../helpers/optimizeImages"
+import { parse } from "../helpers/parse"
 const Remarkable = require("remarkable")
 
 const readdir = promisify(fs.readdir)

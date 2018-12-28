@@ -1,7 +1,7 @@
 import * as path from "path"
-import { IConfig } from "../definitions"
-import { fsPublisher } from "./fs"
-import { send } from "./helpers/scp"
+import { IConfig } from "../../definitions"
+import { fsPublisher } from "../fsPublisher/fsPublisher"
+import { send } from "../helpers/scp"
 
 
 export async function scpPublisher(cwd: string, config: IConfig) {

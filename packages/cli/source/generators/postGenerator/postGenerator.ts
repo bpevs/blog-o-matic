@@ -3,8 +3,8 @@ import * as fs from "fs"
 import { prompt } from "inquirer"
 import { dump, load } from "js-yaml"
 import { join } from "path"
-import { IPost } from "../definitions"
-import * as q from "./questions"
+import { IPost } from "../../definitions"
+import * as q from "../questions"
 const writeFile = promisify(fs.writeFile)
 const now = new Date()
 
