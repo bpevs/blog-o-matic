@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should call writeFile 1`] = `
+"---
+author: my-author
+permalink: my-blog-title
+title: my-blog-title
+created: 2018-06-27T07:00:00.000Z
+updated: 2018-06-27T07:00:00.000Z
+---
+# my-blog-title
+"
+`;

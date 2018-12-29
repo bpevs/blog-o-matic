@@ -6,7 +6,6 @@ import { join } from "path"
 import { IPost } from "../../definitions"
 import * as q from "../questions"
 const writeFile = promisify(fs.writeFile)
-const now = new Date()
 
 
 export async function postGenerator() {
@@ -25,6 +24,7 @@ export async function postGenerator() {
     .toLowerCase()
 
   const filePath = join("posts", `${permalink}.md`)
+  const now = new Date()
   const postData = { author, permalink, title, created: now, updated: now }
   const frontmatter = `---\n${dump(postData)}---\n`
   await writeFile(filePath, frontmatter + `# ${title}\n`)
