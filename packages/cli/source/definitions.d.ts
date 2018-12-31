@@ -1,3 +1,8 @@
+export interface IAwsPublisher {
+  bucketName: string
+  path: string
+}
+
 export interface IScpPublisher {
   host: string
   path: string
@@ -12,6 +17,7 @@ export interface IConfig {
   out: string
   publisher?: string
   publishers: {
+    aws?: IAwsPublisher
     scp?: IScpPublisher
   }
   title: string
