@@ -1,5 +1,11 @@
+import { promisify } from "@civility/utilities"
 import * as fs from "fs"
 import * as path from "path"
+
+
+export const readdir = promisify(fs.readdir)
+export const readFile = promisify(fs.readFile)
+export const stat = promisify(fs.stat)
 
 
 export function copyFile(
@@ -9,9 +15,7 @@ export function copyFile(
 ): Promise<any> {
   return new Promise((resolve, reject) => {
     fs.copyFile(input, output, options, (error, ...args: any[]) => {
-      error
-        ? reject(error)
-        : resolve.apply(null, args)
+      error ? reject(error) : resolve.apply(null, args)
     })
   })
 }
@@ -32,7 +36,16 @@ export function createDir(dirPath: string): Promise<string> {
   })
 }
 
-export function writeJSON(path: string, content: string): Promise<any> {
+export async function isFile(path: string): Promise<boolean> {
+  try {
+    const results = await stat(path)
+    return !results.isDirectory()
+  } catch (error) {
+    return true
+  }
+}
+
+export function writeFile(path: string, content: string): Promise<any> {
   return new Promise((resolve, reject) => {
     const callback = (error: any) => error ? reject(error) : resolve()
 

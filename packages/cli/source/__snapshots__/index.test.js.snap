@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should log help text on no argument 1`] = `
+"
+Looks like you could use a little help!
+Here are a few commands you can use...
+  - \`blog init\`: Generate a blog in this directory
+  - \`blog post\`: Generate a post in this blog
+  - \`blog preview\`: Run a preview server of your blog
+  - \`blog publish\`: Publish your changes!
+"
+`;

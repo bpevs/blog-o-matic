@@ -12,9 +12,8 @@ import { preview } from "./preview"
 import { fsPublisher, scpPublisher } from "./publishers"
 
 
-beforeEach(() => {
-  jest.clearAllMocks()
-})
+beforeAll(() => { console.log = jest.fn() })
+beforeEach(() => jest.clearAllMocks())
 
 
 test("Should export public API", () => {
@@ -27,13 +26,16 @@ test("Should export public API", () => {
 })
 
 
-test("Should run nothing on no argument", () => {
+test("Should log help text on no argument", () => {
   cli.start()
   expect(blogGenerator).toBeCalledTimes(0)
   expect(postGenerator).toBeCalledTimes(0)
   expect(preview).toBeCalledTimes(0)
   expect(fsPublisher).toBeCalledTimes(0)
   expect(scpPublisher).toBeCalledTimes(0)
+
+  expect(console.log).toBeCalledTimes(1)
+  expect(console.log.mock.calls[0][0]).toMatchSnapshot()
 })
 
 test("Should only run one command at a time", () => {

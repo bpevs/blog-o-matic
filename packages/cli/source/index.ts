@@ -17,6 +17,7 @@ export {
 }
 
 const helpText = `
+Looks like you could use a little help!
 Here are a few commands you can use...
   - \`blog init\`: Generate a blog in this directory
   - \`blog post\`: Generate a post in this blog
@@ -30,7 +31,7 @@ function start(command = argv._[0]) {
   const cwd = process.cwd()
   const configPath = resolve(cwd, "blog.config.yml")
   if (!existsSync(configPath)) throw new Error("This is not a blog! Please go to the dir where blog.config.yml exists.")
-  const config = load(readFileSync(configPath, "utf8")) || {}
+  const config = load(readFileSync(resolve(configPath), "utf8")) || {}
   const publisher = config.publisher
 
   if (command === "post") postGenerator()
@@ -38,8 +39,5 @@ function start(command = argv._[0]) {
   else if (command === "publish" && publisher === "aws") awsPublisher(cwd, config)
   else if (command === "publish" && publisher === "fs") fsPublisher(cwd, config)
   else if (command === "publish" && publisher === "scp") scpPublisher(cwd, config)
-  else {
-    console.log("Looks like you could use a little help!")
-    console.log(helpText)
-  }
+  else console.log(helpText)
 }
