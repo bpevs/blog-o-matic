@@ -1,58 +1,72 @@
-import { promisify } from "@civility/utilities"
-import * as fs from "fs"
-import { join, resolve } from "path"
+import { join, relative, resolve } from "path"
 import { IConfig } from "../../definitions"
-import { createDir } from "../../helpers/fsWrappers"
-import { optimizeImages } from "../../helpers/optimizeImages"
-import { parse } from "../../helpers/parse"
-const Remarkable = require("remarkable")
+import {
+  createDir,
+  createImageOutput,
+  createMarkdownOutput,
+  ignore,
+  readFile,
+  recursivelyUpload,
+  remarkable,
+  writeFile,
+} from "../../helpers"
 
-const readdir = promisify(fs.readdir)
-const readFile = promisify(fs.readFile)
-const writeFile = promisify(fs.writeFile)
-const remarkable = new Remarkable("commonmark", {
-  breaks: true,
-  html: true,
-})
 
-export async function fsPublisher(cwd: string, config: IConfig) {
-  const output = resolve(cwd, config.out)
-
-  if (!output) throw new Error("Config requires .blog.out")
-
-  await createDir(output)
-  const filenames = (await readdir(resolve(cwd, "posts")))
-    .filter((filename: string) => /\.md$/.test(filename))
-    .map((filename: string) => ({
-      filename,
-      name: filename.replace(".md", ""),
-      out: resolve(output, filename.replace(".md", "")),
-    }))
+/**
+ * Publish to a local fs directory. Does a few things:
+ * - Create an index file that points to blog posts
+ * - Make json, md, and html files to describe each post
+ * - Optimize images
+ */
+export async function fsPublisher(sourceRootPath: string, config: IConfig) {
+  const targetPath = resolve(sourceRootPath, config.out)
+  if (!sourceRootPath || !targetPath) throw new Error("Incorrect configuration")
 
   const indexList: string[] = []
+  const indexFilePath = join(targetPath, "index.html")
+  const test = ignore(await readFile(join(sourceRootPath, ".blogignore"), "utf-8"))
 
-  await Promise.all(filenames
-    .map(async ({ filename, name, out }: any) => {
-      const md = await readFile(resolve(cwd, "posts", filename), "utf-8")
-      const { frontmatter, text } = parse(md)
+  await recursivelyUpload(sourceRootPath, targetPath, writeFiles)
+  return writeFile(indexFilePath, remarkable.render(indexList.join("\n")))
 
-      indexList.push(`- [${frontmatter.title}](${frontmatter.permalink})`)
-      await createDir(out)
 
-      return Promise.all([
-        writeFile(join(out, "index.md"), text),
-        writeFile(join(out, "index.html"), remarkable.render(text)),
-        writeFile(join(out, "index.json"), JSON.stringify(frontmatter)),
-      ])
-    }))
+  // For each source file, build the correct files, and write them to target path
+  async function writeFiles(sourcePath: string, targetPath: string) {
+    const writePath = targetPath.substring(0, targetPath.lastIndexOf("/"))
+    const extension = sourcePath.substring(sourcePath.lastIndexOf(".") + 1, sourcePath.length)
+    const name = sourcePath.substring(sourcePath.lastIndexOf("/") + 1, sourcePath.lastIndexOf("."))
 
-  await writeFile(
-    join(output, "./index.html"),
-    remarkable.render(indexList.join("\n")),
-  )
+    if (!test(relative(sourceRootPath, sourcePath))) return
 
-  return optimizeImages({
-    input: resolve(cwd, "resources"),
-    output: join(output, "images"),
-  })
+    switch (extension) {
+      case "md":
+        const unparsedText = await readFile(sourcePath, "utf-8")
+        const [ frontmatter, md, html ] = await createMarkdownOutput(unparsedText)
+        indexList.push(`- [${frontmatter.title}](${join("posts", frontmatter.permalink)})`)
+
+        return Promise.all([
+          writeFile(join(writePath, name, "index.json"), JSON.stringify(frontmatter)),
+          writeFile(join(writePath, name, "index.md"), md),
+          writeFile(join(writePath, name, "index.html"), html),
+        ])
+
+      case "jpeg":
+      case "jpg":
+      case "png":
+        const [ large, medium, small, tiny ] = await createImageOutput(sourcePath)
+
+        await createDir(writePath)
+
+        return Promise.all([
+          large.toFile(join(writePath, `${name}-large.${extension}`)),
+          medium.toFile(join(writePath, `${name}-medium.${extension}`)),
+          small.toFile(join(writePath, `${name}-small.${extension}`)),
+          tiny.toFile(join(writePath, `${name}-tiny.${extension}`)),
+        ])
+
+      case "default":
+        const text = await readFile(sourcePath, "utf-8")
+        return writeFile(join(writePath, `${name}.${extension}`), text)
+    }
+  }
 }

@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should call writeFile 1`] = `
+"
+😳😳🤖😳 WELCOME TO BLOG-O-MATIC! 😳😳🤖😳
+"
+`;
+
+exports[`Should call writeFile 2`] = `
+"
+    Congratulations! 🎉 🎉 🎉
+    Blog-o-Matic successfully created your edit folder!
+    You can write whatever you want in here!
+    (Or if you're lazy like us, you can run \`blog post\`)
+  "
+`;

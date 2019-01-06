@@ -11,3 +11,16 @@ updated: 2018-06-27T07:00:00.000Z
 # my-blog-title
 "
 `;
+
+exports[`Should call writeFile 2`] = `
+"
+😳 😳 🤖 😳  LET'S MAKE A BLOG POST! 😳 😳 🤖 😳 
+"
+`;
+
+exports[`Should call writeFile 3`] = `
+"
+    Congratulations! 🎉 🎉 🎉
+    You generated a blog post!
+  "
+`;
