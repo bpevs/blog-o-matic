@@ -13,9 +13,9 @@ export async function createMarkdownOutput(
 ): Promise<[ { [key: string]: any }, string, string ]> {
   const parsed = /(?:^---\n)([\s\S]*)(?:---\n)(([\s\S])*)/gm.exec(text) || []
   const md = parsed[2]
-    .replace(/\.jpeg/g, "-medium.jpeg")
-    .replace(/\.jpg/g, "-medium.jpg")
-    .replace(/\.png/g, "-medium.png")
+    .replace(/\.jpeg/g, ".medium.jpeg")
+    .replace(/\.jpg/g, ".medium.jpg")
+    .replace(/\.png/g, ".medium.png")
     .replace(/\]\(\.\.\//g, "](../../")
   const frontmatter = load(parsed[1])
   const html = remarkable.render(md)

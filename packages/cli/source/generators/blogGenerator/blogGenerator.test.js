@@ -30,7 +30,7 @@ test("Should call writeFile", async () => {
     version: "4.0.0",
   })
   expect(writeFile2[0]).toBe("my-blog-title/.blogignore")
-  expect(writeFile2[1]).toBe(".DS_Store\n.Spotlight-V100\n.Trashes\n._*\n\n")
+  expect(writeFile2[1]).toBe("build/\n.DS_Store\n.Spotlight-V100\n.Trashes\n._*\n\n")
 
   expect(console.log).toBeCalledTimes(2)
   const [ welcomeText, finishedText ] = console.log.mock.calls

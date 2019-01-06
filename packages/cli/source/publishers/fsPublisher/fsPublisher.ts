@@ -58,10 +58,10 @@ export async function fsPublisher(sourceRootPath: string, config: IConfig) {
         await createDir(writePath)
 
         return Promise.all([
-          large.toFile(join(writePath, `${name}-large.${extension}`)),
-          medium.toFile(join(writePath, `${name}-medium.${extension}`)),
-          small.toFile(join(writePath, `${name}-small.${extension}`)),
-          tiny.toFile(join(writePath, `${name}-tiny.${extension}`)),
+          large.toFile(join(writePath, `${name}.large.${extension}`)),
+          medium.toFile(join(writePath, `${name}.medium.${extension}`)),
+          small.toFile(join(writePath, `${name}.small.${extension}`)),
+          tiny.toFile(join(writePath, `${name}.tiny.${extension}`)),
         ])
 
       case "default":

@@ -10,7 +10,8 @@ import * as q from "../questions"
 const prompt = createPromptModule()
 const mkdir = promisify(fs.mkdir)
 const writeFile = promisify(fs.writeFile)
-const ignoreText = `.DS_Store
+const ignoreText = `build/
+.DS_Store
 .Spotlight-V100
 .Trashes
 ._*\n
