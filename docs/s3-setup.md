@@ -13,5 +13,7 @@ Then, we need to create an access key pair to authenticate our uploads. Created 
 ![Create Credentials](../screenshots/s3-creds-2.png)
 
 Lastly, reference the csv when setting up your Blog-o-Matic blog.
+![Reference creds](../screenshots/s3-blogomatic.png)
 
 You're now setup to use Blog-o-Matic with S3!!!
+
