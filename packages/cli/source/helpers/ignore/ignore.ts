@@ -29,7 +29,6 @@ export function ignore(ignoreFile: string | string[]) {
   const lines = ((typeof ignoreFile === "string") ? ignoreFile.split("\n") : ignoreFile)
     .map(line => line.trim())
     .filter(line => line && line[0] !== "#")
-  console.log(lines)
 
   const negative = lines
     .filter(line => line[0] !== "!")

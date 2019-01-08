@@ -17,6 +17,11 @@ const ignoreText = `build/
 ._*\n
 `
 
+const publisherQuestions: { [key: string]: any } = {
+  fs: [ q.blogOut ],
+  s3: [ q.s3Creds, q.s3Bucket ],
+  scp: [ q.host, q.port, q.user, q.path ],
+}
 
 export async function blogGenerator() {
   console.log("\n😳😳🤖😳 WELCOME TO BLOG-O-MATIC! 😳😳🤖😳\n")
@@ -29,21 +34,18 @@ export async function blogGenerator() {
 
   Object.assign(config, { version: "4.0.0" })
 
-  if (config.publisher === "fs") Object.assign(
-    config,
-    await prompt([ q.blogOut ]),
-  )
-  if (config.publisher === "scp") Object.assign(
-    config,
-    await prompt([ q.host, q.port, q.user, q.path ]),
-  )
+  if (config.publisher && publisherQuestions[config.publisher]) {
+    Object.assign(config, {
+      [config.publisher]: await prompt(publisherQuestions[config.publisher]),
+    })
+  }
 
   await mkdir(config.title)
 
   await Promise.all([
     writeFile(join(config.title, "blog.config.yml"), dump(config)),
     writeFile(join(config.title, ".blogignore"), ignoreText),
-    mkdir(join(config.title, "resources")),
+    mkdir(join(config.title, "images")),
     mkdir(join(config.title, "posts")),
   ])
 

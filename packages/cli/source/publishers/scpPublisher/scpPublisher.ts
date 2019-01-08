@@ -22,7 +22,7 @@ function send({ file, host, path, port, user }: ISCPOptions) {
 }
 
 export async function scpPublisher(cwd: string, config: IConfig) {
-  if (!config.out || !config.publishers.scp) {
+  if (!config.out || !config.scp) {
     throw new Error("This blog isn't set up for scp publishing")
   }
 
@@ -30,7 +30,7 @@ export async function scpPublisher(cwd: string, config: IConfig) {
 
   try {
     const result = await send({
-      ...config.publishers.scp,
+      ...config.scp,
       file: path.resolve(config.out || ""),
     })
     console.log("Published to: ", result)

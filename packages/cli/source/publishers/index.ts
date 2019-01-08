@@ -1,3 +1,3 @@
-export * from "./awsPublisher/awsPublisher"
 export * from "./fsPublisher/fsPublisher"
+export * from "./s3Publisher/s3Publisher"
 export * from "./scpPublisher/scpPublisher"

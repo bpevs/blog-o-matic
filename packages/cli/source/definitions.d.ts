@@ -1,6 +1,6 @@
-export interface IAwsPublisher {
-  bucketName: string
-  path: string
+export interface IS3Publisher {
+  creds: string // Location of aws creds
+  bucket: string
 }
 
 export interface IScpPublisher {
@@ -16,10 +16,8 @@ export interface IConfig {
   defaults: IPost
   out: string
   publisher?: string
-  publishers: {
-    aws?: IAwsPublisher
-    scp?: IScpPublisher
-  }
+  s3?: IS3Publisher
+  scp?: IScpPublisher
   title: string
   updated: string
   version: string

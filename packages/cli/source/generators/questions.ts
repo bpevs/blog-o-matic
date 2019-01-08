@@ -19,7 +19,7 @@ export const blogOut = {
 }
 
 export const blogPublisher = {
-  choices: [ "scp", "fs" ],
+  choices: [ "fs", "s3", "scp" ],
   message: "How would you like to publish your blog?",
   name: "publisher",
   type: "list",
@@ -59,6 +59,19 @@ export const postTitle = {
 export const postAuthor = {
   message: "Who wrote this post?",
   name: "author",
+  type: "input",
+}
+
+export const s3Bucket = {
+  message: "What is the name of your bucket?",
+  name: "bucket",
+  type: "input",
+}
+
+export const s3Creds = {
+  default: "~/documents/rootkey.csv",
+  message: "Where is your credentials file?",
+  name: "creds",
   type: "input",
 }
 

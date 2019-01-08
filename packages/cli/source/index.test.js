@@ -9,7 +9,7 @@ jest.mock("./publishers")
 import * as cli from "./index"
 import { blogGenerator, postGenerator } from "./generators"
 import { preview } from "./preview"
-import { fsPublisher, scpPublisher } from "./publishers"
+import { fsPublisher, s3Publisher } from "./publishers"
 
 
 beforeAll(() => { console.log = jest.fn() })
@@ -21,7 +21,7 @@ test("Should export public API", () => {
   expect(typeof cli.postGenerator).toBe("function")
   expect(typeof cli.preview).toBe("function")
   expect(typeof cli.fsPublisher).toBe("function")
-  expect(typeof cli.scpPublisher).toBe("function")
+  expect(typeof cli.s3Publisher).toBe("function")
   expect(typeof cli.start).toBe("function")
 })
 
@@ -32,7 +32,7 @@ test("Should log help text on no argument", () => {
   expect(postGenerator).toBeCalledTimes(0)
   expect(preview).toBeCalledTimes(0)
   expect(fsPublisher).toBeCalledTimes(0)
-  expect(scpPublisher).toBeCalledTimes(0)
+  expect(s3Publisher).toBeCalledTimes(0)
 
   expect(console.log).toBeCalledTimes(1)
   expect(console.log.mock.calls[0][0]).toMatchSnapshot()
