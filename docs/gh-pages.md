@@ -3,7 +3,7 @@ This is a guide to setting up a static Github Pages site, built with Blog-o-Mati
 
 ## Generate and Initialize the Blog
 To generate a blog for Github pages from scratch, make sure to choose fs as the publisher! We are publishing to our local filesystem (fs), because instead of uploading our code with Blog-o-Matic, we will be uploading our code with Git! As such, we will also initialize the resulting blog as a git repo.
-``sh
+```sh
 blog init
 cd ./my-blog
 git init
@@ -18,21 +18,20 @@ echo "build" > .gitignore
 
 Then, we want to setup a build process that will take our source, and write it to the `gh-pages` branch of our repo. For this example, we will be using [Travis CI](https://travis-ci.org), so you'll want a `.travis.yml` file:
 ```yaml
-language: node_js # Blog-o-Matic is a Node CLI tool
-sudo: false # Allow us to use our global commands
+language: node_js     # Blog-o-Matic is a Node CLI tool
+sudo: false           # Allow us to use our global commands
 node_js: [ "stable" ] # Lastest Node version should work
 
-# This installs blog-o-matic globally, then publishes the result
+# Installs blog-o-matic globally, then publishes the result
 script: npm install -g blog-o-matic && blog publish
 
 deploy:
-  local_dir: build # Only push the build output to gh-pages branch
-  provider: pages # We are using gh-pages
-  skip_cleanup: true # Ignore our .gitignore to keep our build output
+  local_dir: build            # Push the `build` dir output to gh-pages branch
+  provider: pages             # We are using gh-pages
+  skip_cleanup: true          # Ignore our .gitignore to keep our build output
   github_token: $GITHUB_TOKEN # We'll talk about this in a sec
   on:
-    branch: master # Build whenever we push to master branch
-
+    branch: master            # Build whenever we push to master branch
 ```
 
 These are all the files we need! This is probably a good point to commit push to master.

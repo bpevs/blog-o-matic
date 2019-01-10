@@ -25,6 +25,7 @@ blog init # Generate a blog
 
 Now there are a few different commands we can use:
 | Command | Description |
+|---|---|
 | `blog post` | Generate Markdown for a blog post |
 | `blog preview` | Serve the blog, and open it as a local website |
 | `blog publish` | Publish the blog, using the selected publisher |
