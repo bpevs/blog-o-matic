@@ -19,7 +19,7 @@ export const blogOut = {
 }
 
 export const blogPublisher = {
-  choices: [ "fs", "s3", "scp" ],
+  choices: [ "fs", "s3" ],
   message: "How would you like to publish your blog?",
   name: "publisher",
   type: "list",

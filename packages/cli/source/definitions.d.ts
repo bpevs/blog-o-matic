@@ -3,13 +3,6 @@ export interface IS3Publisher {
   bucket: string
 }
 
-export interface IScpPublisher {
-  host: string
-  path: string
-  port?: string
-  user?: string
-}
-
 export interface IConfig {
   author?: string
   created: string
@@ -17,7 +10,6 @@ export interface IConfig {
   out: string
   publisher?: string
   s3?: IS3Publisher
-  scp?: IScpPublisher
   title: string
   updated: string
   version: string

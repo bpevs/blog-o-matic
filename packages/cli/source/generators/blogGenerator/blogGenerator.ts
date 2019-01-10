@@ -20,7 +20,6 @@ const ignoreText = `build/
 const publisherQuestions: { [key: string]: any } = {
   fs: [ q.blogOut ],
   s3: [ q.s3Creds, q.s3Bucket ],
-  scp: [ q.host, q.port, q.user, q.path ],
 }
 
 export async function blogGenerator() {

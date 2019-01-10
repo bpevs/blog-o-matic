@@ -16,7 +16,7 @@ test("Should call writeFile", async () => {
 
 
   expect(mkdir1[0]).toBe("my-blog-title")
-  expect(mkdir2[0]).toBe("my-blog-title/resources")
+  expect(mkdir2[0]).toBe("my-blog-title/images")
   expect(mkdir3[0]).toBe("my-blog-title/posts")
   expect(writeFile1[0]).toBe("my-blog-title/blog.config.yml")
   expect(load(writeFile1[1])).toEqual({

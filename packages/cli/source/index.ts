@@ -4,7 +4,7 @@ import { resolve } from "path"
 import { argv } from "yargs"
 import { blogGenerator, postGenerator } from "./generators"
 import { preview } from "./preview"
-import { fsPublisher, s3Publisher, scpPublisher } from "./publishers"
+import { fsPublisher, s3Publisher } from "./publishers"
 
 
 export {
@@ -12,8 +12,8 @@ export {
   fsPublisher,
   postGenerator,
   preview,
-  scpPublisher,
   start,
+  s3Publisher,
 }
 
 const helpText = `
@@ -38,6 +38,5 @@ function start(command = argv._[0]) {
   else if (command === "preview") preview(cwd)
   else if (command === "publish" && publisher === "s3") s3Publisher(cwd, config)
   else if (command === "publish" && publisher === "fs") fsPublisher(cwd, config)
-  else if (command === "publish" && publisher === "scp") scpPublisher(cwd, config)
   else console.log(helpText)
 }

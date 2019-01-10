@@ -17,7 +17,7 @@ Should minify images into multiple sizes for responsive design, transform `md =>
 Should have a simple static server for use during the development process. This will serve the built files that Blog-o-Matic deploys to the static file server, so you can preview it in the form of a website.
 
 4. **Should publish static files**
-Blog-o-Matic should be able to build and publish any combination of md, html, and minified resources to a static file server. Should keep track of file creation, and have some basic presets for publishing (scp, AWS, export to file, etc)
+Blog-o-Matic should be able to build and publish any combination of md, html, and minified resources to a static file server. Should keep track of file creation, and have some basic presets for publishing (S3, export to file, etc)
 
 More detailed example usage is found in each individual package:
 - [CLI Tool](./packages/cli)
