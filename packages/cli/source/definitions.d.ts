@@ -7,6 +7,7 @@ export interface IConfig {
   author?: string
   created: string
   defaults: IPost
+  in: string
   out: string
   publisher?: string
   s3?: IS3Publisher

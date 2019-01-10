@@ -4,7 +4,8 @@ import { IConfig } from "../../definitions"
 import { createImageOutput, createMarkdownOutput, ignore, readFile, recursivelyUpload } from "../../helpers"
 
 
-export async function s3Publisher(sourceRootPath: string, config: IConfig) {
+export async function s3Publisher(cwd: string, config: IConfig) {
+  const sourceRootPath = join(cwd, config.in || "")
   const targetPath = config.out || "/"
   if (!sourceRootPath || !config.s3) throw new Error("Incorrect configuration")
 
