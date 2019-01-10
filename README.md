@@ -5,17 +5,13 @@
 
 Blog-o-Matic 😳😳🤖😳
 ===
-> Somehow, I'm doing that thing again where I want to make something simple, and end up making a whole infrastructure...
-
-**Blog-o-Matic takes blog content and processes it for production use.** It is meant to connect your Markdown-editing software to your chosen method of distribution with as little friction as possible.
-
-Essentially, I made this so that I can have a process like this:
+> **blog content -> distribution**
+Blog-o-Matic is meant to connect your Markdown-editing software to your chosen method of distribution with as little friction as possible. I made this so that I can have this process:
 1. **Write blog post with [Byword](https://www.bywordapp.com/)**
 2. **Have that blog post sync between my devices via [Dropbox](https://www.dropbox.com)**
 3. **Have a 1-step publish process from my computer to [my blog](https://bpev.me)**
 
-Blog-o-Matic fills the 3rd step of that process. After I have written my blog post, it takes that as source, optimizes images into multiple sizes for speed and progressive loading, parses markdown into various formats, minifies and compresses where useful, etc. Blog-o-Matic also has a preview server and editor, so that you can preview it in the form of a website, or consume it locally by however you are using the blog source.
-
+Blog-o-Matic fills the 3rd step of that process. It takes my blog posts as source, optimizes images into multiple sizes for speed and progressive loading, parses markdown into various formats, minifies and compresses where useful, and uploads the results to S3.
 
 Getting Started
 ---
@@ -36,7 +32,7 @@ Now there are a few different commands we can use:
 Currently, only the basics of these commands work. As more options are added, more docs will be added.
 
 ### Publisher Guides
-- [Blog-o-Matic + Github Pages](https://github.com/ivebencrazy/blog-o-matic-fs-example)
+- [Blog-o-Matic + Github Pages](./docs/gh-pages.md)
 - [Blog-o-Matic + S3](./docs/s3.md)
 
 
