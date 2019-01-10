@@ -4,32 +4,44 @@
 
 
 Blog-o-Matic 😳😳🤖😳
-============
+===
 > Somehow, I'm doing that thing again where I want to make something simple, and end up making a whole infrastructure...
 
-Blog-o-Matic takes blog content and processes it for production use. It is meant to connect your Markdown-editing software to your chosen method of distribution with as little friction as possible.
+**Blog-o-Matic takes blog content and processes it for production use.** It is meant to connect your Markdown-editing software to your chosen method of distribution with as little friction as possible.
 
 Essentially, I made this so that I can have a process like this:
-1. Write blog post with [Byword](https://www.bywordapp.com/)
-2. Have that blog post sync between my devices via [Dropbox](https://www.dropbox.com)
-3. Have a 1-step publish process from my computer to [my blog](https://bpev.me)
+1. **Write blog post with [Byword](https://www.bywordapp.com/)**
+2. **Have that blog post sync between my devices via [Dropbox](https://www.dropbox.com)**
+3. **Have a 1-step publish process from my computer to [my blog](https://bpev.me)**
 
-Blog-o-Matic fills the 3rd step of that process. After I have written my blog post, it takes that as source, optimizes images into multiple sizes for speed and progressive loading, parses markdown into various formats, minifies and compresses where useful, etc.
-
-Blog-o-Matic also has a preview server and editor, so that you can preview it in the form of a website, or consume it locally by however you are using the blog source.
-
-We are also in the process of making `@blog-o-matic/react`, which is a React component library that can make assumptions about content, based on the fact that you're using Blog-o-Matic.
+Blog-o-Matic fills the 3rd step of that process. After I have written my blog post, it takes that as source, optimizes images into multiple sizes for speed and progressive loading, parses markdown into various formats, minifies and compresses where useful, etc. Blog-o-Matic also has a preview server and editor, so that you can preview it in the form of a website, or consume it locally by however you are using the blog source.
 
 
 Getting Started
 ---
-- [Blog-o-Matic CLI](./packages/cli)
+You'll want to download Blog-o-Matic as a global dependency. They we can initialize a blog, where you'll be prompted by a few options:
+```sh
+npm install -g blog-o-matic # Installs our `blog` bin
+blog init # Generate a blog
+```
+
+![Blog Generator](./screenshots/pages-init.png)
+
+Now there are a few different commands we can use:
+| Command | Description |
+| `blog post` | Generate Markdown for a blog post |
+| `blog preview` | Serve the blog, and open it as a local website |
+| `blog publish` | Publish the blog, using the selected publisher |
+
+Currently, only the basics of these commands work. As more options are added, more docs will be added.
+
+### Publisher Guides
 - [Blog-o-Matic + Github Pages](https://github.com/ivebencrazy/blog-o-matic-fs-example)
 - [Blog-o-Matic + S3](./docs/s3.md)
 
 
 Development
--------
+---
 We use [Yarn](https://yarnpkg.com/en/) to handle dependencies:
 ```sh
 npm install -g yarn
