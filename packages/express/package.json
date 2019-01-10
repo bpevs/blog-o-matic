@@ -1,6 +1,6 @@
 {
   "name": "@blog-o-matic/express",
-  "version": "4.2.1",
+  "version": "4.2.2",
   "description": "Express middleware for serving Blog-o-Matic blogs",
   "author": "Ben Pevsner",
   "license": "MIT",
