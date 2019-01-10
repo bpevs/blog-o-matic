@@ -25,6 +25,5 @@
     "npm-run-all": "^4.1.5",
     "react-dom": "^16.6.3",
     "typescript": "^3.2.2"
-  },
-  "gitHead": "8f83239997a11c5dce2cbee2f92a3b5a0c8b253f"
+  }
 }

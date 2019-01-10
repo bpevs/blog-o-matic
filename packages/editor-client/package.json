@@ -4,6 +4,12 @@
   "private": false,
   "main": "./index.js",
   "typings": "./index.d.ts",
+  "repository": "git+https://github.com/ivebencrazy/blog-o-matic.git",
+  "bugs": "https://github.com/ivebencrazy/blog-o-matic/issues",
+  "homepage": "https://github.com/ivebencrazy/blog-o-matic#readme",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@civility/react": "^0.1.4",
     "react": "^16.6.3",
@@ -21,6 +27,5 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ],
-  "gitHead": "8f83239997a11c5dce2cbee2f92a3b5a0c8b253f"
+  ]
 }
