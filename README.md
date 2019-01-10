@@ -5,55 +5,43 @@
 
 Blog-o-Matic 😳😳🤖😳
 ============
-Somehow, I'm doing that thing again where I want to make something simple, and end up making a whole infrastructure... Blog-o-Matic manages your blog content so you can serve your content with a static file server. Blog-o-Matic is made to solve these problems:
+> Somehow, I'm doing that thing again where I want to make something simple, and end up making a whole infrastructure...
 
-1. **Preview generated `*.md` files with any tool**
-With Blog-o-Matic-optimized content, you should be able to view and edit this content in something like [Byword](https://www.bywordapp.com/), or your favorite text editor. You should have the ability to sync the input directory over something like iCloud, Google Drive, or Dropbox to make edits, then publish changes on your computer.
+Blog-o-Matic takes blog content and processes it for production use. It is meant to connect your Markdown-editing software to your chosen method of distribution with as little friction as possible.
 
-2. **Process content into a standard format for consumption**
-Should minify images into multiple sizes for responsive design, transform `md => html | react components`, etc.
+Essentially, I made this so that I can have a process like this:
+1. Write blog post with [Byword](https://www.bywordapp.com/)
+2. Have that blog post sync between my devices via [Dropbox](https://www.dropbox.com)
+3. Have a 1-step publish process from my computer to [my blog](https://bpev.me)
 
-3. **Should have its own preview editor**
-Should have a simple static server for use during the development process. This will serve the built files that Blog-o-Matic deploys to the static file server, so you can preview it in the form of a website.
+Blog-o-Matic fills the 3rd step of that process. After I have written my blog post, it takes that as source, optimizes images into multiple sizes for speed and progressive loading, parses markdown into various formats, minifies and compresses where useful, etc.
 
-4. **Should publish static files**
-Blog-o-Matic should be able to build and publish any combination of md, html, and minified resources to a static file server. Should keep track of file creation, and have some basic presets for publishing (S3, export to file, etc)
+Blog-o-Matic also has a preview server and editor, so that you can preview it in the form of a website, or consume it locally by however you are using the blog source.
 
-More detailed example usage is found in each individual package:
-- [CLI Tool](./packages/cli)
-- [Blog Editor](./packages/editor)
-- [Express Middleware](./packages/express)
-- [React Components](./packages/react)
+We are also in the process of making `@blog-o-matic/react`, which is a React component library that can make assumptions about content, based on the fact that you're using Blog-o-Matic.
 
 
 Getting Started
 ---
+- [Blog-o-Matic CLI](./packages/cli)
 - [Blog-o-Matic + Github Pages](https://github.com/ivebencrazy/blog-o-matic-fs-example)
 - [Blog-o-Matic + S3](./docs/s3.md)
 
-Structure of a Blog
---------
-When making a blog, Blog-o-Matic uses the following format:
-```
-blog.config.yml # Configuration details
-.blogignore    # Files that shouldn't be published
-+ posts        # Markdown files
-  - {posts}.md # Any number of markdown files
-+ {static}     # Any number of directories containing static files
-```
 
 Development
 -------
-We use [Lerna]() to handle our monorepo, and [Yarn]() to handle dependencies. We can start development utilizing these.
-
+We use [Yarn](https://yarnpkg.com/en/) to handle dependencies:
 ```sh
 npm install -g yarn
 yarn install
 yarn start
 ```
 
-Blog-o-Matic should now be linked as a global
-
+Blog-o-Matic should now be linked as a global npm binary:
 ```sh
 blog init
 ```
+
+Blog-o-Matic is a monorepo, managed via [Lerna](https://lernajs.io/). The main `blog-o-matic` CLI tool export is essentially just an alias of: [@blog-o-matic/cli](./packages/cli). So most work is done in that cli package.
+
+I'm mostly focusing on the cli tool at the moment, but if you want to contribute, let me know what piece of Blog-o-Matic you're interested in, and I can start making issues that are a little more organized that you can tackle.
