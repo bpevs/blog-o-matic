@@ -1,6 +1,6 @@
 {
   "name": "@blog-o-matic/editor-client",
-  "version": "4.2.2",
+  "version": "4.2.3",
   "private": false,
   "main": "./index.js",
   "typings": "./index.d.ts",
