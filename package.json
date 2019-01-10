@@ -22,14 +22,14 @@
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
     "cleanup": "lerna clean --yes && rm -rf ./node_modules",
-    "default": "lerna bootstrap --ci && npm run build && npm run test:lint && npm run test:ci",
+    "default": "lerna bootstrap --ci && yarn build && yarn test:lint && yarn test:ci",
     "lerna": "lerna",
-    "prepublishOnly": "npm install && npm test && npm run build",
+    "prepublishOnly": "yarn && yarn test && yarn run build",
     "prestart": "yarn link",
     "publish": "lerna publish",
     "start": "lerna run build && lerna run start --parallel",
     "test": "run-p --aggregate-output test:lint test:unit",
-    "test:coverage": "npm run test:unit -- --coverage",
+    "test:coverage": "yarn test:unit -- --coverage",
     "test:ci": "jest --ci --maxWorkers=1",
     "test:lint": "tslint --project ./tsconfig.json",
     "test:unit": "jest --color",
@@ -68,7 +68,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run test:lint",
+      "pre-commit": "yarn test:lint",
       "pre-push": "npm-run-all test:lint build"
     }
   },

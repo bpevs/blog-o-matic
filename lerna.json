@@ -12,8 +12,6 @@
     "packages/cli",
     "packages/editor",
     "packages/editor-client",
-    "packages/editor-server",
-    "packages/example-fs",
     "packages/react"
   ]
 }
