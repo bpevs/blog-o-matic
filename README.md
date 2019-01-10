@@ -26,9 +26,13 @@ More detailed example usage is found in each individual package:
 - [React Components](./packages/react)
 
 
+Getting Started
+---
+- [Blog-o-Matic + Github Pages](https://github.com/ivebencrazy/blog-o-matic-fs-example)
+- [Blog-o-Matic + S3](./docs/s3.md)
+
 Structure of a Blog
 --------
-
 When making a blog, Blog-o-Matic uses the following format:
 ```
 blog.config.yml # Configuration details
@@ -37,11 +41,6 @@ blog.config.yml # Configuration details
   - {posts}.md # Any number of markdown files
 + {static}     # Any number of directories containing static files
 ```
-
-
-Examples
---------
-- [Example of Blog-o-Matic with Github Pages](https://github.com/ivebencrazy/blog-o-matic-fs-example)
 
 Development
 -------
