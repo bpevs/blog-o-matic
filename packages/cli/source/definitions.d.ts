@@ -17,11 +17,11 @@ export interface IConfig {
 }
 
 export interface IPost {
+  title: string
+  permalink: string
   author?: string
   created?: string
-  permalink?: string
   updated?: string
   tags?: string[]
-  title?: string
   [ key: string ]: any
 }

@@ -36,7 +36,13 @@ function start(command = argv._[0]) {
 
   if (command === "post") postGenerator()
   else if (command === "preview") preview(cwd)
-  else if (command === "publish" && publisher === "s3") s3Publisher(cwd, config)
-  else if (command === "publish" && publisher === "fs") fsPublisher(cwd, config)
-  else console.log(helpText)
+  else if (command === "publish") {
+    if (!argv.s3 && !argv.fs) {
+      if (publisher === "s3") s3Publisher(cwd, config)
+      if (publisher === "fs") fsPublisher(cwd, config)
+    } else {
+      if (argv.s3) s3Publisher(cwd, config)
+      if (argv.fs) fsPublisher(cwd, config)
+    }
+  } else console.log(helpText)
 }

@@ -1,6 +1,6 @@
 const AWS = require("aws-sdk")
 import { join, relative } from "path"
-import { IConfig } from "../../definitions"
+import { IConfig, IPost } from "../../definitions"
 import { createImageOutput, createMarkdownOutput, ignore, readFile, recursivelyUpload } from "../../helpers"
 
 
@@ -12,11 +12,13 @@ export async function s3Publisher(cwd: string, config: IConfig) {
   AWS.config.update(credsFromCSV(await readFile(config.s3.creds, "utf-8")))
 
   const s3 = new AWS.S3()
+  const indexList: IPost[] = []
   const test = ignore(await readFile(join(sourceRootPath, ".blogignore"), "utf-8"))
 
-  console.log("Uploading blog...")
+  console.log("Uploading blog to S3...")
   await recursivelyUpload(sourceRootPath, targetPath, writeFiles)
-  console.log("DONE!!!")
+  await uploadToS3(join(targetPath, "index.json"), JSON.stringify(indexList))
+  console.log("DONE uploading to S3!!!")
 
   async function writeFiles(sourcePath: string, targetPath: string) {
     const writePath = targetPath.substring(0, targetPath.lastIndexOf("/"))
@@ -30,10 +32,17 @@ export async function s3Publisher(cwd: string, config: IConfig) {
         const unparsedText = await readFile(sourcePath, "utf-8")
         const [ frontmatter, md, html ] = await createMarkdownOutput(unparsedText)
 
+        if (!frontmatter) return uploadToS3(join(writePath, `${name}.md`), md)
+
+        const permalink = join(writePath, frontmatter.permalink)
+        frontmatter.permalink = permalink
+
+        if (frontmatter.published && !frontmatter.private) indexList.push(frontmatter)
+
         return Promise.all([
-          uploadToS3(join(writePath, name, "index.json"), JSON.stringify(frontmatter)),
-          uploadToS3(join(writePath, name, "index.md"), md),
-          uploadToS3(join(writePath, name, "index.html"), html),
+          uploadToS3(join(writePath, permalink, "index.json"), JSON.stringify(frontmatter)),
+          uploadToS3(join(writePath, permalink, "index.md"), md),
+          uploadToS3(join(writePath, permalink, "index.html"), html),
         ])
 
       case "jpeg":

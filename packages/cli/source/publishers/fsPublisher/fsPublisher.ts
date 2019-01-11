@@ -1,5 +1,5 @@
 import { join, relative, resolve } from "path"
-import { IConfig } from "../../definitions"
+import { IConfig, IPost } from "../../definitions"
 import {
   createDir,
   createImageOutput,
@@ -23,14 +23,21 @@ export async function fsPublisher(cwd: string, config: IConfig) {
   const targetPath = resolve(sourceRootPath, config.out || "./build")
   if (!sourceRootPath || !targetPath) throw new Error("Incorrect configuration")
 
-  const indexList: string[] = []
-  const indexFilePath = join(targetPath, "index.html")
+  const indexList: IPost[] = []
   const test = ignore(await readFile(join(sourceRootPath, ".blogignore"), "utf-8"))
 
-  console.log("Uploading blog...")
+  console.log("Uploading blog to fs...")
   await recursivelyUpload(sourceRootPath, targetPath, writeFiles)
-  await writeFile(indexFilePath, remarkable.render(indexList.join("\n")))
-  console.log("DONE!!!")
+  const indexMD: string = indexList
+    .map(({ permalink, title }: IPost) => `- [${title}](${join("posts", permalink)})`)
+    .join("\n")
+
+  await Promise.all([
+    writeFile(join(targetPath, "index.json"), JSON.stringify(indexList)),
+    await writeFile(join(targetPath, "index.html"), remarkable.render(indexMD)),
+  ])
+
+  console.log("DONE uploading to fs!!!")
 
 
   // For each source file, build the correct files, and write them to target path
@@ -48,12 +55,14 @@ export async function fsPublisher(cwd: string, config: IConfig) {
         // Not blog post
         if (!frontmatter) return writeFile(join(writePath, `${name}.${extension}`), md)
 
-        indexList.push(`- [${frontmatter.title}](${join("posts", frontmatter.permalink)})`)
+        const permalink = join(writePath, frontmatter.permalink)
+        frontmatter.permalink = permalink
+        indexList.push(frontmatter)
 
         return Promise.all([
-          writeFile(join(writePath, name, "index.md"), md),
-          writeFile(join(writePath, name, "index.html"), html),
-          writeFile(join(writePath, name, "index.json"), JSON.stringify(frontmatter)),
+          writeFile(join(writePath, permalink, "index.md"), md),
+          writeFile(join(writePath, permalink, "index.html"), html),
+          writeFile(join(writePath, permalink, "index.json"), JSON.stringify(frontmatter)),
         ])
       } catch (error) {
         console.warn("Failed to write markdown", error)

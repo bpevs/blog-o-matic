@@ -1,4 +1,5 @@
 import { load } from "js-yaml"
+import { IPost } from "../../definitions"
 const Remarkable = require("remarkable")
 
 
@@ -10,7 +11,7 @@ export const remarkable = new Remarkable("commonmark", {
 
 export async function createMarkdownOutput(
   text: string,
-): Promise<[ { [key: string]: any } | null, string, string ]> {
+): Promise<[ IPost | null, string, string ]> {
   const parsed = /(?:^---\n)([\s\S]*)(?:---\n)(([\s\S])*)/gm.exec(text) || []
   const hasFrontmatter = parsed.length
 
