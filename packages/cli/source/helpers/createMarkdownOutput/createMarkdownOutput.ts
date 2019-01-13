@@ -16,9 +16,9 @@ export async function createMarkdownOutput(
   const hasFrontmatter = parsed.length
 
   const md = (hasFrontmatter ? parsed[2] : text)
-    .replace(/\.jpeg/g, ".medium.jpeg")
-    .replace(/\.jpg/g, ".medium.jpg")
-    .replace(/\.png/g, ".medium.png")
+    .replace(/\.jpeg/g, ".large.jpeg")
+    .replace(/\.jpg/g, ".large.jpg")
+    .replace(/\.png/g, ".large.png")
     .replace(/\]\(\.\.\//g, "](../../")
 
   const html = remarkable.render(md)
