@@ -29,7 +29,7 @@ export async function fsPublisher(cwd: string, config: IConfig) {
   console.log("Uploading blog to fs...")
   await recursivelyUpload(sourceRootPath, targetPath, writeFiles)
   const indexMD: string = indexList
-    .map(({ permalink, title }: IPost) => `- [${title}](${join("posts", permalink)})`)
+    .map(({ permalink, title }: IPost) => `- [${title}](${permalink})`)
     .join("\n")
 
   await Promise.all([

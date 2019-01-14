@@ -14,6 +14,7 @@ export async function s3Publisher(cwd: string, config: IConfig) {
   const s3 = new AWS.S3()
   const indexList: IPost[] = []
   const test = ignore(await readFile(join(sourceRootPath, ".blogignore"), "utf-8"))
+  const existing: string[] = await listExistingS3Entities()
 
   console.log("Uploading blog to S3...")
   await recursivelyUpload(sourceRootPath, targetPath, writeFiles)
@@ -34,15 +35,12 @@ export async function s3Publisher(cwd: string, config: IConfig) {
 
         if (!frontmatter) return uploadToS3(join(writePath, `${name}.md`), md)
 
-        const permalink = join(writePath, frontmatter.permalink)
-        frontmatter.permalink = permalink
-
         if (frontmatter.published && !frontmatter.private) indexList.push(frontmatter)
 
         return Promise.all([
-          uploadToS3(join(writePath, permalink, "index.json"), JSON.stringify(frontmatter)),
-          uploadToS3(join(writePath, permalink, "index.md"), md),
-          uploadToS3(join(writePath, permalink, "index.html"), html),
+          uploadToS3(join(writePath, frontmatter.permalink, "index.json"), JSON.stringify(frontmatter)),
+          uploadToS3(join(writePath, frontmatter.permalink, "index.md"), md),
+          uploadToS3(join(writePath, frontmatter.permalink, "index.html"), html),
         ])
 
       case "jpeg":
@@ -63,20 +61,39 @@ export async function s3Publisher(cwd: string, config: IConfig) {
     }
   }
 
-  function uploadToS3(targetPath: string, content: string) {
+  function listExistingS3Entities(): Promise<string[]> {
     return new Promise(resolve => {
       if (!config.s3) throw new Error("s3 is not set up")
 
-      return s3.putObject({
-        ACL: "public-read",
-        Body: content,
+      s3.listObjects({
         Bucket: config.s3.bucket,
-        Key: targetPath.replace(/^\//, ""),
+        Prefix: "images",
       }, (error: any, meta: any) => {
-        if (error) console.error(error)
-        else resolve(meta)
+        if (error) throw new Error(error)
+        resolve(meta.Contents.map(({ Key }: any) => Key))
       })
     })
+  }
+
+  function uploadToS3(targetPath: string, content: string) {
+    const key = targetPath.replace(/^\//, "")
+
+    if (existing.indexOf(key) === -1) {
+      return new Promise(resolve => {
+        if (!config.s3) throw new Error("s3 is not set up")
+        return s3.putObject({
+          ACL: "public-read",
+          Body: content,
+          Bucket: config.s3.bucket,
+          Key: key,
+        }, (error: any, meta: any) => {
+          if (error) console.error(error)
+          else resolve(meta)
+        })
+      })
+    }
+
+    return Promise.resolve({})
   }
 }
 
