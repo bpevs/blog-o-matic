@@ -29,3 +29,16 @@ We should be able to convert a non-post markdown file into a post:
 ```sh
 blog post ./my-post.md
 ```
+
+## Publish Flow
+### Compile
+This should be publisher-agnostic; this is more like the compilation step.
+Input: Local directory location
+- Take note of all the locations of local files.
+- Do all transformations.
+Ouput: Array of upload objects (File data + Relative file location strings)
+
+### Publisher
+Input: Remote info, publish array
+- Run validation on each upload object.
+- Complete actual upload of file
