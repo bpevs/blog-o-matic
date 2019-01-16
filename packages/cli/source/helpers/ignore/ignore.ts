@@ -5,7 +5,6 @@
 
 import { makeRe } from "minimatch"
 
-
 const falsy = () => false
 const toFunction = (regexp: RegExp) => (input: string) => regexp.test(input)
 const or = (a: any, b: any) => (a === falsy) ? b : (input: string) => a(input) || b(input)

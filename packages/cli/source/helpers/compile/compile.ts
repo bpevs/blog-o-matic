@@ -18,7 +18,7 @@ export interface IUploadEntity {
 
 /**
  * Collect locals files and prep for upload
- * - Create an index file that points2 blog posts
+ * - Create an index file that points to blog posts
  * - Make json, md, and html files to describe each post
  * - Optimize images
  */
@@ -47,7 +47,6 @@ export async function compile(cwd: string, config: IConfig): Promise<IUploadEnti
   console.log("Collected Files")
 
   return filesToUpload
-
 
   // For each source file, build the correct files, and write them to target path
   async function writeFiles(sourcePath: string, targetPath: string) {
