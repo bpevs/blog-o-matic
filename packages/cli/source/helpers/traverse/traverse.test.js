@@ -1,5 +1,5 @@
 jest.mock("../fsWrappers/fsWrappers")
-import { recursivelyUpload } from "./recursivelyUpload"
+import { traverse } from "./traverse"
 import { isFile, readdir } from "../fsWrappers/fsWrappers"
 
 
@@ -13,7 +13,7 @@ beforeEach(() => jest.clearAllMocks())
 
 
 test("Should upload file", async () => {
-  await recursivelyUpload(sourcePath, targetPath, uploadFile, uploadDir)
+  await traverse(sourcePath, targetPath, uploadFile, uploadDir)
 
   expect(uploadDir).toBeCalledTimes(0)
   expect(uploadFile).toBeCalledTimes(1)
@@ -22,7 +22,7 @@ test("Should upload file", async () => {
 test("Should upload dir of files", async () => {
   isFile.mockResolvedValueOnce(false)
 
-  await recursivelyUpload(sourcePath, targetPath, uploadFile, uploadDir)
+  await traverse(sourcePath, targetPath, uploadFile, uploadDir)
 
   expect(uploadDir).toBeCalledTimes(1)
   expect(uploadDir.mock.calls[0][0]).toBe(sourcePath)
@@ -42,7 +42,7 @@ test("Should upload nested dir", async () => {
     .mockResolvedValueOnce(false)
 
 
-  await recursivelyUpload(sourcePath, targetPath, uploadFile, uploadDir)
+  await traverse(sourcePath, targetPath, uploadFile, uploadDir)
 
   expect(uploadDir).toBeCalledTimes(2)
   const [ dir1, dir2 ] = uploadDir.mock.calls
