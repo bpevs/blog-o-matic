@@ -1,4 +1,5 @@
 const AWS = require("aws-sdk")
+import { homedir, type } from "os"
 import { IConfig } from "../../definitions"
 import { compile, IUploadEntity, readFile } from "../../helpers"
 
@@ -8,10 +9,12 @@ export async function s3Publisher(cwd: string, config: IConfig) {
 
   const { isNewContent, checkBucketContents, upload } = new S3(config)
 
-  console.log("Uploading blog to S3...")
-
   const files = await compile(cwd, config)
-  await checkBucketContents() // Check for pre-existing files
+
+  console.log("Checking for pre-existing files...")
+  await checkBucketContents()
+
+  console.log("Uploading blog to S3...")
   await Promise.all(files.filter(isNewContent).map(upload))
 
   console.log("DONE uploading to S3!!!")
@@ -22,13 +25,15 @@ export async function s3Publisher(cwd: string, config: IConfig) {
  */
 class S3 {
   private readonly config: IConfig
+  private readonly creds: Promise<any>
   private readonly instance: any
   private existing: string[]
 
   constructor(config: IConfig) {
     this.instance = new AWS.S3()
     this.config = config
-    this.updateCreds()
+    this.creds = this.updateCreds()
+      .then((creds) => AWS.config.update(creds))
   }
 
   public isNewContent = ({ path }: IUploadEntity): boolean => {
@@ -38,15 +43,17 @@ class S3 {
 
   public checkBucketContents = (): Promise<string[]> => {
     return new Promise(resolve => {
-      if (!this.config.s3) throw new Error("s3 is not set up")
+      this.creds.then(() => {
+        if (!this.config.s3) throw new Error("s3 is not set up")
 
-      this.instance.listObjects({
-        Bucket: this.config.s3.bucket,
-        Prefix: "images",
-      }, (error: any, meta: any) => {
-        if (error) throw new Error(error)
-        this.existing = meta.Contents.map(({ Key }: any) => Key)
-        resolve(this.existing)
+        this.instance.listObjects({
+          Bucket: this.config.s3.bucket,
+          Prefix: "images",
+        }, (error: any, meta: any) => {
+          if (error) throw new Error(error)
+          this.existing = meta.Contents.map(({ Key }: any) => Key)
+          resolve(this.existing)
+        })
       })
     })
   }
@@ -71,12 +78,15 @@ class S3 {
   private readonly updateCreds = async () => {
     if (!this.config.s3) return
 
-    const csv = await readFile(this.config.s3.creds, "utf-8")
-    const [ AWSAccessKeyId, AWSSecretKey ] = csv.split("\n")
+    const credsLocation = type() === "Darwin"
+      ? this.config.s3.creds.replace("~", homedir())
+      : this.config.s3.creds
 
-    AWS.config.update({
+    const csv = await readFile(credsLocation, "utf-8")
+    const [ AWSAccessKeyId, AWSSecretKey ] = csv.split("\n")
+    return {
       accessKeyId: AWSAccessKeyId.split("=")[1].trim(),
       secretAccessKey: AWSSecretKey.split("=")[1].trim(),
-    })
+    }
   }
 }
