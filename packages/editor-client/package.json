@@ -4,9 +4,6 @@
   "private": false,
   "main": "./index.js",
   "typings": "./index.d.ts",
-  "repository": "git+https://github.com/ivebencrazy/blog-o-matic.git",
-  "bugs": "https://github.com/ivebencrazy/blog-o-matic/issues",
-  "homepage": "https://github.com/ivebencrazy/blog-o-matic#readme",
   "publishConfig": {
     "access": "public"
   },

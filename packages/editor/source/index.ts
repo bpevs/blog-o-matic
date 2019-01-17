@@ -11,7 +11,6 @@ import * as express from "express"
 import * as fs from "fs"
 import { resolve } from "path"
 
-const opn = require("opn")
 const readdir = promisify(fs.readdir)
 
 export function startServer(previewDir: string) {
@@ -30,6 +29,6 @@ export function startServer(previewDir: string) {
 
   server.listen(PORT, () => {
     console.log("listening on port", PORT)
-    opn(`http://localhost:${PORT}`)
+    // opn(`http://localhost:${PORT}`)
   })
 }
