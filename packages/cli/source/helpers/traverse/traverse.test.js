@@ -5,33 +5,13 @@ import { isFile, readdir } from "../fsWrappers/fsWrappers"
 
 const sourcePath = "blog/"
 const targetPath = "/"
-let uploadDir = jest.fn()
 let uploadFile = jest.fn()
 
 
-beforeEach(() => jest.clearAllMocks())
-
-
 test("Should upload file", async () => {
-  await traverse(sourcePath, targetPath, uploadFile, uploadDir)
+  await traverse(sourcePath, targetPath, uploadFile)
 
-  expect(uploadDir).toBeCalledTimes(0)
   expect(uploadFile).toBeCalledTimes(1)
-})
-
-test("Should upload dir of files", async () => {
-  isFile.mockResolvedValueOnce(false)
-
-  await traverse(sourcePath, targetPath, uploadFile, uploadDir)
-
-  expect(uploadDir).toBeCalledTimes(1)
-  expect(uploadDir.mock.calls[0][0]).toBe(sourcePath)
-  expect(uploadDir.mock.calls[0][1]).toBe(targetPath)
-
-  expect(uploadFile).toBeCalledTimes(3)
-  expect(uploadFile.mock.calls[0][0]).toBe("blog/file1")
-  expect(uploadFile.mock.calls[1][0]).toBe("blog/file2")
-  expect(uploadFile.mock.calls[2][0]).toBe("blog/file3")
 })
 
 test("Should upload nested dir", async () => {
@@ -42,14 +22,7 @@ test("Should upload nested dir", async () => {
     .mockResolvedValueOnce(false)
 
 
-  await traverse(sourcePath, targetPath, uploadFile, uploadDir)
-
-  expect(uploadDir).toBeCalledTimes(2)
-  const [ dir1, dir2 ] = uploadDir.mock.calls
-  expect(dir1[0]).toBe(sourcePath)
-  expect(dir1[1]).toBe(targetPath)
-  expect(dir2[0]).toBe(sourcePath + "item2")
-  expect(dir2[1]).toBe(targetPath + "item2")
+  await traverse(sourcePath, targetPath, uploadFile)
 
   expect(uploadFile).toBeCalledTimes(5)
   const [ file1, file2, file3, file4, file5 ] = uploadFile.mock.calls

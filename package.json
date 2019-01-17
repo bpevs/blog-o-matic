@@ -73,6 +73,7 @@
     }
   },
   "jest": {
+    "clearMocks": true,
     "collectCoverageFrom": [
       "**/packages/**/*.ts"
     ],

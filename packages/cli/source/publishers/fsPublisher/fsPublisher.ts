@@ -1,4 +1,3 @@
-import { join, resolve } from "path"
 import { IConfig } from "../../definitions"
 import {
   compile,
@@ -14,13 +13,9 @@ import {
  * - Optimize images
  */
 export async function fsPublisher(cwd: string, config: IConfig) {
-  const sourceRootPath = join(cwd, config.in || "")
-  const targetPath = resolve(sourceRootPath, config.out || "./build")
-  if (!sourceRootPath || !targetPath) throw new Error("Incorrect configuration")
-
+  const filesToUpload = await compile(cwd, config)
   console.log("Uploading blog to fs...")
 
-  const filesToUpload = await compile(cwd, config)
   await Promise.all(
     filesToUpload.map(({ content, path }: IUploadEntity) => {
       return writeFile(path, content)

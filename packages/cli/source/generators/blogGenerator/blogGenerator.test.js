@@ -7,7 +7,6 @@ import { load } from "js-yaml"
 
 
 beforeAll(() => { console.log = jest.fn() })
-beforeEach(() => jest.clearAllMocks())
 
 test("Should call writeFile", async () => {
   await blogGenerator()

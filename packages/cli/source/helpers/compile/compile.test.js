@@ -7,7 +7,16 @@ jest.mock("../traverse/traverse")
 
 import { compile } from "./compile"
 
-test.skip("Should return a list of upload entities", () => {})
+beforeAll(() => console.log = jest.fn())
+
+
+test("Should return a list of upload entities", async () => {
+  expect(Array.isArray(await compile("./", {}))).toBe(true)
+  expect(console.log).toBeCalledWith("Collecting files to upload...")
+  expect(console.log).toBeCalledWith("Done Collecting Files")
+})
+
+
 test.skip("Should transform blog md files", () => {})
 test.skip("Should transform image files", () => {})
 test.skip("Should relay other files", () => {})

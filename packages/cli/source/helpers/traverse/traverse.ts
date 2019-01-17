@@ -13,12 +13,11 @@ import { isFile, readdir } from "../fsWrappers/fsWrappers"
 export async function traverse(
   sourcePath: string,
   targetPath: string,
-  uploadFile: (source: string, target: string) => Promise<any>,
-  uploadDir?: (source: string, target: string) => Promise<any>,
+  uploadFile: (source: string, target: string, rootPath?: string) => Promise<any>,
+  rootPath?: string,
 ) {
-  if (await isFile(sourcePath)) return uploadFile(sourcePath, targetPath)
+  if (await isFile(sourcePath)) return uploadFile(sourcePath, targetPath, rootPath)
 
-  if (uploadDir) await uploadDir(sourcePath, targetPath)
   const dirContents = await readdir(sourcePath)
 
   return Promise.all(dirContents.map((itemName: string) => {
@@ -26,7 +25,7 @@ export async function traverse(
       normalize(join(sourcePath, itemName)),
       normalize(join(targetPath, itemName)),
       uploadFile,
-      uploadDir,
+      rootPath || sourcePath,
     )
   }))
 }

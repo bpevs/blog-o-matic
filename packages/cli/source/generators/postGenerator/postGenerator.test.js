@@ -7,7 +7,6 @@ import { postGenerator } from "./postGenerator"
 import { writeFile } from "fs"
 
 beforeAll(() => { console.log = jest.fn() })
-beforeEach(() => jest.clearAllMocks())
 
 test("Should call writeFile", async () => {
   advanceTo(new Date(2018, 5, 27, 0, 0, 0))

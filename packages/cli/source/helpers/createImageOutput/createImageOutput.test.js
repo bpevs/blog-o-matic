@@ -3,8 +3,6 @@ import { createImageOutput } from "./createImageOutput"
 const sharp = require("sharp")
 
 
-beforeEach(() => jest.clearAllMocks())
-
 test("Should create image output for jpg", async () => {
   const processed = await createImageOutput("./myImage.jpg")
   expect(sharp.sharpInstance.resize).toBeCalledTimes(8)

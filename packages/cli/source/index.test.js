@@ -13,7 +13,6 @@ import { fsPublisher, s3Publisher } from "./publishers"
 
 
 beforeAll(() => { console.log = jest.fn() })
-beforeEach(() => jest.clearAllMocks())
 
 
 test("Should export public API", () => {
