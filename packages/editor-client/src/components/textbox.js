@@ -1,8 +1,10 @@
+import * as elements from "@blog-o-matic/react"
 import { Only } from "@civility/react"
 import marksy from "marksy"
 import React, { Component, createElement } from "react"
+import { fetchPost, fetchPosts } from "../service/fetchPosts"
 
-const compile = marksy({ createElement })
+const compile = marksy({ createElement, elements })
 
 
 export default class MyEditor extends Component {
@@ -12,25 +14,21 @@ export default class MyEditor extends Component {
       content: null,
       list: null,
     }
+
     this.onChange = editorState => this.setState({ editorState })
   }
 
   async componentDidMount() {
     const path = window.location.pathname
     if (path === "/") {
-      const list = await (await fetch("/posts")).json()
-      this.setState({ list })
+      this.setState({ list: await fetchPosts() })
+    } else {
+      const post = await fetchPost(path)
+      const stuff = post.split("---")
+      stuff.shift()
+      stuff.shift()
+      this.setState({ content: stuff.join("---") })
     }
-
-    fetch("/blog" + window.location.pathname + ".md")
-      .then(res => res.text())
-      .then(md => {
-        const stuff = md.split("---")
-        stuff.shift()
-        stuff.shift()
-        this.setState({ content: stuff.join("---") })
-      })
-      .catch(() => console.log("no post"))
   }
 
   render() {
@@ -39,12 +37,12 @@ export default class MyEditor extends Component {
       ? compile(this.state.content, null, {}).tree
       : null
 
-    const list = this.state.list && this.state.list.length
-      ? this.state.list.map(item => {
-        const name = item.substring(0, item.length - 3)
-        return <li><a href={`/${name}`}>{name}</a></li>
-      })
-      : null
+    const list = (this.state.list || [])
+      .map(({ permalink }) => (
+        <li key={permalink}>
+          <a href={`/${permalink}`}>{permalink}</a>
+        </li>
+      ))
 
     return (
       <div style={style} className={className}>

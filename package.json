@@ -24,7 +24,7 @@
     "cleanup": "lerna clean --yes && rm -rf ./node_modules",
     "default": "lerna bootstrap --ci && yarn build && yarn test:lint && yarn test:ci",
     "lerna": "lerna",
-    "prepublishOnly": "yarn && yarn test && yarn run build",
+    "prepublishOnly": "yarn && yarn test && yarn build",
     "prestart": "yarn link",
     "publish": "lerna publish",
     "start": "lerna run build && lerna run start --parallel",

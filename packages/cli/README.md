@@ -31,8 +31,11 @@ blog post ./my-post.md
 ```
 
 ## Publish Flow
-### Compile
-This should be publisher-agnostic; this is more like the compilation step.
+### Generate Blog
+The important thing to take note of is generation of blog.config.yml
+
+### Compiler
+This should be publisher-agnostic
 Input: Local directory location
 - Take note of all the locations of local files.
 - Do all transformations.

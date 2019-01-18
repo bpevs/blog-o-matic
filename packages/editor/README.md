@@ -10,3 +10,21 @@ Usage
 <!-- Client might just export a whole site script, tbh -->
 <script src="node_modules/@blog-o-matic/editor/client"></script>
 ```
+
+Markdown Spec
+===
+All Blog-o-Matic markdown is valid [Github Markdown](https://github.github.com/gfm/).
+
+Blog-o-Matic also introduces custom entity groups, which will be described in this document. These entities are additive to Github Markdown (for example, a list of images will turn into an image group).
+
+Blog-o-Matic Entities
+---
+- Image Group: Responsive groups of images
+- Playlist: Read a playlist file as a playlist.
+- Music: Read a music link as a playable sound
+
+Styled Entities
+---
+Read url params from content, adjusting behavior as necessary.
+- Styled Image: Progressive loading, image size control, parallaxing/animation
+- Styled Playlist: Show a playable playlist, be able to play simultaneous, etc.
