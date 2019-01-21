@@ -22,10 +22,10 @@ const compile = marksy({
 
 
 export interface IBlogProps {
-  className: string
+  className?: string
   id?: string
   root: string
-  style: any
+  style?: any
 }
 
 export interface IBlogState {
@@ -63,11 +63,11 @@ export class Blog extends React.Component<IBlogProps, IBlogState> {
   }
 
   public render() {
-    const { className, style } = this.props
+    const { className, root, style } = this.props
     const { list = [], post } = this.state
 
     const content = post.text
-      ? compile(post.text, null, {}).tree
+      ? compile(post.text, null, { root }).tree
       : null
 
     const listComponents = list.map(({ permalink }: any) => (

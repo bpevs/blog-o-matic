@@ -7,12 +7,9 @@ export type ImageProps = React.ImgHTMLAttributes<any> & {
 }
 
 export function Image({ context, ...props }: ImageProps) {
-  const post = get(context, [ "post" ])
-  if (!post || (context.type !== "blog")) {
-    return <img {...props} />
-  }
+  const root = get(context, [ "root" ])
 
-  const src = (post.contentRoot + "/" + props.src)
+  const src = ((root || "") + "/" + props.src)
 
   return <img
     {...props}
