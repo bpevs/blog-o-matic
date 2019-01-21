@@ -1,12 +1,17 @@
+import { Blog } from "@blog-o-matic/react"
+import "highlight.js/styles/ocean.css"
 import React from "react"
 import "./App.css"
-import Textbox from "./components/textbox"
 
 
 export default function() {
   return (
     <div className="App">
-      <Textbox />
+      <Blog
+        dev
+        root="/"
+        id={window.location.pathname.substring(1)}
+      />
     </div>
   )
 }

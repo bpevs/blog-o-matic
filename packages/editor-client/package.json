@@ -2,6 +2,7 @@
   "name": "@blog-o-matic/editor-client",
   "version": "4.2.3",
   "private": false,
+  "license": "MIT",
   "main": "./index.js",
   "typings": "./index.d.ts",
   "publishConfig": {

@@ -17,11 +17,24 @@ import { ProgressiveImage } from "@blog-o-matic/react"
 
 ### Context
 ```jsx
-import { BlogContext, Post } from "@blog-o-matic/react"
+import { Blog, Post } from "@blog-o-matic/react"
 
-<BlogContext root="https://static.bpev.me">
+<Blog root="https://static.bpev.me">
   {/* Images already have width/height available via post metadata + context */}
   {/* Image lists are combined into tile */}
   <Post name="my-blog-post" />
-</BlogContext>
+</Blog>
+```
+
+Usage
+---
+Blog-o-Matic depends on use of [Civility]() (and by extension, [Basscss](http://basscss.com/)) styles. It uses [Highlight.js]() for code snippets.
+
+```css
+@import "@civility/stylesheets/dist/civility.css";
+@import "highlight.js/styles/ocean.css";
+```
+
+```jsx
+
 ```

@@ -1,3 +1,23 @@
+declare module "highlight.js/lib/highlight" {
+  const value: any
+  export default value
+}
+
+declare module "highlight.js/lib/languages/javascript" {
+  const value: any
+  export default value
+}
+
+declare module "marksy" {
+  const value: any
+  export default value
+}
+
+declare module "marksy/components" {
+  const value: any
+  export default value
+}
+
 declare module "yeoman-environment" {
   const value: any
   export default value
