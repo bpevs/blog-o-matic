@@ -18,3 +18,19 @@
   width: 90%;
   padding: 10px 30px 10px 30px;
 }
+
+.article pre {
+  background-color: rgb(44, 48, 58);
+  border-radius: 6px;
+  color: rgba(256, 256, 256, 0.9);
+  line-height: 1.6;
+  overflow: scroll;
+  padding: 2em;
+}
+
+.article code {
+  background-color: rgb(44, 48, 58);
+  border-radius: 3px;
+  color: rgba(256, 256, 256, 0.9);
+  padding: 0.2em 0.4em 0.2em 0.4em;
+}

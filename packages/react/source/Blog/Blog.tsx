@@ -1,6 +1,6 @@
 import { Only } from "@civility/react"
 import { classNames as cx } from "@civility/utilities"
-import hljs from "highlight.js"
+import { highlight } from "highlight.js"
 import marksy from "marksy"
 import * as React from "react"
 import { Media } from "../Media/Media"
@@ -14,7 +14,7 @@ const compile = marksy({
   },
 
   highlight(language: any, code: any) {
-    return hljs.highlight(language, code).value
+    return highlight(language, code).value
   },
 })
 

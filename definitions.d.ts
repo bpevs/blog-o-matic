@@ -1,10 +1,6 @@
-declare module "highlight.js/lib/highlight" {
+declare module "highlight.js" {
   const value: any
-  export default value
-}
-
-declare module "highlight.js/lib/languages/javascript" {
-  const value: any
+  export const highlight: (...args: any[]) => any
   export default value
 }
 
