@@ -1,4 +1,4 @@
-import { get } from "@civility/utilities"
+import { classNames as cx, get } from "@civility/utilities"
 import * as React from "react"
 
 
@@ -16,7 +16,7 @@ export function Image({ context, ...props }: ImageProps) {
 
   return <img
     {...props}
-    className={ "col-12 " + (props.className || "") }
+    className={ cx("col-12", "image", props.className) }
     src={src}
   />
 }

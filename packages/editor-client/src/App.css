@@ -34,3 +34,21 @@
   color: rgba(256, 256, 256, 0.9);
   padding: 0.2em 0.4em 0.2em 0.4em;
 }
+
+.image-list {
+  list-style: none;
+}
+
+.image-list li {
+  display: inline-block;
+  width: 40%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  max-height: 300px;
+  text-align: center;
+}
+
+.image-list img {
+  height: 300px;
+}

@@ -3,6 +3,7 @@ import { classNames as cx } from "@civility/utilities"
 import { highlight } from "highlight.js"
 import marksy from "marksy"
 import * as React from "react"
+import { List } from "../List/List"
 import { Media } from "../Media/Media"
 
 
@@ -11,6 +12,7 @@ const compile = marksy({
   createElement: React.createElement,
   elements: {
     img: Media,
+    ul: List,
   },
 
   highlight(language: any, code: any) {
