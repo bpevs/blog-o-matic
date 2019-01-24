@@ -7,9 +7,8 @@ export type ImageProps = React.ImgHTMLAttributes<any> & {
 }
 
 export function Image({ context, ...props }: ImageProps) {
-  const root = get(context, [ "root" ])
-
-  const src = ((root || "") + "/" + props.src)
+  const root = get(context, [ "root" ]) || ""
+  const src = root + props.src
 
   return <img
     {...props}

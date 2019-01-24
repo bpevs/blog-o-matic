@@ -5,6 +5,7 @@ import marksy from "marksy"
 import * as React from "react"
 import { List } from "../List/List"
 import { Media } from "../Media/Media"
+import { Posts } from "../Posts/Posts"
 
 
 // Map markdown entities to React Components
@@ -70,17 +71,11 @@ export class Blog extends React.Component<IBlogProps, IBlogState> {
       ? compile(post.text, null, { root }).tree
       : null
 
-    const listComponents = list.map(({ permalink }: any) => (
-        <li key={permalink}>
-          <a href={`/${permalink}`}>{permalink}</a>
-        </li>
-      ))
-
     return (
       <div style={style} className={cx(className, "mt4 mb4 mx-auto fit-800 article")}>
         <Only if={content}>{content}</Only>
-        <Only if={listComponents && !content}><ul>{listComponents}</ul></Only>
-        <Only if={!content && !listComponents}>No Blog Post Here!</Only>
+        <Only if={list.length && !content}><Posts posts={list} /></Only>
+        <Only if={!content && !list.length}>Loading...</Only>
       </div>
     )
   }
