@@ -7,9 +7,9 @@
 
 Blog-o-Matic 😳😳🤖😳
 ===
-### **blog content -> distribution**
+### Blog Content Management System for your Command-Line Interface
 
-Blog-o-Matic is meant to connect your Markdown-editing software to your chosen method of distribution with as little friction as possible. I made this so that I can have this process:
+Blog-o-Matic is meant to connect your Markdown-editing software to your chosen method of blog distribution with as little friction as possible. I made this so that I can have this process:
 1. **Write blog post with a [Text Editor](https://www.bywordapp.com/)**
 2. **Have that blog post sync between my devices via [Dropbox](https://www.dropbox.com)**
 3. **Have a 1-step publish process from my computer to [my blog](https://bpev.me)**
