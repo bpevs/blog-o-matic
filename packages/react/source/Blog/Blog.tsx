@@ -12,6 +12,7 @@ import { Posts } from "../Posts/Posts"
 const compile = marksy({
   createElement: React.createElement,
   elements: {
+    a: Media,
     img: Media,
     ul: List,
   },
