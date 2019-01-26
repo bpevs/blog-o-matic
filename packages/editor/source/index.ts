@@ -24,11 +24,16 @@ export function startServer(previewDir: string) {
 
   server.get("/index.json", async (req, res) => {
     const body = await readdir(resolve(previewDir, "posts"))
+    const postData = await Promise.all(body.map(async (loc: string) => {
+      const post = await readFile(resolve(previewDir, "posts", loc))
+      const parsed = /(?:^---\n)([\s\S]*)(?:---\n)(([\s\S])*)/gm.exec(post) || []
+      const frontmatter = load(parsed[1])
+      return frontmatter
+    }))
+
     res.charset = "utf-8"
     res.set("Content-Type", "application/json")
-    res.send(JSON.stringify(body.map((loc: string) => ({
-      permalink: loc.substring(0, loc.length - 3),
-    }))))
+    res.send(JSON.stringify(postData))
   })
 
   server.get("/posts/:name/index.json", async (req, res) => {

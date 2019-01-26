@@ -1,11 +1,20 @@
+import { DateTime } from "@civility/react"
 import { isNumber } from "@civility/utilities"
 import * as React from "react"
 
 
 export function Posts({ posts = {}, search = "" }: any) {
-  console.log(posts)
   const searchResults = posts
     .filter((post: any) => post && shouldShowPost(search, post))
+    .sort((a: any, b: any) => new Date(b.created).getTime() - new Date(a.created).getTime())
+    .reduce((all: any, post: any, currIndex: any, arr: any) => {
+      const thisYear = new Date(post.created).getFullYear()
+      if (!all.length) return [ thisYear, post ]
+      const lastPost = arr[currIndex - 1]
+      if (isNumber(lastPost)) return all.concat(post)
+      const lastYear = new Date(lastPost.created).getFullYear()
+      return all.concat(lastYear !== thisYear ? [ thisYear, post ] : [ post ])
+}, [])
     .map((post: any, index: any) => isNumber(post)
       ? <h2 key={index}>{post}</h2>
       : <Post key={index} post={post} />,
@@ -19,7 +28,12 @@ export function Post({ post }: any) {
     <li className="p0 m0 link-post">
       <a className="text-decoration-none" href={"/" + post.permalink}>
         <div key={post.permalink} className="p0 m0">
-          <span className="h3 link-post-title align-middle">{post.permalink} </span>
+          <span className="h3 link-post-title align-middle">{post.title} </span>
+          <DateTime
+            className="h4 align-middle o7"
+            timestamp={new Date(post.created).getTime()}
+            options={{ weekday: undefined, year: undefined }}
+          />
         </div>
       </a>
     </li>
