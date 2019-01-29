@@ -3,10 +3,11 @@ import { classNames as cx } from "@civility/utilities"
 import { highlight } from "highlight.js"
 import marksy from "marksy"
 import * as React from "react"
+import { fetchPost } from "../fetchPost/fetchPost"
+import { fetchPosts } from "../fetchPosts/fetchPosts"
 import { List } from "../List/List"
 import { Media } from "../Media/Media"
 import { Posts } from "../Posts/Posts"
-
 
 // Map markdown entities to React Components
 const compile = marksy({
@@ -23,11 +24,12 @@ const compile = marksy({
 })
 
 
-export interface IBlogProps {
-  className?: string
-  id?: string
-  root: string
-  style?: any
+export type IBlogProps = React.HTMLAttributes<any> & {
+  id?: string,
+  list?: any[],
+  post?: any,
+  root?: string,
+  shouldFetch?: boolean,
 }
 
 export interface IBlogState {
@@ -48,27 +50,20 @@ export class Blog extends React.Component<IBlogProps, IBlogState> {
   }
 
   public async componentDidMount() {
-    const { id, root }: IBlogProps = this.props
-
-    if (id) {
-      const postURL = `${root}posts/${id}/`
-      const [ metadata, text ] = await Promise.all([
-        (await fetch(`${postURL}index.json`)).json(),
-        (await fetch(`${postURL}index.md`)).text(),
-      ])
-
-      this.setState({ post: { ...metadata, text } })
-    } else {
-      const list: any[] = await (await fetch(`${root}index.json`)).json()
-      this.setState({ list })
+    const { id, root, shouldFetch = true }: IBlogProps = this.props
+    if (shouldFetch && root && id) {
+      this.setState({ post: await fetchPost(root, id) })
+    } else if (shouldFetch && root) {
+      this.setState({ list: await fetchPosts(root) })
     }
   }
 
   public render() {
     const { className, root, style } = this.props
-    const { list = [], post } = this.state
+    const post = this.props.post || this.state.post
+    const list = this.props.list || this.state.list || []
 
-    const content = post.text
+    const content = (post && post.text)
       ? compile(post.text, null, { root }).tree
       : null
 
