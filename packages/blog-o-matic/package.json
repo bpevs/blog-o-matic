@@ -1,6 +1,6 @@
 {
   "name": "blog-o-matic",
-  "version": "4.3.1",
+  "version": "4.3.3",
   "description": "Runs Blog-o-Matic CLI",
   "main": "bin/blog-o-matic",
   "author": "Ben Pevsner",
