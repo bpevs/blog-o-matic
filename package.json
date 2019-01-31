@@ -5,7 +5,7 @@
   "author": "Ben Pevsner",
   "license": "MIT",
   "private": true,
-  "main": "packages/blog-o-matic/index.js",
+  "main": "packages/blog-o-matic/bin/blog-o-matic",
   "repository": "git+https://github.com/ivebencrazy/blog-o-matic.git",
   "bugs": "https://github.com/ivebencrazy/blog-o-matic/issues",
   "homepage": "https://github.com/ivebencrazy/blog-o-matic#readme",
