@@ -1,13 +1,11 @@
 import * as React from "react"
 import { Image } from "../Image/Image"
-import { Video } from "../Video/Video"
+import { isVideo, Video } from "../Video/Video"
 
 
 const IMAGE = "image"
 const LINK = "link"
 const VIDEO = "video"
-const videoFile = /\.(webm|mp4|ogg|ogv|)$/
-const embedVideo = /(vimeo)/
 
 
 export function Media(props: any) {
@@ -22,6 +20,6 @@ export function Media(props: any) {
 
 function getType(props: any) {
   const url = props.src || props.href
-  if (embedVideo.test(url) || videoFile.test(url)) return VIDEO
+  if (isVideo(url)) return VIDEO
   return props.src ? IMAGE : LINK
 }
