@@ -1,6 +1,8 @@
+const ejs = require("ejs")
+const Remarkable = require("remarkable")
 import { load } from "js-yaml"
 import { IPost } from "../../definitions"
-const Remarkable = require("remarkable")
+import { template as defaultTemplate } from "./defaultHTMLTemplate"
 
 
 export const remarkable = new Remarkable("commonmark", {
@@ -11,6 +13,7 @@ export const remarkable = new Remarkable("commonmark", {
 
 export async function createMarkdownOutput(
   text: string,
+  template?: string,
 ): Promise<[ IPost | null, string, string ]> {
   const parsed = /(?:^---\n)([\s\S]*)(?:---\n)(([\s\S])*)/gm.exec(text) || []
   const hasFrontmatter = parsed.length
@@ -21,10 +24,14 @@ export async function createMarkdownOutput(
     .replace(/\.png/g, ".large.png")
     .replace(/\]\(\.\.\//g, "](../../")
 
-  const html = remarkable.render(md)
+  const blog = remarkable.render(md)
 
-  if (!hasFrontmatter) return [ null, md, html ]
+  if (!hasFrontmatter) {
+    const html = ejs.render(template || defaultTemplate, { blog, frontmatter: null })
+    return [ null, md, html ]
+  }
 
   const frontmatter = load(parsed[1])
+  const html = ejs.render(template || defaultTemplate, { blog, frontmatter })
   return [ frontmatter, md, html ]
 }

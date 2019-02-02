@@ -8,6 +8,8 @@ import {
   traverse,
 } from ".."
 import { IConfig, IPost } from "../../definitions"
+import { template as defaultTemplate } from "../createMarkdownOutput/defaultHTMLTemplate"
+const ejs = require("ejs")
 
 
 export interface IUploadEntity {
@@ -34,18 +36,28 @@ export async function compile(cwd: string, config: IConfig): Promise<IUploadEnti
 
   console.log("Collecting files to upload...")
 
+  let template
+  try {
+    template = await readFile(join(sourceRootPath, "index.ejs"), "utf-8")
+  } catch (error) {
+    console.log("Using default template...")
+  }
+
   await traverse(
     sourceRootPath,
     targetPath,
-    writeFiles.bind(null, indexList, test, add),
+    writeFiles.bind(null, indexList, test, add, template),
   )
 
   const md: string = indexList
     .map(({ permalink, title }: IPost) => `- [${title}](${permalink})`)
     .join("\n")
 
+  const blog = remarkable.render(md)
+  const html = ejs.render(template || defaultTemplate, { blog, frontmatter: null })
+
   add("md", md, join(targetPath, "index.md"))
-  add("html", remarkable.render(md), join(targetPath, "index.html"))
+  add("html", html, join(targetPath, "index.html"))
   add("json", JSON.stringify(indexList), join(targetPath, "index.json"))
 
   console.log("Done Collecting Files")
@@ -61,6 +73,7 @@ async function writeFiles(
   indexList: any[],
   test: (arg: string) => boolean,
   add: (...args: any[]) => void,
+  template: string,
   sourcePath: string,
   targetPath: string,
   rootPath: string,
@@ -76,7 +89,7 @@ async function writeFiles(
     switch (extension) {
       case "md":
         const unparsedText = await readFile(sourcePath, "utf-8")
-        const [ frontmatter, md, html ] = await createMarkdownOutput(unparsedText)
+        const [ frontmatter, md, html ] = await createMarkdownOutput(unparsedText, template)
 
         // Not a blog post
         if (!frontmatter) return add("raw", md, join(writePath, `${name}.${extension}`))
@@ -101,7 +114,7 @@ async function writeFiles(
         add("image", tiny, join(writePath, `${name}.tiny.${extension}`))
         break
 
-      case "default":
+      default:
         const text = await readFile(sourcePath, "utf-8")
         add("raw", text, join(writePath, `${name}.${extension}`))
     }
