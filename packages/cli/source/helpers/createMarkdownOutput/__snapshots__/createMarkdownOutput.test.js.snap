@@ -77,7 +77,14 @@ illic, ipse senex, nimiumque nocte.
 `;
 
 exports[`Should create markdown output 3`] = `
-"<h1>Post 2</h1>
+"<html>
+  <head>
+    
+      <title>Post 2</title>
+    
+  </head>
+  <body>
+    <h1>Post 2</h1>
 <h2>Ipse iamque</h2>
 <p><strong>Lorem markdownum</strong> maestus cedemus sensi celeberrimus hunc durastis ac parte,<br />
 visa sint; ni tactis subcrescit a Belides, ante. Tergumque miror Pandione; de<br />
@@ -126,5 +133,7 @@ bmp.mashup = dpi_batch_guid;
 <strong>erat</strong> contra primos. In imagine pro pater pauca adde caluere nostri testatus<br />
 arboreis inventa, trahoque sed, simul, <strong>sensim</strong>! Materna semel, vox parens<br />
 illic, ipse senex, nimiumque nocte.</p>
-"
+
+  </body>
+</html>"
 `;
