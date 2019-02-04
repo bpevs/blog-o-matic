@@ -18,6 +18,7 @@ export interface IConfig {
 
 export interface IPost {
   title: string
+  id: string
   permalink: string
   author?: string
   created?: string

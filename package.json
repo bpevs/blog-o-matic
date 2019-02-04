@@ -26,7 +26,6 @@
     "lerna": "lerna",
     "prepublishOnly": "yarn && yarn test && yarn build",
     "prestart": "yarn link",
-    "publish": "lerna publish",
     "start": "lerna run build && lerna run start --parallel",
     "test": "run-p --aggregate-output test:lint test:unit",
     "test:coverage": "yarn test:unit --coverage",

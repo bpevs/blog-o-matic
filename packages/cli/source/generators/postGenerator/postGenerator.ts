@@ -18,16 +18,16 @@ export async function postGenerator() {
      { ...q.postAuthor, default: config.author || "" },
    ]) as IPost
 
-  const permalink = title
+  const id = title
     .replace(",", "")
     .replace(/[^a-zA-Z0-9_.@()-]/g, "-")
     .toLowerCase()
 
-  const filePath = join("posts", `${permalink}.md`)
+  const permalink = join("posts", `${id}.md`)
   const now = new Date()
-  const postData = { author, permalink, title, created: now, updated: now }
+  const postData = { author, id, permalink, title, created: now, updated: now }
   const frontmatter = `---\n${dump(postData)}---\n`
-  await writeFile(filePath, frontmatter + `# ${title}\n`)
+  await writeFile(permalink, frontmatter + `# ${title}\n`)
 
   console.log(`
     Congratulations! 🎉 🎉 🎉

@@ -95,23 +95,23 @@ async function writeFiles(
         if (!frontmatter) return add("raw", md, join(writePath, `${name}.${extension}`))
 
         const jsonString = JSON.stringify(frontmatter)
-        const permalink = frontmatter.permalink
+        const id = frontmatter.id
 
         indexList.push(frontmatter)
 
-        add("md", md, join(writePath, permalink, "index.md"))
-        add("html", html, join(writePath, permalink, "index.html"))
-        add("json", jsonString, join(writePath, permalink, "index.json"))
+        add("md", md, join(writePath, id, "index.md"))
+        add("html", html, join(writePath, id, "index.html"))
+        add("json", jsonString, join(writePath, id, "index.json"))
         break
 
       case "jpeg":
       case "jpg":
       case "png":
         const [ large, medium, small, tiny ] = await createImageOutput(sourcePath)
-        add("image", large, join(writePath, `${name}.large.${extension}`))
-        add("image", medium, join(writePath, `${name}.medium.${extension}`))
-        add("image", small, join(writePath, `${name}.small.${extension}`))
-        add("image", tiny, join(writePath, `${name}.tiny.${extension}`))
+        add("image", await large.toBuffer(), join(writePath, `${name}.large.${extension}`))
+        add("image", await medium.toBuffer(), join(writePath, `${name}.medium.${extension}`))
+        add("image", await small.toBuffer(), join(writePath, `${name}.small.${extension}`))
+        add("image", await tiny.toBuffer(), join(writePath, `${name}.tiny.${extension}`))
         break
 
       default:
