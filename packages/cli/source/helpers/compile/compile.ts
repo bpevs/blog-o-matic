@@ -34,14 +34,14 @@ export async function compile(cwd: string, config: IConfig): Promise<IUploadEnti
 
   const test = ignore((await readFile(join(sourceRootPath, ".blogignore"), "utf-8")))
 
-  console.log("Collecting files to upload...")
-
   let template
   try {
     template = await readFile(join(sourceRootPath, "index.ejs"), "utf-8")
   } catch (error) {
     console.log("Using default template...")
   }
+
+  console.log("Collecting files to upload...")
 
   await traverse(
     sourceRootPath,

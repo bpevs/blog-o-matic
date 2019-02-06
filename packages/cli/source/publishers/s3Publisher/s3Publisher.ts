@@ -1,7 +1,7 @@
 const AWS = require("aws-sdk")
 import { homedir, type } from "os"
 import { IConfig } from "../../definitions"
-import { compile, IUploadEntity, readFile } from "../../helpers"
+import { compile, IUploadEntity } from "../../helpers"
 
 
 export async function s3Publisher(cwd: string, config: IConfig) {
@@ -15,7 +15,16 @@ export async function s3Publisher(cwd: string, config: IConfig) {
   await checkBucketContents()
 
   console.log("Uploading blog to S3...")
-  await Promise.all(files.filter(isNewContent).map(upload))
+  await Promise.all(files
+    .map(info => {
+      // Paths start with /build
+      const ignoreLength = config.out ? config.out.length : 6
+      info.path = info.path.substring(ignoreLength)
+      return info
+    })
+    .filter(isNewContent)
+    .map(upload),
+  )
 
   console.log("DONE uploading to S3!!!")
 }
@@ -25,35 +34,35 @@ export async function s3Publisher(cwd: string, config: IConfig) {
  */
 class S3 {
   private readonly config: IConfig
-  private readonly creds: Promise<any>
   private readonly instance: any
   private existing: string[]
 
   constructor(config: IConfig) {
-    this.instance = new AWS.S3()
     this.config = config
-    this.creds = this.updateCreds()
-      .then((creds) => AWS.config.update(creds))
+    if (!this.config.s3) return
+    const credsLocation = type() === "Darwin"
+      ? this.config.s3.creds.replace("~", homedir())
+      : this.config.s3.creds
+
+    AWS.config.loadFromPath(credsLocation)
+    this.instance = new AWS.S3()
   }
 
   public isNewContent = ({ path }: IUploadEntity): boolean => {
     const key = path.replace(/^\//, "")
-    return this.existing.indexOf(key) >= 0
+    return this.existing.indexOf(key) === -1
   }
 
   public checkBucketContents = (): Promise<string[]> => {
     return new Promise(resolve => {
-      this.creds.then(() => {
-        if (!this.config.s3) throw new Error("s3 is not set up")
-
-        this.instance.listObjects({
-          Bucket: this.config.s3.bucket,
-          Prefix: "images",
-        }, (error: any, meta: any) => {
-          if (error) throw new Error(error)
-          this.existing = meta.Contents.map(({ Key }: any) => Key)
-          resolve(this.existing)
-        })
+      if (!this.config.s3) throw new Error("s3 is not set up")
+      this.instance.listObjects({
+        Bucket: this.config.s3.bucket,
+        Prefix: "images",
+      }, (error: any, meta: any) => {
+        if (error) throw new Error(error)
+        this.existing = meta.Contents.map(({ Key }: any) => Key)
+        resolve(this.existing)
       })
     })
   }
@@ -73,20 +82,5 @@ class S3 {
         else resolve(meta)
       })
     })
-  }
-
-  private readonly updateCreds = async () => {
-    if (!this.config.s3) return
-
-    const credsLocation = type() === "Darwin"
-      ? this.config.s3.creds.replace("~", homedir())
-      : this.config.s3.creds
-
-    const csv = await readFile(credsLocation, "utf-8")
-    const [ AWSAccessKeyId, AWSSecretKey ] = csv.split("\n")
-    return {
-      accessKeyId: AWSAccessKeyId.split("=")[1].trim(),
-      secretAccessKey: AWSSecretKey.split("=")[1].trim(),
-    }
   }
 }

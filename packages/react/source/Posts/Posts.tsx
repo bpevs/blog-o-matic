@@ -52,7 +52,12 @@ export function includes(parent: string = "", subString: string = ""): boolean {
 
 // Determines whether a string matches any part of a post
 export function shouldShowPost(search: string = "", post: any = {}): boolean {
-  if (!post || post.draft) return false
+  if (
+    !post ||
+    post.draft === true ||
+    post.private === true ||
+    post.published === false
+  ) return false
   if (!post.created) return false
 
   return !search
