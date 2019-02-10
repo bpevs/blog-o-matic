@@ -49,7 +49,10 @@ export async function compile(cwd: string, config: IConfig): Promise<IUploadEnti
     writeFiles.bind(null, indexList, test, add, template),
   )
 
-  const md: string = indexList
+  const posts = indexList
+    .filter(({ published, private: priv }) => published && !priv)
+
+  const md: string = posts
     .map(({ permalink, title }: IPost) => `- [${title}](${permalink})`)
     .join("\n")
 
@@ -58,7 +61,7 @@ export async function compile(cwd: string, config: IConfig): Promise<IUploadEnti
 
   add("md", md, join(targetPath, "index.md"))
   add("html", html, join(targetPath, "index.html"))
-  add("json", JSON.stringify(indexList), join(targetPath, "index.json"))
+  add("json", JSON.stringify(posts), join(targetPath, "index.json"))
 
   console.log("Done Collecting Files")
   return filesToUpload
