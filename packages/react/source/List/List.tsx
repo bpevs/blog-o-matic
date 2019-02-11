@@ -11,7 +11,7 @@ export function List({ children, ...props }: ListProps) {
   React.Children.forEach(children, (child: any) => {
     if (child && child.type === "li") {
       lis++
-      if (get(child, [ "props", "children", "1", "type" ]) === Media) images ++
+      if (get(child, [ "props", "children", "1", "type" ]) === Media) images++
     }
   })
 
