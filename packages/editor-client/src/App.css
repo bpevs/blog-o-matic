@@ -194,8 +194,18 @@ a:visited .link-post-title {
 }
 
 .image {
+  line-height: 0.8;
   min-height: 100%;
   min-width: 100%;
+}
+
+.image img {
+  width: 100%;
+}
+
+.image span {
+  font-size: .75rem;
+  opacity: 0.8;
 }
 
 .engulf {
@@ -222,7 +232,7 @@ a:visited .link-post-title {
 }
 
 .article p,
-.article img,
+.article .image,
 .article iframe,
 .article video {
   margin-top: 2em;

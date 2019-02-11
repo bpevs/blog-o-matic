@@ -4,7 +4,7 @@ import { Youtube } from "./Youtube"
 
 const videoFile = /\.(webm|mp4|ogg|ogv)$/
 const isVimeo = /vimeo/
-const isYoutube = /youtube\.com\/watch/
+// const isYoutube = /youtube\.com\/watch/
 
 export type VideoProps = React.VideoHTMLAttributes<any> & {
   context: any,
@@ -34,7 +34,7 @@ export function Video({ src = "", ...props }: VideoProps) {
 
 export function getVideoType(src: string): string | null {
   if  (isVimeo.test(src)) return "VIMEO"
-  if (isYoutube.test(src)) return "YOUTUBE"
+  // if (isYoutube.test(src)) return "YOUTUBE"
   if (videoFile.test(src)) return "FILE"
   return null
 }

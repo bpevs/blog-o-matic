@@ -876,6 +876,15 @@
     react "^16.7.0-alpha.2"
     react-dom "^16.7.0-alpha.2"
 
+"@civility/react@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@civility/react/-/react-0.2.0.tgz#f8b8506d0acb98022762999eb728a0f7e96a5a89"
+  integrity sha512-6+/3bR0P7Qn3JkNnd8RzU74ZhpSHn6jMA4nD0GBNBTanPDzbzjv3xz1xFZsehAOna0mUCJOy6/Bdyj+fFOrz8A==
+  dependencies:
+    "@civility/utilities" "^0.2.0"
+    react "^16.7.0-alpha.2"
+    react-dom "^16.7.0-alpha.2"
+
 "@civility/stylesheets@^0.1.3":
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/@civility/stylesheets/-/stylesheets-0.1.3.tgz#241c344befc70d866ac5f7e6cd0c80da5766360b"
@@ -887,6 +896,11 @@
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/@civility/utilities/-/utilities-0.1.4.tgz#37d9cf2b6fd287d4f04dee115a95d89016138b38"
   integrity sha512-osFkCSke/KJzbdNUCnWNTW1AvhlNBgY1TwshE2vncmkGRP+skDCfo+UmiG3RGr0cuEyqPC3lLbYy/tmIcetnyw==
+
+"@civility/utilities@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@civility/utilities/-/utilities-0.2.0.tgz#28361759142f53e7afc07615649519fe3df921a6"
+  integrity sha512-5YOsTrgRaeJEkd4k1jsi4VjcZnRsiSEWuZK9Tqc9CW8xdyB4WinetFxVdHfRfbS9CsIgBxi9hMWEK+fl40SIXA==
 
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"

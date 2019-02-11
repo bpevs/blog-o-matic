@@ -19,7 +19,7 @@
     "start": "npm run build:commonjs -- --watch"
   },
   "dependencies": {
-    "@civility/react": "^0.1.4",
+    "@civility/react": "^0.2.0",
     "@civility/utilities": "^0.1.4",
     "highlight.js": "^9.13.1",
     "marksy": "^6.1.0",
