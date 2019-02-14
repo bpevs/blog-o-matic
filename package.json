@@ -16,6 +16,7 @@
     "node": ">= 10.0.0"
   },
   "workspaces": [
+    "applications/*",
     "packages/*"
   ],
   "scripts": {
@@ -28,6 +29,7 @@
     "prepublishOnly": "yarn && yarn test && yarn build",
     "prestart": "yarn link",
     "start": "lerna run build && lerna run start --parallel",
+    "start:react": "yarn bootstrap && lerna run storybook",
     "test": "run-p --aggregate-output test:lint test:unit",
     "test:coverage": "yarn test:unit --coverage",
     "test:ci": "jest --ci --maxWorkers=1",

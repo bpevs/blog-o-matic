@@ -8,6 +8,7 @@
   "npmClient": "yarn",
   "useWorkspaces": true,
   "packages": [
+    "applications/react-sandbox",
     "packages/blog-o-matic",
     "packages/cli",
     "packages/editor",
