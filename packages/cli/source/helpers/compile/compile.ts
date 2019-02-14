@@ -64,10 +64,15 @@ export async function compile(cwd: string, config: IConfig): Promise<IUploadEnti
   add("json", JSON.stringify(posts), join(targetPath, "index.json"))
 
   console.log("Done Collecting Files")
+
   return filesToUpload
 
   function add(type: string, content: any, path: string): void {
-    filesToUpload.push({ content, path, type })
+    if (content && content.data) {
+      filesToUpload.push({ content: content.data, metadata: content.info, path, type })
+    } else {
+      filesToUpload.push({ content, path, type })
+    }
   }
 }
 
@@ -111,10 +116,11 @@ async function writeFiles(
       case "jpg":
       case "png":
         const [ large, medium, small, tiny ] = await createImageOutput(sourcePath)
-        add("image", await large.toBuffer(), join(writePath, `${name}.large.${extension}`))
-        add("image", await medium.toBuffer(), join(writePath, `${name}.medium.${extension}`))
-        add("image", await small.toBuffer(), join(writePath, `${name}.small.${extension}`))
-        add("image", await tiny.toBuffer(), join(writePath, `${name}.tiny.${extension}`))
+        const options = { resolveWithObject: true }
+        add("image", await large.toBuffer(options), join(writePath, `${name}.large.${extension}`))
+        add("image", await medium.toBuffer(options), join(writePath, `${name}.medium.${extension}`))
+        add("image", await small.toBuffer(options), join(writePath, `${name}.small.${extension}`))
+        add("image", await tiny.toBuffer(options), join(writePath, `${name}.tiny.${extension}`))
         break
 
       default:

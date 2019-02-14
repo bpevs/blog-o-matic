@@ -14,7 +14,8 @@ import {
  */
 export async function fsPublisher(cwd: string, config: IConfig) {
   const filesToUpload = await compile(cwd, config)
-  console.log("Uploading blog to fs...")
+
+  console.log("Writing blog to local filesystem...")
 
   await Promise.all(
     filesToUpload.map(({ content, path }: IUploadEntity) => {
