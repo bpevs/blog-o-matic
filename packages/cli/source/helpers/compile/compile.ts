@@ -1,3 +1,4 @@
+import { load } from "js-yaml"
 import { join, relative } from "path"
 import {
   createImageOutput,
@@ -9,6 +10,9 @@ import {
 } from ".."
 import { IConfig, IPost } from "../../definitions"
 import { template as defaultTemplate } from "../createMarkdownOutput/defaultHTMLTemplate"
+import {
+  channelTemplate as defaultChannelRSSTemplate,
+} from "../createMarkdownOutput/defaultRSSTemplate"
 const ejs = require("ejs")
 
 
@@ -32,42 +36,62 @@ export async function compile(cwd: string, config: IConfig): Promise<IUploadEnti
   const indexList: any[] = []
   const filesToUpload: any[] = []
 
+  const blogMeta = load(await readFile("blog.config.yml", "utf8")) || {}
   const test = ignore((await readFile(join(sourceRootPath, ".blogignore"), "utf-8")))
 
-  let template
+  let htmlTemplate = ""
+  let rssTemplate = ""
   try {
-    template = await readFile(join(sourceRootPath, "index.ejs"), "utf-8")
+    htmlTemplate = await readFile(join(sourceRootPath, "index.ejs"), "utf-8")
   } catch (error) {
-    console.log("Using default template...")
+    console.log("Using default htmlTemplate...")
   }
+
+  try {
+    rssTemplate = await readFile(join(sourceRootPath, "rss.ejs"), "utf-8")
+  } catch (error) {
+    console.log("Using default rssTemplate...")
+  }
+
 
   console.log("Collecting files to upload...")
 
   await traverse(
     sourceRootPath,
     targetPath,
-    writeFiles.bind(null, indexList, test, add, template),
+    (sourcePath, targetPath, rootPath) => processFile(sourcePath, targetPath, {
+      htmlTemplate, indexList, pushToQueue, rootPath, test,
+    }),
   )
 
   const posts = indexList
-    .filter(({ published, private: priv }) => published && !priv)
+    .filter(({ frontmatter }) => frontmatter.published && !frontmatter.private && !frontmatter.unlisted)
+    .sort((a, b) => b.frontmatter.created - a.frontmatter.created)
 
-  const md: string = posts
+  const postsFrontmatter = posts.map(({ frontmatter }) => frontmatter)
+  pushToQueue("json", JSON.stringify(postsFrontmatter), join(targetPath, "index.json"))
+
+  const rssChannel = ejs.render(rssTemplate || defaultChannelRSSTemplate, {
+    meta: blogMeta,
+    posts: posts
+      .filter(post => post.frontmatter)
+      .slice(0, 5),
+  })
+  pushToQueue("rss", rssChannel, join(targetPath, "rss.xml"))
+
+  const tableOfContents: string = postsFrontmatter
     .map(({ permalink, title }: IPost) => `- [${title}](${permalink})`)
     .join("\n")
-
-  const blog = remarkable.render(md)
-  const html = ejs.render(template || defaultTemplate, { blog, frontmatter: null })
-
-  add("md", md, join(targetPath, "index.md"))
-  add("html", html, join(targetPath, "index.html"))
-  add("json", JSON.stringify(posts), join(targetPath, "index.json"))
+  const blog = remarkable.render(tableOfContents)
+  const html = ejs.render(htmlTemplate || defaultTemplate, { blog, frontmatter: null })
+  pushToQueue("html", html, join(targetPath, "index.html"))
+  pushToQueue("md", tableOfContents, join(targetPath, "index.md"))
 
   console.log("Done Collecting Files")
 
   return filesToUpload
 
-  function add(type: string, content: any, path: string): void {
+  function pushToQueue(type: string, content: any, path: string): void {
     if (content && content.data) {
       filesToUpload.push({ content: content.data, metadata: content.info, path, type })
     } else {
@@ -76,17 +100,32 @@ export async function compile(cwd: string, config: IConfig): Promise<IUploadEnti
   }
 }
 
-// For each source file, build the correct files, and write them to target path
-async function writeFiles(
-  indexList: any[],
-  test: (arg: string) => boolean,
-  add: (...args: any[]) => void,
-  template: string,
+interface ProcessFileOptions {
+  rootPath?: string, // Path to base filewrites against
+  indexList?: any[],
+  test?: (arg: string) => boolean,
+  pushToQueue?: (...args: any[]) => void, // Push to the queue of files to write
+  htmlTemplate?: string, // Optional htmlTemplate to wrap processed html
+  rssTemplate?: string,
+}
+
+/**
+ * For each post source file, build the correct files, and queue them to write to the target path.
+ * This is for a single input file; use it with `traverse` to write
+ */
+async function processFile(
   sourcePath: string,
   targetPath: string,
-  rootPath: string,
+  options: ProcessFileOptions,
 ) {
-  const readPath = relative(rootPath, sourcePath)
+  const {
+    indexList = [],
+    htmlTemplate,
+    pushToQueue = () => { return },
+    rootPath,
+    test = () => true,
+  } = options
+  const readPath = rootPath ? relative(rootPath, sourcePath) : sourcePath
   const writePath = targetPath.substring(0, targetPath.lastIndexOf("/"))
   const extension = sourcePath.substring(sourcePath.lastIndexOf(".") + 1, sourcePath.length)
   const name = sourcePath.substring(sourcePath.lastIndexOf("/") + 1, sourcePath.lastIndexOf("."))
@@ -97,35 +136,35 @@ async function writeFiles(
     switch (extension) {
       case "md":
         const unparsedText = await readFile(sourcePath, "utf-8")
-        const [ frontmatter, md, html ] = await createMarkdownOutput(unparsedText, template)
+        const [frontmatter, md, html, htmlBody] = await createMarkdownOutput(unparsedText, htmlTemplate)
 
         // Not a blog post
-        if (!frontmatter) return add("raw", md, join(writePath, `${name}.${extension}`))
+        if (!frontmatter) return pushToQueue("raw", md, join(writePath, `${name}.${extension}`))
 
         const jsonString = JSON.stringify(frontmatter)
         const id = frontmatter.id
 
-        indexList.push(frontmatter)
+        indexList.push({ frontmatter, md, html, htmlBody })
 
-        add("md", md, join(writePath, id, "index.md"))
-        add("html", html, join(writePath, id, "index.html"))
-        add("json", jsonString, join(writePath, id, "index.json"))
+        pushToQueue("md", md, join(writePath, id, "index.md"))
+        pushToQueue("html", html, join(writePath, id, "index.html"))
+        pushToQueue("json", jsonString, join(writePath, id, "index.json"))
         break
 
       case "jpeg":
       case "jpg":
       case "png":
-        const [ large, medium, small, tiny ] = await createImageOutput(sourcePath)
+        const [large, medium, small, tiny] = await createImageOutput(sourcePath)
         const options = { resolveWithObject: true }
-        add("image", await large.toBuffer(options), join(writePath, `${name}.large.${extension}`))
-        add("image", await medium.toBuffer(options), join(writePath, `${name}.medium.${extension}`))
-        add("image", await small.toBuffer(options), join(writePath, `${name}.small.${extension}`))
-        add("image", await tiny.toBuffer(options), join(writePath, `${name}.tiny.${extension}`))
+        pushToQueue("image", await large.toBuffer(options), join(writePath, `${name}.large.${extension}`))
+        pushToQueue("image", await medium.toBuffer(options), join(writePath, `${name}.medium.${extension}`))
+        pushToQueue("image", await small.toBuffer(options), join(writePath, `${name}.small.${extension}`))
+        pushToQueue("image", await tiny.toBuffer(options), join(writePath, `${name}.tiny.${extension}`))
         break
 
       default:
         const text = await readFile(sourcePath, "utf-8")
-        add("raw", text, join(writePath, `${name}.${extension}`))
+        pushToQueue("raw", text, join(writePath, `${name}.${extension}`))
     }
   } catch (error) {
     console.warn(`Failed to write ${extension} file`, error)

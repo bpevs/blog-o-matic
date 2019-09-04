@@ -14,7 +14,7 @@ export const remarkable = new Remarkable("commonmark", {
 export async function createMarkdownOutput(
   text: string,
   template?: string,
-): Promise<[ IPost | null, string, string ]> {
+): Promise<[IPost | null, string, string, string]> {
   const parsed = /(?:^---\n)([\s\S]*)(?:---\n)(([\s\S])*)/gm.exec(text) || []
   const hasFrontmatter = parsed.length
 
@@ -28,10 +28,10 @@ export async function createMarkdownOutput(
 
   if (!hasFrontmatter) {
     const html = ejs.render(template || defaultTemplate, { blog, frontmatter: null })
-    return [ null, md, html ]
+    return [null, md, html, blog]
   }
 
   const frontmatter = load(parsed[1])
   const html = ejs.render(template || defaultTemplate, { blog, frontmatter })
-  return [ frontmatter, md, html ]
+  return [frontmatter, md, html, blog]
 }
