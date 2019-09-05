@@ -36,13 +36,24 @@ export function startServer(previewDir: string) {
     res.send(JSON.stringify(postData))
   })
 
+  server.get("/rss.xml", async (req, res) => {
+    try {
+      const rss = await readFile(resolve(previewDir, "build", "rss.xml"))
+      res.charset = "utf-8"
+      res.set("Content-Type", "application/xml")
+      res.send(rss)
+    } catch (error) {
+      return res.send("404: Page not Found; Blog must be built to serve rss feed")
+    }
+  })
+
   server.get("/posts/:name/index.json", async (req, res) => {
     if (!req.params.name) {
       res.statusCode = 404
       return res.send("404: Page not Found")
     }
 
-    const [ metadata ] = await parse(previewDir, req.params.name + ".md")
+    const [metadata] = await parse(previewDir, req.params.name + ".md")
     res.charset = "utf-8"
     res.set("Content-Type", "application/json")
     res.send(JSON.stringify(metadata))
@@ -76,5 +87,5 @@ async function parse(previewDir: string, name: string) {
   const hasFrontmatter = parsed.length
   const text = (hasFrontmatter ? parsed[2] : unparsed)
   const metadata = load(parsed[1])
-  return [ metadata, text ]
+  return [metadata, text]
 }

@@ -11,8 +11,7 @@ export const channelTemplate = `<?xml version="1.0" encoding="utf-8"?>
         <guid><%= post.frontmatter.permalink %></guid>
         <pubDate><%= post.frontmatter.releaseDate %></pubDate>
         <description><%- post.htmlBody %></description>
-        </item>
-      <item>
+      </item>
     <% }); %>
   </channel>
 </rss>
