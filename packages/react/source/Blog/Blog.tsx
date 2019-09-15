@@ -51,6 +51,7 @@ export class Blog extends React.Component<IBlogProps, IBlogState> {
 
   public async componentDidMount() {
     const { id, root, shouldFetch = true }: IBlogProps = this.props
+
     if (shouldFetch && root && id) {
       this.setState({ post: await fetchPost(root, id) })
     } else if (shouldFetch && root) {
