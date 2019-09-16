@@ -1,6 +1,6 @@
 {
   "name": "react-sandbox",
-  "version": "4.3.7",
+  "version": "4.4.0",
   "description": "Develop and test Blog-o-Matic React Components",
   "main": "index.js",
   "repository": "https://github.com/ivebencrazy/blog-o-matic",
@@ -11,13 +11,13 @@
     "storybook": "start-storybook -p 9001 -c .storybook"
   },
   "dependencies": {
-    "@blog-o-matic/react": "^4.3.7",
+    "@blog-o-matic/react": "^4.4.0",
     "react": "^16.8.1",
     "react-dom": "^16.8.1"
   },
   "devDependencies": {
-    "@storybook/react": "^4.1.11",
     "@babel/core": "^7.2.2",
+    "@storybook/react": "^4.1.11",
     "babel-loader": "8.0.4"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@blog-o-matic/editor",
-  "version": "4.3.7",
+  "version": "4.4.0",
   "description": "Editor for Blog-o-Matic blogs",
   "author": "Ben Pevsner",
   "license": "MIT",
@@ -20,7 +20,7 @@
     "watch": "npm run build -- --watch"
   },
   "dependencies": {
-    "@blog-o-matic/editor-client": "^4.3.7",
+    "@blog-o-matic/editor-client": "^4.4.0",
     "@civility/utilities": "^0.1.4",
     "express": "^4.16.4",
     "js-yaml": "^3.12.1",

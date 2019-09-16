@@ -1,6 +1,6 @@
 {
   "name": "@blog-o-matic/cli",
-  "version": "4.3.7",
+  "version": "4.4.0",
   "description": "Exporter for Blog-o-Matic CLI",
   "author": "Ben Pevsner",
   "license": "MIT",
@@ -18,7 +18,7 @@
     "watch": "npm run build -- --watch"
   },
   "dependencies": {
-    "@blog-o-matic/editor": "^4.3.7",
+    "@blog-o-matic/editor": "^4.4.0",
     "@civility/utilities": "^0.1.4",
     "aws-sdk": "^2.382.0",
     "ejs": "^2.6.1",
