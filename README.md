@@ -1,5 +1,3 @@
-**Warning: This doc is for Blog-o-Matic > v4.0.0, and is experimental. Use at your own risk.**
-
 [![npm](https://img.shields.io/npm/v/blog-o-matic.svg?maxAge=2592000)](https://www.npmjs.com/package/blog-o-matic)
 
 
@@ -7,9 +5,9 @@ Blog-o-Matic 😳😳🤖😳
 ===
 ### Blog Content Management System for your Command-Line Interface
 
-Blog-o-Matic is meant to connect your Markdown-editing software to your chosen method of blog distribution with as little friction as possible. I made this so that I can have this process:
-1. **Write blog post with a [Text Editor](https://www.bywordapp.com/)**
-2. **Have that blog post sync between my devices via [Dropbox](https://www.dropbox.com)**
+[Blog-o-Matic](https://github.com/ivebencrazy/blog-o-matic) connects your markdown-editing software to your chosen method of blog distribution with as little friction as possible. I made this so that I can have this process:
+1. **Write a markdown blog post on my computer or on my phone**
+2. **Sync edits between my devices via [iCloud](https://www.icloud.com)**
 3. **Have a 1-step publish process from my computer to [my blog](https://bpev.me)**
 
 Blog-o-Matic fills the 3rd step of that process. It takes my blog posts as source, optimizes images into multiple sizes for speed and progressive loading, parses markdown into various formats, minifies and compresses where useful, and uploads the results to S3. I currently use Blog-o-Matic to power my blog, running on [bpev.me](https://bpev.me).
