@@ -2,7 +2,7 @@ jest.mock("fs")
 jest.mock("js-yaml", () => ({ load: jest.fn(() => ({ publisher: "fs" })) }))
 jest.mock("path")
 jest.mock("./generators")
-jest.mock("./preview")
+jest.mock("./preview", () => ({ preview: jest.fn() }));
 jest.mock("./publishers")
 
 
@@ -34,7 +34,7 @@ test("Should log help text on no argument", () => {
   expect(s3Publisher).toBeCalledTimes(0)
 
   expect(console.log).toBeCalledTimes(1)
-  expect(console.log.mock.calls[0][0]).toMatchSnapshot()
+  expect(console.log.mock.calls[ 0 ][ 0 ]).toMatchSnapshot()
 })
 
 test("Should only run one command at a time", () => {

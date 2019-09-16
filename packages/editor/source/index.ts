@@ -12,8 +12,8 @@ import * as fs from "fs"
 import { load } from "js-yaml"
 import { resolve } from "path"
 
-const opn = require("opn")
 const readdir = promisify(fs.readdir)
+const open = require("open")
 export const readFile = promisify(fs.readFile)
 export const stat = promisify(fs.stat)
 
@@ -77,7 +77,7 @@ export function startServer(previewDir: string) {
 
   server.listen(PORT, () => {
     console.log("listening on port:", PORT)
-    opn(`http://localhost:${PORT}`)
+    open(`http://localhost:${PORT}`)
   })
 }
 

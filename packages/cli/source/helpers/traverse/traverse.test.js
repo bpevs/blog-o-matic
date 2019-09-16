@@ -26,9 +26,9 @@ test("Should upload nested dir", async () => {
 
   expect(uploadFile).toBeCalledTimes(5)
   const [ file1, file2, file3, file4, file5 ] = uploadFile.mock.calls
-  expect(file1[0]).toBe("blog/item1")
-  expect(file2[0]).toBe("blog/item3")
-  expect(file3[0]).toBe("blog/item2/file1")
-  expect(file4[0]).toBe("blog/item2/file2")
-  expect(file5[0]).toBe("blog/item2/file3")
+  expect(file1[ 0 ]).toBe("blog/item3")
+  expect(file2[ 0 ]).toBe("blog/item1")
+  expect(file3[ 0 ]).toBe("blog/item2/file1")
+  expect(file4[ 0 ]).toBe("blog/item2/file2")
+  expect(file5[ 0 ]).toBe("blog/item2/file3")
 })

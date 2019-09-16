@@ -1,6 +1,6 @@
 const ejs = require("ejs")
-const Remarkable = require("remarkable")
 import { load } from "js-yaml"
+import { Remarkable } from "remarkable"
 import { IPost } from "../../definitions"
 import { template as defaultTemplate } from "./defaultHTMLTemplate"
 
