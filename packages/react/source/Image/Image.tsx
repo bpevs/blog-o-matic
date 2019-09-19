@@ -17,7 +17,7 @@ export function Image({ context, showText = false, ...props }: ImageProps) {
       className={cx("col-12", "image", props.className)}
       src={src}
     />
-    <Only if={props.alt && !showText}>
+    <Only if={props.alt && showText}>
       <span className="block center col-12 h6">
         {decodeHTMLEntities(props.alt || "")}
       </span>
