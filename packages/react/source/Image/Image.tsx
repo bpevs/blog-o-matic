@@ -9,18 +9,18 @@ export type ImageProps = React.ImgHTMLAttributes<any> & {
 }
 
 export function Image({ context, showText = false, ...props }: ImageProps) {
-  const root = get(context, [ "root" ]) || ""
+  const root = get(context, ["root"]) || ""
   const src = root + props.src
-  return <div className="col-12 center image">
-      <img
+  return <React.Fragment>
+    <img
       {...props}
-      className={ cx(props.className) }
+      className={cx("col-12", "image", props.className)}
       src={src}
     />
     <Only if={props.alt && !showText}>
-      <span className="center col-8 h6">
+      <span className="block center col-12 h6">
         {decodeHTMLEntities(props.alt || "")}
       </span>
     </Only>
-  </div>
+  </React.Fragment>
 }
