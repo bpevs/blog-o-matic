@@ -47,7 +47,7 @@ export function startServer(previewDir: string) {
     }
   })
 
-  server.get("/posts/:name/index.json", async (req, res) => {
+  server.get("/:name/index.json", async (req, res) => {
     if (!req.params.name) {
       res.statusCode = 404
       return res.send("404: Page not Found")
@@ -59,7 +59,7 @@ export function startServer(previewDir: string) {
     res.send(JSON.stringify(metadata))
   })
 
-  server.get("/posts/:name/index.md", async (req, res) => {
+  server.get("/:name/index.md", async (req, res) => {
     if (!req.params.name) {
       res.statusCode = 404
       return res.send("404: Page not Found")
