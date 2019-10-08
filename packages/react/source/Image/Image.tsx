@@ -12,7 +12,7 @@ export function Image({ context, showText = false, ...props }: ImageProps) {
   const root = get(context, ["root"]) || ""
   const src = root + props.src
   return <React.Fragment>
-    <a href={src}>
+    <a href={src} target="_blank">
       <img
         {...props}
         className={cx("col-12", "image", props.className)}
