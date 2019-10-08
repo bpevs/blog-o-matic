@@ -1,6 +1,6 @@
 {
   "name": "@blog-o-matic/editor-client",
-  "version": "4.5.0",
+  "version": "4.5.1",
   "private": false,
   "license": "MIT",
   "main": "./index.js",
@@ -9,7 +9,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@blog-o-matic/react": "^4.5.0",
+    "@blog-o-matic/react": "^4.5.1",
     "@civility/react": "^0.2.1",
     "@civility/stylesheets": "^0.2.0",
     "react": "^16.9.0",
