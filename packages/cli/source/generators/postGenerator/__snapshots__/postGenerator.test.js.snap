@@ -4,9 +4,11 @@ exports[`Should call writeFile 1`] = `
 "---
 author: my-author
 id: my-blog-title
-permalink: posts/my-blog-title.md
+permalink: my-blog-title
 title: my-blog-title
 created: 2018-06-27T07:00:00.000Z
+private: false
+published: false
 updated: 2018-06-27T07:00:00.000Z
 ---
 # my-blog-title
