@@ -14,11 +14,11 @@ test("Should call writeFile", async () => {
   const [ writeFile1 ] = writeFile.mock.calls
 
 
-  expect(writeFile1[0]).toBe("posts/my-blog-title.md")
-  expect(writeFile1[1]).toMatchSnapshot()
+  expect(writeFile1[ 0 ]).toBe("my-blog-title")
+  expect(writeFile1[ 1 ]).toMatchSnapshot()
 
   expect(console.log).toBeCalledTimes(2)
   const [ welcomeText, finishedText ] = console.log.mock.calls
-  expect(welcomeText[0]).toMatchSnapshot()
-  expect(finishedText[0]).toMatchSnapshot()
+  expect(welcomeText[ 0 ]).toMatchSnapshot()
+  expect(finishedText[ 0 ]).toMatchSnapshot()
 })
